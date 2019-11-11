@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGrayLight"
+    tools:context=".screen.infoapp.InfoAppActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_220sdp"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:layout_width="@dimen/size_48"
+            android:layout_height="@dimen/size_42"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_16"
+            android:background="@null"
+            android:padding="@dimen/padding_4"
+            android:id="@+id/imb_Back_Info"
+            android:src="@drawable/ic_back"
+            tools:ignore="ContentDescription"
+            android:layout_marginLeft="@dimen/margin_16" />
+
+        <ImageView
+            android:layout_width="@dimen/size_128"
+            android:layout_height="@dimen/size_128"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_6"
+            android:background="@drawable/logo"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_16"
+            android:text="@string/quanlybanhang"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/text_16"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_16"
+            android:text="@string/version"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/text_14" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_48"
+        android:background="#FFFFFF"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/copyright"
+            android:textColor="@color/text"
+            android:textSize="@dimen/text_14" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_2"
+            android:background="@null"
+            android:padding="@dimen/margin_6"
+            android:src="@drawable/ic_copyright"
+            android:text="@string/copyright"
+            tools:ignore="ContentDescription"
+            android:layout_marginLeft="@dimen/margin_2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_6"
+            android:text="@string/year_released"
+            android:textColor="@color/text"
+            android:textSize="@dimen/text_14"
+            android:layout_marginLeft="@dimen/margin_6" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_6"
+            android:text="@string/bulid"
+            android:textColor="@color/colorBlueHighLight"
+            android:textSize="@dimen/text_14"
+            android:layout_marginLeft="@dimen/margin_6" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="default_transaction_animation_duration">250</integer>
+    <integer name="weight_sum_bill">12</integer>
+    <integer name="weight_bill">10</integer>
+</resources>

@@ -1,0 +1,222 @@
+<resources>
+    <string name="app_name">SalesManagerment</string>
+    <string name="copyright">Copyright</string>
+    <string name="year_released">2019</string>
+    <string name="bulid">NVM Production</string>
+    <string name="quanlybanhang">Phần mềm quản lý bán hàng tại Nhà hàng</string>
+    <string name="version">Phiên bản 4.0</string>
+    <string name="dangnhap">Đăng nhập</string>
+    <string name="logout">Bạn có chắc chắn muốn đăng xuất không?</string>
+    <string name="dangxuat">Đăng xuất</string>
+    <string name="co">Có</string>
+    <string name="pass">Mật khẩu hiện tại</string>
+    <string name="password">Mật khẩu mới</string>
+    <string name="passwordefault">Mật khẩu</string>
+    <string name="password1">Mật lại mật khẩu mới</string>
+    <string name="quenmk">Bạn quên mật khẩu?</string>
+    <string name="dangkitk">Chưa có tài khoản? <u>Đăng kí</u></string>
+    <string name="doimk">Đổi mật khẩu</string>
+    <string name="showpassword">Hiện mật khẩu</string>
+    <string name="sale_dish">Tặng món Salat rong biển tươi</string>
+    <string name="account_dish">1(Suất)</string>
+    <string name="bill">Hóa đơn</string>
+    <string name="xong">Xong</string>
+    <string name="matkhauhientai">Mật khẩu hiện tại</string>
+    <string name="passwordnew">Mật khẩu mới</string>
+    <string name="passwordnewagain">Nhập lại mật khẩu mới</string>
+    <string name="email">Tên tài khoản</string>
+    <string name="delete_unit">Xóa đơn vị tính</string>
+    <string name="menu">Thực đơn</string>
+    <string name="sell">Bán hàng</string>
+    <string name="suaunit">Sửa đơn vị tính</string>
+    <string name="themunit">Thêm đơn vị tính</string>
+    <string name="save">Đặt</string>
+    <string name="add">Thêm</string>
+    <string name="edit">Sửa</string>
+    <string name="luu">Lưu</string>
+    <string name="savemoney">Thu tiền</string>
+    <string name="dongy">Đồng ý</string>
+    <string name="account_number">Nhập số lượng người</string>
+    <string name="tenmon">Tên món</string>
+    <string name="giaban">Giá bán</string>
+    <string name="thutumon">Thứ tự món</string>
+    <string name="cancel_short">Hủy</string>
+    <string name="donvitinh">Đơn vị tính</string>
+    <string name="mota">Mô tả</string>
+    <string name="anh">Ảnh món</string>
+    <string name="bieutuong">Biểu tượng</string>
+    <string name="account">Số lượng:</string>
+    <string name="nhapdonvi">Nhập đơn vị tính</string>
+    <string name="trangthai">Trạng thái</string>
+    <string name="nhapmamon">Nhập mã món</string>
+    <string name="nhaptenmon">Nhập tên món</string>
+    <string name="giamacdinh">0</string>
+    <string name="ngungban">Ngừng bán</string>
+    <string name="suamon">Sửa món</string>
+    <string name="listdish">Thực đơn món ăn</string>
+    <string name="create_order">Lập order</string>
+    <string name="xoa">Xóa</string>
+    <string name="themmon">Thêm món</string>
+    <string name="namedish">Tên món</string>
+    <string name="themmathang">Thêm mặt hàng</string>
+    <string name="huy">Hủy</string>
+    <string name="yes">Có</string>
+    <string name="yess">Đồng ý</string>
+    <string name="no">Không</string>
+    <string name="time_start">Từ ngày</string>
+    <string name="time_end">Đến ngày</string>
+    <string name="pay">Thu tiền</string>
+    <string name="pay_dish">Trả món order</string>
+    <string name="sale">Chương trình khuyến mại</string>
+    <string name="choose_dish">Chọn món</string>
+    <string name="sodo">Sơ đồ bàn</string>
+    <string name="c">C</string>
+    <string name="cost">Giá bán:</string>
+    <string name="decrease">Giảm</string>
+    <string name="increase">Tăng</string>
+    <string name="table">Bàn :</string>
+    <string name="_7">7</string>
+    <string name="_8">8</string>
+    <string name="_9">9</string>
+    <string name="_Sub">-</string>
+    <string name="_4">4</string>
+    <string name="_5">5</string>
+    <string name="_6">6</string>
+    <string name="_Sum">+</string>
+    <string name="_1">1</string>
+    <string name="_2">2</string>
+    <string name="_3">3</string>
+    <string name="sum_sub">+/-</string>
+    <string name="_0">0</string>
+    <string name="thousand">000</string>
+    <string name="comma">,</string>
+    <string name="equal_done">Xong</string>
+    <string name="unit_name_is_used">Tên đơn vị đã được sử dụng, bạn không thể xóa</string>
+    <string name="dish">+ Thêm món khác</string>
+    <string name="sum">Tổng tiền: </string>
+    <string name="not">Trống</string>
+    <string name="isnot">Đang phục vụ</string>
+    <string name="booked">Đã đặt chỗ</string>
+
+    // bill
+
+    <string name="num">Số:</string>
+    <string name="date">Ngày: </string>
+    <string name="good_name">Hàng hóa</string>
+    <string name="quatity">SL</string>
+    <string name="unit_price">Đơn giá</string>
+    <string name="into_money">Thành tiền</string>
+    <string name="the_money_have_to_pay">Số tiền phải trả</string>
+    <string name="guest_pay">Tiền khách đưa</string>
+    <string name="money_returned_to_guest">Tiền trả lại cho khách</string>
+    <string name="the_amount_of_guest_money_must_not_be_less_than_the_amount_payable">số tiền khách đưa không được nhỏ hơn số tiền phải trả</string>
+    <string name="pay_success">Đã thu tiền thành công, vui lòng chọn món mới</string>
+    <string name="time">Thời gian</string>
+
+    <string name="price_default">0</string>
+
+    // drawer
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+    <string name="sale_menu_action">Bán hàng</string>
+    <string name="menu_action_menu">Thực đơn</string>
+    <string name="menu_create_menu">Tạo nhóm thực đơn</string>
+    <string name="searchmenu">Nhập mã nhóm để tìm kiếm</string>
+    <string name="report_menu_action">Báo cáo</string>
+    <string name="submenu_title_settings">Thiết lập</string>
+    <string name="nav_sync_title">Đồng bộ dữ liệu</string>
+    <string name="nav_settting_title">Thiết lập</string>
+    <string name="submenu_title_help">Trợ giúp</string>
+    <string name="nav_notification_title">Thông báo</string>
+    <string name="nav_info_title">Thông tin ứng dụng</string>
+    <string name="nav_rate_title">Đánh giá ứng dụng</string>
+    <string name="nav_share_title">Giới thiệu cho bạn</string>
+    <string name="submenu_title_account">Tài khoản</string>
+    <string name="nav_logout_title">Đăng xuất</string>
+    <string name="nav_change_pass">Đổi mật khẩu</string>
+    <string name="ordering">Order đang phục vụ</string>
+    <string name="menu_title">Thực đơn</string>
+    <string name="menu_report">Báo cáo</string>
+    <string name="menu_group">Nhóm thực đơn</string>
+    <string name="bang">=</string>
+    <string name="create_group_menu">Tạo nhóm thực đơn</string>
+    <string name="no_customers_oder_yet">Chưa có khách gọi món</string>
+    <string name="click_here_or_add_to_oder">Bấm vào đây hoặc dấu + để gọi món</string>
+    <string name="no_dish_in_menu_yet">Chưa có món nào trong thực đơn</string>
+    <string name="click_here_or_add_to_add_dish">Bấm vào đây hoặc dấu + để thêm món</string>
+
+    //bottomnavigaiton
+
+    <string name="order">Order</string>
+    <string name="diagram">Sơ đồ</string>
+    <string name="tramon">Trả món</string>
+    <string name="tamtinh">Tạm tính</string>
+
+    // report
+
+    <string name="times">Thời gian</string>
+    <string name="timenear">Thời gian gần đây</string>
+    <string name="thisweek">Tuần này</string>
+    <string name="agoweek">Tuần trước</string>
+    <string name="monththis">Tháng này</string>
+    <string name="monthago">Tháng trước</string>
+    <string name="other">Khác</string>
+    <string name="unit">(Nghìn đồng)</string>
+    <string name="value">(Ngày)</string>
+
+    //menu
+    <string name="manhom">Mã nhóm</string>
+    <string name="tennhom">Tên nhóm</string>
+    <string name="loai">Loại</string>
+    <string name="chebien">Chế biến tại</string>
+    <string name="themnhom">Thêm nhóm thực đơn</string>
+    <string name="chitiet">Chi tiết nhóm thực đơn</string>
+    <string name="diengiai">Diễn giải</string>
+    <string name="dishname">Mã món</string>
+    <string name="food">Món ăn</string>
+    <string name="drink">Đồ uống</string>
+    //bottom
+    <string name="monkhaivi">Món khai vị</string>
+    <string name="monchinh">Món chính</string>
+    <string name="monanthem">Món ăn thêm</string>
+    <string name="montrangmieng">Món tráng miệng</string>
+
+    <!--    Login-->
+    <string name="login_error">Tên đăng nhập hoặc mật khẩu không đúng</string>
+    <string name="login_failed">Đăng nhập thất bại</string>
+    <string name="login_success">Đăng nhập thành công</string>
+    <string name="username_empty">Vui lòng nhập tên tài khoản</string>
+    <string name="pw_empty">Vui lòng nhập mật khẩu</string>
+    <string name="login_ing">Đang đăng nhập</string>
+
+
+    <string name="in_progress">Đang xử lý</string>
+    <string name="somthing_went_wrong">Đã có lỗi xảy ra, vui lòng thử lại</string>
+    <string name="internet_not_available">Không có kết nối mạng, vui lòng thử lại</string>
+    <string name="no_inventory_item_category">Bạn chưa có nhóm thực đơn nào, vui lòng thêm</string>
+    <string name="no_inventory_item">Bạn chưa có  thực đơn nào, vui lòng thêm</string>
+    <string name="no_inventory_item_order">Chưa có món ăn nào </string>
+
+    <!--    thêm item cateroty-->
+    <string name="add_success">Thêm thành công</string>
+
+    <string name="add_failed">Thêm thất bại</string>
+    <string name="floor_one">Tầng 1</string>
+    <string name="floor_two">Tầng 2</string>
+    <string name="floor_three">Tầng 3</string>
+    <!--xóa-->
+    <string name="delete_success">Xóa thành công</string>
+    <!--    sửa-->
+    <string name="update_success">Sửa thành công</string>
+    <string name="update_failed">Sửa thất bại</string>
+
+    <string name="send_chef">Gửi bếp thành công</string>
+    <string name="duplicate_inventory">Tên món ăn đã tồn tại</string>
+    <string name="unit_empty">Vui lòng chọn đơn vị cho món ăn</string>
+
+    <!--    order đang phục vụ-->
+    <string name="order_ring">Order đang phục cụ</string>
+    <string name="require_pay">Yêu cầu thanh toán</string>
+    <string name="order_before">Đặt trước</string>
+</resources>

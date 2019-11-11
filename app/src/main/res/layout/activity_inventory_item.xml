@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clActionbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_56"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btnBack_Order"
+            android:layout_width="@dimen/size_56"
+            android:layout_height="@dimen/size_56"
+            android:background="?selectableItemBackground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_back"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="@dimen/size_0"
+            android:layout_height="@dimen/size_56"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@string/choose_dish"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/text_20"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toRightOf="@id/btnBack_Order"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/tvPay"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="@dimen/size_56"-->
+        <!--            android:background="?selectableItemBackground"-->
+        <!--            android:gravity="center"-->
+        <!--            android:paddingStart="@dimen/padding_4"-->
+        <!--            android:paddingEnd="@dimen/padding_4"-->
+        <!--            android:text="@string/pay"-->
+        <!--            android:textColor="#FFFFFF"-->
+        <!--            android:textSize="@dimen/text_18"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintRight_toRightOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent" />-->
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/content_search_dish"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_56"
+        android:layout_below="@+id/clActionbar"
+        android:background="@color/colorGray"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/clActionbar">
+
+        <EditText
+            android:id="@+id/edt_search_dish"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_42"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/margin_12"
+            android:layout_marginEnd="@dimen/margin_12"
+            android:background="@drawable/custom_edit_text"
+            android:drawableStart="@drawable/ic_search"
+            android:drawablePadding="@dimen/padding_6"
+            android:gravity="fill_vertical"
+            android:hint="Tên món cần tìm kiếm"
+            android:inputType="text"
+            android:paddingLeft="@dimen/padding_12"
+            android:textColor="@color/text"
+            android:textSize="@dimen/size_16"
+            android:textStyle="italic"
+            tools:ignore="Autofill,HardcodedText,LabelFor,RtlHardcoded,RtlSymmetry,SpUsage,TextFields" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_Dish_Order"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="@dimen/margin_6"
+        android:clipToPadding="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/content_linear_layout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/content_search_dish" />
+
+    <LinearLayout
+        android:id="@+id/content_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_56"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:layout_marginRight="@dimen/margin_16"
+        android:layout_marginBottom="@dimen/margin_8"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <Button
+            android:id="@+id/btn_Cancel_Oder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/margin_16"
+            android:layout_weight="0.5"
+            android:background="@drawable/selector_button_red"
+            android:text="@string/huy"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/text_18"
+            tools:ignore="ButtonStyle" />
+
+        <Button
+            android:id="@+id/btn_Yes_Dish"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:background="@drawable/selector_button_blue"
+            android:text="@string/dongy"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/text_18"
+            tools:ignore="ButtonStyle" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

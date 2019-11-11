@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/color_fragment_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorGrayLight">
+
+    <TextView
+        android:id="@+id/tv_Title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_42"
+        android:background="@color/colorPrimaryDark"
+        android:gravity="center"
+        android:text="@string/time"
+        android:textColor="#FFFFFF"
+        android:textSize="@dimen/text_16"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RelativeLayout
+        android:id="@+id/content1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_48"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_Title">
+
+        <TextView
+            android:id="@+id/tv_day_start"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_48"
+            android:background="@android:color/white"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/padding_8"
+            android:layout_alignParentStart="true"
+            android:text="@string/time_start"
+            android:textSize="@dimen/text_14"
+            tools:ignore="RtlSymmetry"
+            android:paddingLeft="@dimen/padding_8"
+            android:layout_alignParentLeft="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/text_12"
+            android:textColor="@color/text"
+            android:id="@+id/txt_day_start"
+            android:layout_marginEnd="@dimen/margin_26"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/margin_26"
+            tools:ignore="RelativeOverlap" />
+
+        <ImageView
+            android:id="@+id/ivGotoDetailStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="3dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            app:srcCompat="@drawable/ic_enter"
+            tools:ignore="ContentDescription,VectorDrawableCompat"
+            android:layout_marginRight="3dp"
+            android:layout_alignParentRight="true" />
+    </RelativeLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorGray"
+        app:layout_constraintBottom_toTopOf="@id/content2"
+        app:layout_constraintTop_toBottomOf="@id/content1" />
+
+    <RelativeLayout
+        android:id="@+id/content2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_48"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/content1">
+
+        <TextView
+            android:id="@+id/tv_day_end"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_48"
+            android:background="@android:color/white"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/padding_8"
+            android:text="@string/time_end"
+            android:textSize="@dimen/text_14"
+            tools:ignore="RtlSymmetry"
+            android:paddingLeft="@dimen/padding_8" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/text_12"
+            android:textColor="@color/text"
+            android:id="@+id/txt_day_end"
+            android:layout_marginEnd="@dimen/margin_26"
+            tools:ignore="RelativeOverlap"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/margin_26" />
+
+        <ImageView
+            android:id="@+id/ivGotoDetailEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="3dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            app:srcCompat="@drawable/ic_enter"
+            tools:ignore="ContentDescription,VectorDrawableCompat"
+            android:layout_marginRight="3dp"
+            android:layout_alignParentRight="true" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_Yes_Time"
+        android:layout_width="100dp"
+        android:layout_height="@dimen/size_48"
+        android:layout_margin="@dimen/margin_8"
+        android:background="@drawable/selector_button_blue"
+        android:text="@string/yess"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/content2" />
+
+    <Button
+        android:id="@+id/btn_No_Time"
+        android:layout_width="100dp"
+        android:layout_height="@dimen/size_48"
+        android:layout_margin="@dimen/margin_8"
+        android:background="@drawable/selector_button_white"
+        android:text="@string/no"
+        android:textColor="@drawable/selector_text_button_delete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/btn_Yes_Time"
+        app:layout_constraintTop_toBottomOf="@id/content2" />
+</androidx.constraintlayout.widget.ConstraintLayout>
