@@ -6,6 +6,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.salesmanagerment.base.listeners.IOnItemClickListener;
+import com.example.salesmanagerment.base.listeners.IOnItemLongClickListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,10 +18,22 @@ import java.util.List;
  *
  * @param <T>
  */
-public abstract class ListAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public abstract class ListAdapter<T,G> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     protected Context mContext;
     protected List<T> mListData;
+    private IOnItemClickListener<G> mOnClickListener;
+    private IOnItemLongClickListener<G> mOnLongClickListener;
+
+    public ListAdapter<T, G> setOnClickListener(IOnItemClickListener<G> onClickListener) {
+        mOnClickListener = onClickListener;
+        return this;
+    }
+
+    public ListAdapter<T, G> setOnLongClickListener(IOnItemLongClickListener<G> onLongClickListener) {
+        mOnLongClickListener = onLongClickListener;
+        return this;
+    }
 
     /**
      * Là phương thức khởi tạo cho ListAdapter

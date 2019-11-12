@@ -277,27 +277,6 @@ public class Navigator {
     }
 
     /**
-     * Phương thức hiển thị thông báo
-     * Created_by Nguyễn Bá Linh on 20/03/2019
-     *
-     * @param stringId - id của string resource
-     */
-    public void showToast(@StringRes int stringId) {
-        Toast.makeText(mActivity, mActivity.getString(stringId) + "", Toast.LENGTH_SHORT).show();
-    }
-
-    /**
-     * Phương thức hiển thị thông báo
-     *
-     * @param message - thông điệp muốn hiển thị
-     */
-    public void showToast(String message) {
-        if (message != null) {
-            Toast.makeText(mActivity, message, Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    /**
      * Phương thức ẩn bàn phím
      */
     public void hideKeyboard() {

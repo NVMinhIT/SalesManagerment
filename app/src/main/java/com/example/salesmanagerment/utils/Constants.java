@@ -27,5 +27,7 @@ public final class Constants {
     public static final int TYPE_FOOD_3 = 3;
     public static final int TYPE_FOOD_4 = 0;
 
+    public static final String K_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
+
 
 }

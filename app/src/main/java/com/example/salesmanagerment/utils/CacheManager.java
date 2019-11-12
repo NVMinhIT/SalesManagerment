@@ -1,12 +1,11 @@
 package com.example.salesmanagerment.utils;
 
 
-import com.example.salesmanagerment.utils.Sharedprf.SharedPrefsImpl;
+import com.example.salesmanagerment.data.Sharedprf.SharedPrefsImpl;
 
 public class CacheManager {
 
     public static final String K_TOKEN = "K_TOKEN";
-    public static final String NAME_DISH = "N_DISH";
     public static final int ACCOUNT_DISH = 123;
 
     private SharedPrefsImpl sharedPrefs;
@@ -24,15 +23,6 @@ public class CacheManager {
     public CacheManager(SharedPrefsImpl sharedPrefs) {
         this.sharedPrefs = sharedPrefs;
         cacheManager = this;
-    }
-
-    public void cacheNameDish(String name) {
-        sharedPrefs.put(NAME_DISH, name);
-    }
-
-    public String getName() {
-        return sharedPrefs.get(NAME_DISH, String.class);
-
     }
 
     public void cacheAccountDish(int account) {
