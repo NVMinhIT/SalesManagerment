@@ -1,4 +1,4 @@
-package com.example.salesmanagerment.utils.Sharedprf;
+package com.example.salesmanagerment.data.Sharedprf;
 
 import android.content.Context;
 import android.content.SharedPreferences;

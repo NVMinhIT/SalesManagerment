@@ -1,11 +1,17 @@
 package com.example.salesmanagerment.utils;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.text.TextUtils;
 import android.util.Base64;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,11 +30,17 @@ import java.util.Date;
 import java.util.Locale;
 
 public class CommonFunc {
-    private static final String K_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
-    private static MyApplication myApplication = MyApplication.getInstance();
+    private static final String TAG = "CommonFunc";
+
+    @SuppressLint("StaticFieldLeak")
+    private static Context mContext;
+    
+    public CommonFunc(Context context) {
+        mContext = context;
+    }
 
     public static String getStringCurrentDateTime(Date date) {
-        SimpleDateFormat formatter = new SimpleDateFormat(K_DATE_FORMAT, Locale.US);
+        SimpleDateFormat formatter = new SimpleDateFormat(Constants.K_DATE_FORMAT, Locale.US);
         return formatter.format(date);
     }
 
@@ -49,30 +61,30 @@ public class CommonFunc {
     }
 
     private static void showToastShort(int message, ToastEnum type) {
-        Toast toast = new Toast(myApplication);
+        Toast toast = new Toast(mContext);
         toast.setDuration(Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.TOP, 0, 50);
-        View layout = LayoutInflater.from(myApplication).inflate(R.layout.customtoast_layout, null, false);
+        View layout = LayoutInflater.from(mContext).inflate(R.layout.customtoast_layout, null, false);
         TextView content = layout.findViewById(R.id.toast_content);
         LinearLayout linearLayout = layout.findViewById(R.id.ll_toast_layout);
         ImageView img = layout.findViewById(R.id.toast_icon);
-        content.setText(myApplication.getString(message));
-        Drawable drawable = myApplication.getResources().getDrawable(R.drawable.bg_toast);
+        content.setText(mContext.getString(message));
+        Drawable drawable = mContext.getResources().getDrawable(R.drawable.bg_toast);
         switch (type) {
             case SUCCESS:
-                drawable.setColorFilter(ContextCompat.getColor(myApplication, R.color.color_success), PorterDuff.Mode.SRC);
+                drawable.setColorFilter(ContextCompat.getColor(mContext, R.color.color_success), PorterDuff.Mode.SRC);
                 img.setImageResource(R.drawable.ic_success_white);
                 break;
             case WARN:
-                drawable.setColorFilter(ContextCompat.getColor(myApplication, R.color.color_warn), PorterDuff.Mode.SRC);
+                drawable.setColorFilter(ContextCompat.getColor(mContext, R.color.color_warn), PorterDuff.Mode.SRC);
                 img.setImageResource(R.drawable.ic_warning_white);
                 break;
             case ERROR:
-                drawable.setColorFilter(ContextCompat.getColor(myApplication, R.color.color_error), PorterDuff.Mode.SRC);
+                drawable.setColorFilter(ContextCompat.getColor(mContext, R.color.color_error), PorterDuff.Mode.SRC);
                 img.setImageResource(R.drawable.ic_error_white);
                 break;
             case INFO:
-                drawable.setColorFilter(ContextCompat.getColor(myApplication, R.color.color_info), PorterDuff.Mode.SRC);
+                drawable.setColorFilter(ContextCompat.getColor(mContext, R.color.color_info), PorterDuff.Mode.SRC);
                 img.setImageResource(R.drawable.ic_info_white);
                 break;
         }
@@ -98,16 +110,22 @@ public class CommonFunc {
         }
     }
 
-    public static void hiddenKeyBroad(Activity activity){
-        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        View view = activity.getCurrentFocus();
-        if (view == null) {
-            view = new View(activity);
+    public static boolean isNetworkAvailable() {
+        try {
+            ConnectivityManager connectivityManager = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+            return networkInfo != null && networkInfo.isConnected();
+        } catch (Exception ex)  {
+            Log.e(TAG, "isNetworkAvailable: ", ex);
         }
-        if (imm != null) {
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
+
+        return false;
     }
 
-
+    public static boolean isNullOrEmpty(String s) {
+        if (s == null) {
+            return true;
+        }
+        return TextUtils.isEmpty(s);
+    }
 }

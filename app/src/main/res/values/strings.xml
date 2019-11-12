@@ -3,7 +3,7 @@
     <string name="copyright">Copyright</string>
     <string name="year_released">2019</string>
     <string name="bulid">NVM Production</string>
-    <string name="quanlybanhang">Phần mềm quản lý bán hàng tại Nhà hàng</string>
+    <string name="quanlybanhang">Quản lý bán hàng</string>
     <string name="version">Phiên bản 4.0</string>
     <string name="dangnhap">Đăng nhập</string>
     <string name="logout">Bạn có chắc chắn muốn đăng xuất không?</string>
@@ -188,7 +188,7 @@
     <string name="login_success">Đăng nhập thành công</string>
     <string name="username_empty">Vui lòng nhập tên tài khoản</string>
     <string name="pw_empty">Vui lòng nhập mật khẩu</string>
-    <string name="login_ing">Đang đăng nhập</string>
+    <string name="login_ing">Đang đăng nhập…</string>
 
 
     <string name="in_progress">Đang xử lý</string>
@@ -219,4 +219,7 @@
     <string name="order_ring">Order đang phục cụ</string>
     <string name="require_pay">Yêu cầu thanh toán</string>
     <string name="order_before">Đặt trước</string>
+    <string name="more">Thêm</string>
+    <string name="ultility">Tiện ích</string>
+    <string name="logout_title">Đăng xuất</string>
 </resources>

@@ -2,7 +2,7 @@ package com.example.salesmanagerment.utils;
 
 import android.app.Application;
 
-import com.example.salesmanagerment.utils.Sharedprf.SharedPrefsImpl;
+import com.example.salesmanagerment.data.Sharedprf.SharedPrefsImpl;
 
 
 public class MyApplication extends Application {
@@ -14,6 +14,7 @@ public class MyApplication extends Application {
         super.onCreate();
         myApplication = this;
         new CacheManager(new SharedPrefsImpl(this));
+        new CommonFunc(this);
     }
 
     public static MyApplication getInstance(){

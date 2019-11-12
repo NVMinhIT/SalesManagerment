@@ -6,7 +6,7 @@ package com.example.salesmanagerment.base.listeners;
  *
  * @param <T> là kiểu dữ liệu kết quả trả về
  */
-public interface IDataCallBack<T> {
+public interface IDataCallBack<T, G> {
 
     /**
      * Được gọi khi lấy dữ liệu về thành công
@@ -20,7 +20,7 @@ public interface IDataCallBack<T> {
      *
      * Mô tả:  được gọi khi việc lấy dữ liệu bị thất bại
      *
-     * @param msg là thông điệp muốn trả về để xử lý
+     * @param error là lỗi trả về
      */
-    void onDataFailed(String msg);
+    void onDataFailed(G error);
 }
