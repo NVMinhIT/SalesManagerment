@@ -154,4 +154,3 @@
             tools:ignore="TextViewEdits" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
-
