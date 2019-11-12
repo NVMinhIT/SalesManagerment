@@ -1,9 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".screen.authentication.changepassword.ChangePassActivity">
+    android:layout_height="wrap_content">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/content_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_48"
+            android:background="@color/colorPrimaryDark"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_centerHorizontal="true"
+                android:text="@string/doimk"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/text_20"
+
+                />
+
+            <ImageButton
+                android:id="@+id/btn_back_register"
+                android:layout_width="@dimen/size_38"
+                android:layout_height="@dimen/size_38"
+                android:layout_alignParentStart="true"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/margin_12"
+                android:background="@null"
+                android:padding="@dimen/padding_8"
+                android:src="@drawable/ic_back"
+                tools:ignore="ContentDescription" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_48"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/content_title"
+            tools:ignore="UselessLeaf">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_12"
+                android:layout_marginTop="@dimen/margin_12"
+                android:text="@string/matkhauhientai"
+                android:textColor="@color/text"
+                android:textSize="@dimen/text_18" />
+
+            <EditText
+                android:id="@+id/edt_email_register"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_48"
+                android:layout_marginStart="@dimen/margin_12"
+                android:layout_marginTop="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_12"
+                android:background="@drawable/custom_edit_text"
+                android:hint="@string/matkhauhientai"
+                android:inputType="text"
+                android:paddingLeft="@dimen/padding_12"
+                android:textColor="@color/text"
+                tools:ignore="Autofill,LabelFor,RtlHardcoded,RtlSymmetry,TextFields" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_12"
+                android:layout_marginTop="@dimen/margin_16"
+                android:text="@string/passwordnew"
+                android:textColor="@color/text"
+                android:textSize="@dimen/text_18" />
+
+            <EditText
+                android:id="@+id/edt_password_new"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_48"
+                android:layout_marginStart="@dimen/margin_12"
+                android:layout_marginTop="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_12"
+                android:background="@drawable/custom_edit_text"
+                android:hint="@string/password"
+                android:inputType="text"
+                android:paddingLeft="@dimen/padding_12"
+                android:textColor="@color/text"
+                tools:ignore="Autofill,RtlHardcoded,RtlSymmetry,TextFields" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_12"
+                android:layout_marginTop="@dimen/margin_16"
+                android:text="@string/passwordnewagain"
+                android:textColor="@color/text"
+                android:textSize="@dimen/text_18" />
+
+            <EditText
+                android:id="@+id/edt_password_new_again"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_48"
+                android:layout_marginStart="@dimen/margin_12"
+                android:layout_marginTop="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_12"
+                android:background="@drawable/custom_edit_text"
+                android:hint="@string/password1"
+                android:inputType="text"
+                android:paddingLeft="@dimen/padding_12"
+                android:textColor="@color/text"
+                tools:ignore="Autofill,RtlHardcoded,RtlSymmetry,TextFields" />
+
+            <Button
+                android:id="@+id/btn_register"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_48"
+                android:layout_marginStart="@dimen/margin_12"
+                android:layout_marginTop="@dimen/margin_22"
+                android:layout_marginEnd="@dimen/margin_12"
+                android:layout_marginBottom="@dimen/margin_12"
+                android:background="@drawable/custom_button"
+                android:inputType="textCapCharacters"
+                android:text="@string/doimk"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/text_18"
+                tools:ignore="TextViewEdits" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
