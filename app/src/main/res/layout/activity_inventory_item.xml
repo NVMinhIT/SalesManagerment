@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:id="@+id/btnBack_Order"
+            android:id="@+id/btnBack"
             android:layout_width="@dimen/size_56"
             android:layout_height="@dimen/size_56"
             android:background="?selectableItemBackground"
@@ -28,7 +28,7 @@
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="@dimen/size_0"
-            android:layout_height="@dimen/size_56"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:singleLine="true"
             android:text="@string/choose_dish"
@@ -36,24 +36,10 @@
             android:textColor="#FFFFFF"
             android:textSize="@dimen/text_20"
             android:textStyle="bold"
-            app:layout_constraintLeft_toRightOf="@id/btnBack_Order"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <!--        <TextView-->
-        <!--            android:id="@+id/tvPay"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="@dimen/size_56"-->
-        <!--            android:background="?selectableItemBackground"-->
-        <!--            android:gravity="center"-->
-        <!--            android:paddingStart="@dimen/padding_4"-->
-        <!--            android:paddingEnd="@dimen/padding_4"-->
-        <!--            android:text="@string/pay"-->
-        <!--            android:textColor="#FFFFFF"-->
-        <!--            android:textSize="@dimen/text_18"-->
-        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--            app:layout_constraintRight_toRightOf="parent"-->
-        <!--            app:layout_constraintTop_toTopOf="parent" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
@@ -87,7 +73,7 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_Dish_Order"
+        android:id="@+id/rvDish"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_alignParentBottom="true"
@@ -113,7 +99,7 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <Button
-            android:id="@+id/btn_Cancel_Oder"
+            android:id="@+id/btnCancel"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/margin_16"
@@ -125,7 +111,7 @@
             tools:ignore="ButtonStyle" />
 
         <Button
-            android:id="@+id/btn_Yes_Dish"
+            android:id="@+id/btnAccept"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.5"

@@ -2,6 +2,9 @@ package com.example.salesmanagerment.data.api;
 
 
 
+import com.example.salesmanagerment.data.model.request.LoginRequest;
+import com.example.salesmanagerment.data.model.response.base.BaseResponse;
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -13,10 +16,10 @@ import retrofit2.http.POST;
 
 
 public interface ApiService {
-//    @Headers("Content-Type: application/json")
-//    @POST("Login")
-//    Call<LoginResultResponse> getResultLogin(@Body LoginUser loginUser);
-//
+    @Headers("Content-Type: application/json")
+    @POST("Login")
+    Call<BaseResponse<String>> login(@Body LoginRequest loginRequest);
+
 //    @Headers("Content-Type: application/json")
 //    @GET("user")
 //    Call<UserResponse> getUser();

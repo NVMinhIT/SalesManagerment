@@ -1,174 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <ScrollView
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/padding_layout">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_height="match_parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:ignore="ScrollViewSize">
+        android:layout_height="match_parent"
+        tools:ignore="ScrollViewSize">
 
 
-            <ImageView
-                android:id="@+id/image_logo_login"
-                android:layout_width="@dimen/avatar_xlarge"
-                android:layout_height="@dimen/avatar_xlarge"
-                android:src="@drawable/logo"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.1"
-                tools:ignore="ContentDescription" />
+        <ImageView
+            android:id="@+id/image_logo_login"
+            android:layout_width="@dimen/avatar_large"
+            android:layout_height="@dimen/avatar_large"
+            android:layout_marginTop="@dimen/padding_layout"
+            android:src="@drawable/logo"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.1"
+            tools:ignore="ContentDescription" />
 
-            <TextView
-                android:id="@+id/text_name_app"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_12"
-                android:text="@string/quanlybanhang"
-                android:textColor="@color/text"
-                android:textSize="@dimen/text_18"
-                android:textStyle="italic"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/image_logo_login" />
+        <TextView
+            android:id="@+id/text_name_app"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_12"
+            android:text="@string/quanlybanhang"
+            android:textColor="@color/text"
+            android:textSize="@dimen/text_title"
+            android:textStyle="italic"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_logo_login" />
 
-            <RelativeLayout
-                android:id="@+id/content_email"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_12"
-                android:layout_marginTop="@dimen/margin_32"
-                android:layout_marginEnd="@dimen/margin_12"
-                android:layout_marginRight="@dimen/margin_12"
-                android:padding="@dimen/padding_10"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_name_app"
-                tools:ignore="RtlHardcoded">
+        <RelativeLayout
+            android:id="@+id/content_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_layout"
+            android:padding="@dimen/padding_small"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_name_app"
+            tools:ignore="RtlHardcoded">
 
-                <EditText
-                    android:id="@+id/edt_email_login"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/size_48"
-                    android:layout_alignParentStart="true"
-                    android:background="@drawable/custom_edit_text"
-                    android:drawableLeft="@drawable/ic_email_black_24dp"
-                    android:drawablePadding="@dimen/padding_6"
-                    android:hint="@string/email"
-                    android:inputType="textEmailAddress"
-                    android:paddingStart="@dimen/padding_6"
-                    android:singleLine="true"
-                    android:textColor="@color/text"
-                    android:textColorHint="#9E9E9E"
-                    android:textSize="@dimen/size_16"
-                    tools:ignore="Autofill,RtlHardcoded,RtlSymmetry,SpUsage,TextFields" />
-
-                <ImageButton
-                    android:id="@+id/clear_email_button"
-                    android:layout_width="@dimen/size_26"
-                    android:layout_height="@dimen/size_26"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerInParent="true"
-                    android:layout_marginEnd="@dimen/margin_8"
-                    android:background="@drawable/background_exit"
-                    android:padding="@dimen/padding_10"
-                    android:src="@drawable/ic_exit"
-                    android:visibility="gone"
-                    tools:ignore="ContentDescription" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/content_password"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_12"
-                android:layout_marginTop="3dp"
-                android:layout_marginEnd="@dimen/margin_12"
-                android:padding="@dimen/padding_10"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/content_email">
-
-                <EditText
-                    android:id="@+id/edt_password_login"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/size_48"
-                    android:background="@drawable/custom_edit_text"
-                    android:drawableStart="@drawable/ic_vpn_key_black_24dp"
-                    android:drawablePadding="@dimen/padding_6"
-                    android:hint="@string/passwordefault"
-                    android:inputType="textPassword"
-                    android:paddingStart="@dimen/padding_8"
-                    android:singleLine="true"
-                    android:textColor="@color/text"
-                    android:textColorHint="#9E9E9E"
-                    android:textSize="@dimen/size_16"
-                    tools:ignore="Autofill,RtlSymmetry,SpUsage,TextFields" />
-
-                <ImageButton
-                    android:id="@+id/clear_password_button"
-                    android:layout_width="@dimen/size_26"
-                    android:layout_height="@dimen/size_26"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerInParent="true"
-                    android:layout_marginEnd="@dimen/margin_8"
-                    android:background="@drawable/background_exit"
-                    android:padding="@dimen/padding_10"
-                    android:src="@drawable/ic_exit"
-                    android:visibility="gone"
-                    tools:ignore="ContentDescription" />
-            </RelativeLayout>
-
-            <CheckBox
-                android:id="@+id/show_Password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginStart="@dimen/margin_22"
-                android:layout_marginTop="@dimen/margin_12"
-                android:buttonTint="@color/colorPrimaryDark"
-                android:text="@string/showpassword"
-                android:textColor="@color/text"
-                android:textSize="@dimen/text_18"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/content_password" />
-
-            <Button
-                android:id="@+id/btn_login"
+            <EditText
+                android:id="@+id/edtUserName"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_48"
-                android:layout_marginLeft="@dimen/margin_26"
-                android:layout_marginTop="@dimen/margin_16"
-                android:layout_marginRight="@dimen/margin_26"
-                android:background="@drawable/custom_button"
-                android:gravity="center"
-                android:inputType="textCapCharacters"
-                android:text="@string/dangnhap"
-                android:textColor="#FFFFFF"
-                android:textSize="@dimen/text_18"
-                android:onClick="clickLogin"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/show_Password"
-                tools:ignore="TextViewEdits" />
-            <TextView
-                android:id="@+id/txt_forget_password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_16"
-                android:text="@string/quenmk"
+                android:background="@drawable/custom_edit_text"
+                android:drawableLeft="@drawable/ic_email_black_24dp"
+                android:drawablePadding="@dimen/padding_6"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                android:paddingStart="@dimen/padding_6"
+                android:singleLine="true"
                 android:textColor="@color/text"
-                android:textSize="@dimen/text_16"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_login"
+                android:textColorHint="#9E9E9E"
+                android:textSize="@dimen/text_content"
+                tools:ignore="Autofill,RtlHardcoded,RtlSymmetry,SpUsage,TextFields" />
 
-                />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+            <ImageButton
+                android:id="@+id/clear_email_button"
+                android:layout_width="@dimen/size_26"
+                android:layout_height="@dimen/size_26"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:layout_marginEnd="@dimen/margin_8"
+                android:background="@drawable/background_exit"
+                android:padding="@dimen/padding_10"
+                android:src="@drawable/ic_exit"
+                android:visibility="gone"
+                tools:ignore="ContentDescription" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/content_password"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_layout"
+            android:paddingLeft="@dimen/padding_small"
+            android:paddingRight="@dimen/padding_small"
+            android:paddingBottom="@dimen/padding_small"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/content_email">
+
+            <EditText
+                android:id="@+id/edtPassword"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_48"
+                android:background="@drawable/custom_edit_text"
+                android:drawableStart="@drawable/ic_vpn_key_black_24dp"
+                android:drawablePadding="@dimen/padding_6"
+                android:hint="@string/passwordefault"
+                android:inputType="textPassword"
+                android:paddingStart="@dimen/padding_8"
+                android:singleLine="true"
+                android:textColor="@color/text"
+                android:textColorHint="#9E9E9E"
+                android:textSize="@dimen/text_content"
+                tools:ignore="Autofill,RtlSymmetry,SpUsage,TextFields" />
+
+            <ImageButton
+                android:id="@+id/clear_password_button"
+                android:layout_width="@dimen/size_26"
+                android:layout_height="@dimen/size_26"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:layout_marginEnd="@dimen/margin_8"
+                android:background="@drawable/background_exit"
+                android:padding="@dimen/padding_10"
+                android:src="@drawable/ic_exit"
+                android:visibility="gone"
+                tools:ignore="ContentDescription" />
+        </RelativeLayout>
+
+        <CheckBox
+            android:id="@+id/cbShowPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="@dimen/margin_22"
+            android:layout_marginTop="@dimen/margin_12"
+            android:buttonTint="@color/colorPrimaryDark"
+            android:text="@string/showpassword"
+            android:textColor="@color/text"
+            android:textSize="@dimen/text_small"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/content_password" />
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_48"
+            android:layout_marginLeft="@dimen/margin_26"
+            android:layout_marginTop="@dimen/margin_16"
+            android:layout_marginRight="@dimen/margin_26"
+            android:background="@drawable/custom_button"
+            android:gravity="center"
+            android:inputType="textCapCharacters"
+            android:onClick="clickLogin"
+            android:text="@string/dangnhap"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/text_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cbShowPassword"
+            tools:ignore="TextViewEdits" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
 
