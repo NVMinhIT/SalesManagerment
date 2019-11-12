@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.BaseFragment;
-import com.example.salesmanagerment.screen.chooseinventoryitem.InventoryItemActivity;
+import com.example.salesmanagerment.screen.sales.chooseinventoryitem.ChooseInventoryItemActivity;
 import com.example.salesmanagerment.utils.Navigator;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -53,9 +53,11 @@ public class SalesFragment extends BaseFragment implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btnAddOrder:
             case R.id.tvAddOrder:
-                mNavigator.startActivity(InventoryItemActivity.class);
+                mNavigator.startActivity(ChooseInventoryItemActivity.class);
+                break;
+            case R.id.btnAddOrder:
+
                 break;
             default:
                 break;

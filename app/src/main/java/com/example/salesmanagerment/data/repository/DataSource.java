@@ -1,13 +1,11 @@
-package com.example.salesmanagerment.data.repo;
+package com.example.salesmanagerment.data.repository;
 
 import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.listeners.IDataCallBack;
 import com.example.salesmanagerment.data.api.ApiService;
 import com.example.salesmanagerment.data.api.ServiceGenerator;
-import com.example.salesmanagerment.data.model.app.ErrorCode;
 import com.example.salesmanagerment.data.model.request.LoginRequest;
 import com.example.salesmanagerment.data.model.response.base.BaseResponse;
-import com.example.salesmanagerment.screen.main.MainActivity;
 import com.example.salesmanagerment.utils.CacheManager;
 import com.example.salesmanagerment.utils.CommonFunc;
 

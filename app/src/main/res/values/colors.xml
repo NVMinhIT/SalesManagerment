@@ -17,6 +17,7 @@
     <color name="colorBackgroundNavigation">#e4e6e6</color>
     <color name="colorBackgroundBorder">#EEEEEE</color>
     <!--border-->
+    <color name="white">#ffffff</color>
     <color name="color_border">#e4e6e6</color>
 
     <!--shadow layout-->

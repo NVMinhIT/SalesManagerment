@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".screen.sales.choosetable.OptionTableActivity">
+
+    <RelativeLayout
+        android:id="@+id/Actionbar_Table"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_56"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btn_Back_Table"
+            android:layout_width="@dimen/size_56"
+            android:layout_height="@dimen/size_56"
+            android:background="?selectableItemBackground"
+            app:srcCompat="@drawable/ic_back"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/size_56"
+            android:layout_marginStart="@dimen/margin_12"
+            android:layout_toEndOf="@+id/btn_Back_Table"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:text="@string/sodo"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/text_20"
+            android:textStyle="bold"
+
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/content_status"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_48"
+        android:layout_marginTop="@dimen/padding_4"
+        android:background="#F5F5F5"
+        android:padding="@dimen/padding_4"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Actionbar_Table"
+        tools:ignore="UselessLeaf">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_48"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            tools:ignore="UselessParent">
+
+            <ImageView
+                android:layout_width="@dimen/size_20"
+                android:layout_height="@dimen/size_20"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/margin_16"
+                android:background="@drawable/background_table_status"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/margin_8"
+                android:text="@string/not"
+                android:textColor="@color/text"
+                android:textSize="@dimen/text_16"
+
+                />
+
+            <ImageView
+                android:layout_width="@dimen/size_20"
+                android:layout_height="@dimen/size_20"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/margin_16"
+                android:background="@drawable/background_table_avaiable"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/margin_8"
+                android:text="@string/isnot"
+                android:textColor="@color/text"
+                android:textSize="@dimen/text_16"
+
+                />
+
+            <ImageView
+                android:layout_width="@dimen/size_20"
+                android:layout_height="@dimen/size_20"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/margin_16"
+                android:background="@drawable/background_table_booked"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/margin_8"
+                android:text="@string/booked"
+                android:textColor="@color/text"
+                android:textSize="@dimen/text_16"
+
+                />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/relative_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/content_bottom"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/content_status">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorPrimary"
+                app:tabGravity="fill"
+                app:tabIndicatorColor="@android:color/white"
+                app:tabMode="fixed"
+                app:tabTextColor="#FFFFFF">
+
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/tabone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/floor_one" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/tabtwo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/floor_two" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/tabthree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/floor_three" />
+            </com.google.android.material.tabs.TabLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/view_paper"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/content_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_56"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_marginRight="@dimen/margin_16"
+        android:layout_marginBottom="@dimen/margin_8"
+        android:background="@null"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relative_layout">
+
+        <Button
+            android:id="@+id/btn_Cancel_Table"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/margin_16"
+            android:layout_weight="0.5"
+            android:background="@drawable/selector_button_red"
+            android:text="@string/huy"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/text_18"
+            tools:ignore="ButtonStyle" />
+
+        <Button
+            android:id="@+id/btn_Yes_Table"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:background="@drawable/selector_button_blue"
+            android:text="@string/dongy"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/text_18"
+            tools:ignore="ButtonStyle" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
