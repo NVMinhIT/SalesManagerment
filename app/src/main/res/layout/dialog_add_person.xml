@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/color_fragment_container"
+    android:layout_width="380dp"
+    android:layout_height="wrap_content"
+    android:background="@color/colorGrayLight">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBlue"
+        android:gravity="center"
+        android:padding="@dimen/padding_16"
+        android:text="@string/account_number"
+        android:textColor="#FFFFFF"
+        android:textSize="@dimen/text_18"
+        android:textStyle="bold"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <EditText
+        android:id="@+id/et_Account_Person"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:inputType="numberDecimal"
+        android:padding="@dimen/padding_16"
+        android:textColor="@color/text"
+        android:textSize="@dimen/text_16"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        tools:ignore="Autofill,LabelFor" />
+
+    <Button
+        android:id="@+id/btn_Yes_Person"
+        android:layout_width="100dp"
+        android:layout_height="@dimen/size_48"
+        android:layout_margin="@dimen/margin_8"
+        android:background="@drawable/selector_button_blue"
+        android:text="@string/yess"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_Account_Person" />
+
+    <Button
+        android:id="@+id/btn_No_Person"
+        android:layout_width="100dp"
+        android:layout_height="@dimen/size_48"
+        android:layout_margin="@dimen/margin_8"
+        android:background="@drawable/selector_button_white"
+        android:text="@string/huy"
+        android:textColor="@drawable/selector_text_button_delete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/btn_Yes_Person"
+        app:layout_constraintTop_toBottomOf="@id/et_Account_Person" />
+</androidx.constraintlayout.widget.ConstraintLayout>

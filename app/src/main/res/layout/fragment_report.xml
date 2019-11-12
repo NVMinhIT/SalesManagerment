@@ -23,7 +23,8 @@
             android:layout_marginStart="@dimen/margin_16"
             android:text="@string/time"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="@dimen/margin_16" />
+            android:layout_marginLeft="@dimen/margin_16"
+            tools:ignore="RtlHardcoded" />
 
         <TextView
             android:id="@+id/tv_Time_Report"

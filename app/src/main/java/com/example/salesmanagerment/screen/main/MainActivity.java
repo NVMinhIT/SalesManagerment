@@ -12,14 +12,12 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.BaseActivity;
-import com.example.salesmanagerment.screen.chooseinventoryitem.InventoryItemActivity;
 import com.example.salesmanagerment.screen.more.MoreFragment;
 import com.example.salesmanagerment.screen.paydish.PayDishFragment;
 import com.example.salesmanagerment.screen.provisional.ProvisionalFragment;
 import com.example.salesmanagerment.screen.sales.SalesFragment;
 import com.example.salesmanagerment.utils.Navigator;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Toolbar mToolbar;
@@ -27,7 +25,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     View contentView;
     BottomNavigationView bottomNavigationView;
     private ImageView imageViewDown;
-    private int currentIDFragment = R.id.action_order;
+    private int currentIDFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +54,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             mToolbar = findViewById(R.id.toolbar);
             setSupportActionBar(mToolbar);
             bottomNavigationView = findViewById(R.id.bottom_nav);
+            bottomNavigationView.setSelectedItemId(R.id.action_order);
             setupBottomNav(bottomNavigationView.getSelectedItemId());
             bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
@@ -64,7 +63,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     return true;
                 }
             });
-            bottomNavigationView.setSelectedItemId(currentIDFragment);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -85,21 +84,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 imageViewDown.setVisibility(View.GONE);
                 mNavigator.addFragment(R.id.flMainContainer, PayDishFragment.newInstance(), false, Navigator.NavigateAnim.NONE, PayDishFragment.class.getSimpleName());
                 break;
-            case R.id.action_more:
-                tvTitle.setText(R.string.more);
-                imageViewDown.setVisibility(View.GONE);
-                mNavigator.addFragment(R.id.flMainContainer, MoreFragment.newInstance(), false, Navigator.NavigateAnim.NONE, MoreFragment.class.getSimpleName());
-                break;
             case R.id.action_caculater:
                 tvTitle.setText(R.string.tamtinh);
                 imageViewDown.setVisibility(View.GONE);
                 mNavigator.addFragment(R.id.flMainContainer, ProvisionalFragment.newInstance(), false, Navigator.NavigateAnim.NONE, ProvisionalFragment.class.getSimpleName());
                 break;
+            case R.id.action_more:
+                tvTitle.setText(R.string.more);
+                imageViewDown.setVisibility(View.GONE);
+                mNavigator.addFragment(R.id.flMainContainer, MoreFragment.newInstance(), false, Navigator.NavigateAnim.BOTTOM_UP, MoreFragment.class.getSimpleName());
+                break;
             default:
                 break;
         }
+        currentIDFragment = selectedItemId;
     }
-
 
     @Override
     public void onClick(View v) {

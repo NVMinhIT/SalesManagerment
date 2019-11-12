@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    android:clickable="true"
+    android:focusable="true">
+
+    <RelativeLayout
+        android:id="@+id/cl_Actionbar_Sale"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_56"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/bt_back_sale"
+            android:layout_width="@dimen/size_56"
+            android:layout_height="@dimen/size_56"
+            android:background="?selectableItemBackground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_back"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tv_Title"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/size_56"
+            android:layout_marginStart="@dimen/margin_22"
+            android:layout_toEndOf="@+id/bt_back_sale"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:text="@string/sale"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/text_20"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_56"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cl_Actionbar_Sale"
+
+        >
+
+        <CheckBox
+            android:id="@+id/sale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/margin_22"
+            android:buttonTint="@color/colorPrimaryDark"
+            android:text="@string/sale_dish"
+            android:textColor="@color/text"
+            android:textSize="@dimen/text_18"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/margin_48"
+            android:text="@string/account_dish"
+            android:textColor="@color/text"
+            android:textSize="@dimen/text_16"
+            android:textStyle="italic" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_56"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:layout_marginRight="@dimen/margin_16"
+        android:layout_marginBottom="@dimen/margin_8"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <Button
+            android:id="@+id/btn_Cancel_Sale"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/margin_8"
+            android:layout_weight="0.5"
+            android:background="@drawable/selector_button_red"
+            android:text="@string/huy"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/text_18"
+            tools:ignore="ButtonStyle" />
+
+        <Button
+            android:id="@+id/btn_Yes_Sale"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:layout_marginStart="@dimen/margin_8"
+            android:background="@drawable/selector_button_blue"
+            android:text="@string/dongy"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/text_18"
+            tools:ignore="ButtonStyle" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

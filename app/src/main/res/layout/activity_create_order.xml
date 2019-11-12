@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_order"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".screen.sales.createorder.CreateOrderActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_56"
+        android:background="@color/colorPrimaryDark"
+        tools:ignore="MissingConstraints">
+
+        <ImageButton
+            android:id="@+id/btn_Back_Order"
+            android:layout_width="@dimen/size_56"
+            android:layout_height="@dimen/size_56"
+            android:background="?selectableItemBackground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_back"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/size_56"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@string/create_order"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/text_22"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toRightOf="@id/btn_Back_Order"
+            app:layout_constraintRight_toLeftOf="@id/content_customer"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/content_customer"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            app:layout_constraintRight_toRightOf="parent">
+
+            <TextView
+                android:id="@+id/tv_Add_Person"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/margin_22"
+                android:drawableStart="@drawable/ic_customer"
+                android:drawablePadding="@dimen/padding_4"
+                android:gravity="center"
+                android:text="8"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/text_16"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/option_table"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_48"
+        android:layout_marginTop="3dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/cl_actionbar"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/image_table"
+            android:layout_width="@dimen/size_32"
+            android:layout_height="@dimen/size_32"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_marginEnd="@dimen/margin_16"
+            android:padding="@dimen/padding_6"
+            android:src="@drawable/ic_table_food"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tv_Table"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_32"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="@dimen/margin_16"
+            android:background="@drawable/selector_white_blue_with_radius"
+            android:gravity="center_vertical"
+            android:hint="Chọn số bàn"
+            android:paddingStart="@dimen/padding_16"
+            android:textSize="@dimen/text_18"
+            android:textStyle="italic"
+            tools:ignore="Autofill,HardcodedText,LabelFor,RtlSymmetry" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycle_name_dish"
+        android:layout_width="@dimen/size_0"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_6"
+        app:layout_constraintBottom_toTopOf="@+id/content_pay"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/option_table"
+
+        />
+
+    <LinearLayout
+        android:id="@+id/content_pay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <Button
+            android:id="@+id/btn_add_dish"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/size_38"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_12"
+            android:layout_marginBottom="@dimen/margin_12"
+            android:background="@drawable/button_add_dish"
+            android:inputType="textCapCharacters"
+            android:padding="@dimen/padding_4"
+            android:text="@string/dish"
+            android:textColor="@color/colorBlueHighLight"
+            android:textSize="@dimen/text_18"
+            app:layout_constraintTop_toBottomOf="@+id/recycle_name_dish"
+            tools:ignore="TextViewEdits" />
+
+
+        <LinearLayout
+            android:id="@+id/content_sum_money"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_56"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/content_save_money"
+            tools:ignore="UseCompoundDrawables"
+            tools:layout_editor_absoluteX="0dp">
+
+            <ImageButton
+                android:id="@+id/imb_sale_dish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/margin_12"
+                android:layout_marginEnd="@dimen/margin_12"
+                android:background="@color/colorGray"
+                android:onClick="@{(v) -> viewModel.onClickSale(v)}"
+                android:padding="@dimen/padding_8"
+                android:src="@drawable/ic_gift"
+                app:layout_constraintLeft_toLeftOf="parent"
+                tools:ignore="ContentDescription,MissingConstraints" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/margin_12"
+                android:text="@string/sum"
+                android:textColor="@color/text"
+                android:textSize="@dimen/text_16" />
+
+            <TextView
+                android:id="@+id/tv_sum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/margin_12"
+                android:singleLine="true"
+                android:textColor="@color/text"
+                android:textSize="@dimen/text_16" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/content_save_money"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorGray"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            app:layout_constraintBottom_toTopOf="@+id/footer"
+            tools:ignore="ObsoleteLayoutParam">
+
+            <ImageButton
+                android:layout_width="@dimen/size_56"
+                android:layout_height="@dimen/size_56"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/background_cancel"
+                android:src="@drawable/ic_close_red"
+                tools:ignore="ContentDescription" />
+
+            <ImageButton
+                android:id="@+id/imb_send_chef"
+                android:layout_width="@dimen/size_56"
+                android:layout_height="@dimen/size_56"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/margin_16"
+                android:background="@drawable/background_kitchen"
+                android:src="@drawable/ic_chef"
+                tools:ignore="ContentDescription" />
+
+            <ImageButton
+                android:layout_width="@dimen/size_56"
+                android:layout_height="@dimen/size_56"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/margin_16"
+                android:id="@+id/imb_pay"
+                android:background="@drawable/background_cancel"
+                android:src="@drawable/ic_bill"
+                tools:ignore="ContentDescription" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/footer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_footer_bill"
+            android:backgroundTint="@color/colorGray"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/padding_4"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

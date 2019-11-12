@@ -1,15 +1,243 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorGrayNormal"
+    android:background="@color/colorPrimaryDark"
     android:orientation="vertical">
-    <Button
-        android:id="@+id/btnLogout"
-        android:layout_centerInParent="true"
-        android:text="@string/logout_title"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-</RelativeLayout>
+        android:layout_height="match_parent"
+        android:background="@drawable/background_more">
+
+        <RelativeLayout
+            android:id="@+id/content_image_user"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_56"
+            android:layout_marginTop="@dimen/margin_48"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="UselessLeaf">
+
+            <ImageView
+                android:id="@+id/img_user"
+                android:layout_width="@dimen/size_42"
+                android:layout_height="@dimen/size_42"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/margin_18"
+                android:background="@drawable/background_dish_icon"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tv_name_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:textSize="@dimen/text_16"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/padding_4"
+                android:layout_toEndOf="@+id/img_user"
+                android:text="nghiemminh0906@gmail.com"
+                android:textColor="@color/text" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_name_user"
+                android:layout_marginTop="@dimen/padding_4"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_toEndOf="@+id/img_user"
+                android:textSize="@dimen/text_16"
+                android:text="Xem thông tin"
+                android:textColor="@color/text" />
+
+            <ImageView
+                android:layout_width="@dimen/size_56"
+                android:layout_height="@dimen/size_56"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_enter"
+                tools:ignore="ContentDescription" />
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:id="@+id/view1"
+            android:background="@color/colorGray"
+            app:layout_constraintTop_toBottomOf="@+id/content_image_user"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginStart="@dimen/margin_12"
+            android:layout_marginEnd="@dimen/margin_12"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_56"
+            app:layout_constraintTop_toBottomOf="@+id/view1"
+            android:orientation="horizontal"
+            android:id="@+id/content_layout1"
+            android:layout_marginTop="@dimen/margin_8"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                android:layout_width="@dimen/size_28"
+                android:layout_height="@dimen/size_28"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/margin_18"
+                android:background="@null"
+                android:padding="@dimen/padding_2"
+                android:src="@drawable/ic_report"
+                tools:ignore="ContentDescription" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_56"
+                android:gravity="center_vertical"
+                android:layout_marginStart="@dimen/margin_18"
+                android:textColor="@color/text"
+                android:textSize="@dimen/text_16"
+                android:text="@string/report_menu_action"
+                />
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:id="@+id/view2"
+            android:background="@color/colorGray"
+            app:layout_constraintTop_toBottomOf="@+id/content_layout1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginStart="@dimen/margin_12"
+            android:layout_marginEnd="@dimen/margin_12"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_56"
+            app:layout_constraintTop_toBottomOf="@+id/view2"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/margin_8"
+            android:id="@+id/content_layout2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                android:layout_width="@dimen/size_28"
+                android:layout_height="@dimen/size_28"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/margin_18"
+                android:background="@null"
+                android:padding="@dimen/padding_2"
+                android:src="@drawable/ic_info_gray_24dp"
+                tools:ignore="ContentDescription" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_56"
+                android:gravity="center_vertical"
+                android:layout_marginStart="@dimen/margin_18"
+                android:textColor="@color/text"
+                android:textSize="@dimen/text_16"
+                android:text="@string/nav_info_title"
+                />
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:id="@+id/view3"
+            android:background="@color/colorGray"
+            app:layout_constraintTop_toBottomOf="@+id/content_layout2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginStart="@dimen/margin_12"
+            android:layout_marginEnd="@dimen/margin_12"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_56"
+            app:layout_constraintTop_toBottomOf="@+id/view3"
+            android:orientation="horizontal"
+            android:id="@+id/content_layout3"
+            android:layout_marginTop="@dimen/margin_8"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                android:layout_width="@dimen/size_28"
+                android:layout_height="@dimen/size_28"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/margin_18"
+                android:background="@null"
+                android:padding="@dimen/padding_2"
+                android:src="@drawable/ic_key_password"
+                tools:ignore="ContentDescription" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_56"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/margin_18"
+                android:textColor="@color/text"
+                android:textSize="@dimen/text_16"
+                android:text="@string/nav_change_pass"
+                />
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:id="@+id/view4"
+            android:background="@color/colorGray"
+            app:layout_constraintTop_toBottomOf="@+id/content_layout3"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginStart="@dimen/margin_12"
+            android:layout_marginEnd="@dimen/margin_12"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_56"
+            app:layout_constraintTop_toBottomOf="@+id/view4"
+            android:orientation="horizontal"
+            android:id="@+id/content_layout4"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="@dimen/margin_8"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                android:layout_width="@dimen/size_28"
+                android:layout_height="@dimen/size_28"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/margin_18"
+                android:background="@null"
+                android:src="@drawable/ic_logout"
+                android:padding="@dimen/padding_2"
+                tools:ignore="ContentDescription" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_56"
+                android:gravity="center_vertical"
+                android:layout_marginStart="@dimen/margin_18"
+                android:textColor="@color/text"
+                android:textSize="@dimen/text_16"
+                android:text="@string/nav_logout_title"
+                />
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:id="@+id/view5"
+            android:background="@color/colorGray"
+            app:layout_constraintTop_toBottomOf="@+id/content_layout4"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginStart="@dimen/margin_12"
+            android:layout_marginEnd="@dimen/margin_12"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

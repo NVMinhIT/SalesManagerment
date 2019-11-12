@@ -1,7 +1,5 @@
 package com.example.salesmanagerment.screen.authentication.login;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -13,12 +11,11 @@ import android.widget.EditText;
 
 import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.BaseActivity;
-import com.example.salesmanagerment.data.enums.EError;
 import com.example.salesmanagerment.data.model.request.LoginRequest;
 import com.example.salesmanagerment.screen.main.MainActivity;
 import com.example.salesmanagerment.utils.CommonFunc;
 
-public class LoginActivity extends BaseActivity implements  ILoginContract.IView {
+public class LoginActivity extends BaseActivity implements ILoginContract.IView {
 
     private LoginPresenter mPresenter;
     private EditText edtUserName;
@@ -42,16 +39,17 @@ public class LoginActivity extends BaseActivity implements  ILoginContract.IView
                 String password = edtPassword.getText().toString();
                 if (CommonFunc.isNullOrEmpty(username)) {
                     CommonFunc.showToastWarning(R.string
-                    .username_empty);
+                            .username_empty);
                     edtUserName.requestFocus();
                     return;
                 }
-                if (CommonFunc.isNullOrEmpty(password)){
+                if (CommonFunc.isNullOrEmpty(password)) {
                     CommonFunc.showToastWarning(R.string
                             .pw_empty);
                     edtPassword.requestFocus();
                     return;
                 }
+                mNavigator.hideKeyboard();
                 mPresenter.login(new LoginRequest(username, password));
             }
         });

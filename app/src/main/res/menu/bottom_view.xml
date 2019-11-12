@@ -17,7 +17,7 @@
         android:title="@string/tamtinh" />
     <item
         android:id="@+id/action_more"
-        android:icon="@drawable/ic_bill_nav"
+        android:icon="@drawable/ic_more"
         android:enabled="true"
         android:title="@string/more" />
 
