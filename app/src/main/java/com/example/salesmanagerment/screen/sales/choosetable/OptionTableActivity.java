@@ -12,7 +12,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.listeners.IOnItemClickListener;
-import com.example.salesmanagerment.data.model.response.Table;
+import com.example.salesmanagerment.data.model.response.base.Table;
 import com.example.salesmanagerment.screen.sales.fragmentarea.PaperAdapterArea;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
@@ -20,8 +20,6 @@ import com.google.android.material.tabs.TabLayout;
 public class OptionTableActivity extends AppCompatActivity implements View.OnClickListener, IOnItemClickListener<Table> {
     private Button btCancelTable;
     private ImageButton imageButtonBack;
-
-
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private PaperAdapterArea paperAdapter;

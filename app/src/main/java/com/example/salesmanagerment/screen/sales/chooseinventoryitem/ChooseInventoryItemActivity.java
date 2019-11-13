@@ -7,7 +7,10 @@ import android.widget.ImageButton;
 
 import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.BaseActivity;
+import com.example.salesmanagerment.screen.sales.createorder.AddPersonDialogFragment;
 import com.example.salesmanagerment.screen.sales.createorder.CreateOrderActivity;
+import com.example.salesmanagerment.screen.sales.customer.DialogFragmentAddCustomer;
+import com.example.salesmanagerment.utils.Constants;
 import com.example.salesmanagerment.utils.Navigator;
 
 public class ChooseInventoryItemActivity extends BaseActivity implements View.OnClickListener {
@@ -15,6 +18,8 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
     private ImageButton btnBack;
     private Button buttonAccept;
     private Navigator navigator;
+    private ImageButton imageButtonAddInformation;
+    private DialogFragmentAddCustomer dialogFragmentAddCustomer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,10 +32,13 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
     private void initEvents() {
         btnBack.setOnClickListener(this);
         buttonAccept.setOnClickListener(this);
+        imageButtonAddInformation.setOnClickListener(this);
     }
 
     private void initViews() {
-        navigator= new Navigator(this);
+        dialogFragmentAddCustomer = new DialogFragmentAddCustomer();
+        imageButtonAddInformation = findViewById(R.id.imb_AddInformation);
+        navigator = new Navigator(this);
         buttonAccept = findViewById(R.id.btnAccept);
         btnBack = findViewById(R.id.btnBack);
 
@@ -44,6 +52,10 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
                 break;
             case R.id.btnAccept:
                 navigator.startActivity(CreateOrderActivity.class);
+                break;
+            case R.id.imb_AddInformation:
+                getSupportFragmentManager().beginTransaction().add(dialogFragmentAddCustomer, Constants.EXTRA_CLASS).commit();
+                break;
             default:
                 break;
         }

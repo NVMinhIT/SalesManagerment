@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_layout"
+    android:focusableInTouchMode="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_56"
+        android:background="@drawable/background_layout_blue"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <ImageButton
+            android:layout_width="@dimen/size_56"
+            android:layout_height="@dimen/size_56"
+            android:background="@null"
+            android:id="@+id/img_Cancel"
+            android:src="@drawable/ic_exit_dialog"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/size_56"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@string/themkhachhang"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/text_18"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:id="@+id/scroll_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cl_actionbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/padding_4">
+
+            <TextView
+                android:id="@+id/tvCodeCustomer"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_48"
+                android:layout_marginStart="@dimen/margin_8"
+                android:gravity="center"
+                android:text="@string/code_customer"
+                android:textColor="@color/text"
+                android:textSize="@dimen/text_16"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/ivRequireCode"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="@dimen/margin_16"
+                android:scaleType="fitXY"
+                app:layout_constraintLeft_toRightOf="@id/tvCodeCustomer"
+                app:layout_constraintTop_toTopOf="@id/tvCodeCustomer"
+                app:srcCompat="@drawable/ic_require"
+                tools:ignore="ContentDescription" />
+
+            <EditText
+                android:id="@+id/edt_DishName_Add"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/size_48"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/size_12"
+                android:background="@null"
+                android:ellipsize="start"
+                android:hint="@string/code__customer"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:paddingStart="@dimen/padding_4"
+                android:singleLine="true"
+                android:textAlignment="textStart"
+                android:textSize="@dimen/text_16"
+                app:layout_constraintLeft_toRightOf="@id/ivRequireCode"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="RtlSymmetry,UnusedAttribute" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="@dimen/margin_8"
+                android:layout_marginEnd="@dimen/margin_8"
+                android:background="@color/colorGray"
+                app:layout_constraintTop_toBottomOf="@id/tvCodeCustomer" />
+
+            <TextView
+                android:id="@+id/tv_Code"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_48"
+                android:layout_marginStart="@dimen/margin_8"
+                android:gravity="center"
+                android:text="@string/name_customer"
+                android:textColor="@color/text"
+                android:textSize="@dimen/text_16"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view1" />
+
+            <ImageView
+                android:id="@+id/img_requite_code"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="16dp"
+                android:scaleType="fitXY"
+                app:layout_constraintLeft_toRightOf="@+id/tv_Code"
+                app:layout_constraintTop_toBottomOf="@+id/view1"
+                app:srcCompat="@drawable/ic_require"
+                tools:ignore="ContentDescription" />
+
+            <EditText
+                android:id="@+id/edt_Code_Dish"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/size_48"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/size_12"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="@string/name__customer"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:paddingStart="@dimen/padding_4"
+                android:singleLine="true"
+                android:textAlignment="textStart"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/text_16"
+                app:layout_constraintLeft_toRightOf="@id/ivRequireCode"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view1"
+                tools:ignore="Autofill,LabelFor,RtlCompat,RtlSymmetry" />
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="@dimen/margin_8"
+                android:layout_marginEnd="@dimen/margin_8"
+                android:background="@color/colorGray"
+                app:layout_constraintTop_toBottomOf="@id/tv_Code"
+                tools:layout_editor_absoluteX="33dp" />
+
+            <TextView
+                android:id="@+id/tv_telephone"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_48"
+                android:layout_marginStart="@dimen/margin_8"
+                android:gravity="center"
+                android:text="@string/telephone_customer"
+                android:textColor="@color/text"
+                android:textSize="@dimen/text_16"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view2" />
+
+            <ImageView
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="16dp"
+                android:scaleType="fitXY"
+                app:layout_constraintLeft_toRightOf="@+id/tv_telephone"
+                app:layout_constraintTop_toBottomOf="@+id/view2"
+                app:srcCompat="@drawable/ic_require"
+                tools:ignore="ContentDescription" />
+
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="@dimen/size_48"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/size_12"
+                android:background="@null"
+                android:ellipsize="start"
+                android:hint="@string/telephone__customer"
+                android:importantForAutofill="no"
+                android:inputType="numberDecimal"
+                android:paddingStart="@dimen/padding_4"
+                android:singleLine="true"
+                android:textAlignment="textStart"
+                android:textSize="@dimen/text_16"
+                app:layout_constraintLeft_toRightOf="@id/ivRequireCode"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view2"
+                tools:ignore="RtlSymmetry,UnusedAttribute" />
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="@dimen/margin_8"
+                android:layout_marginEnd="@dimen/margin_8"
+                android:background="@color/colorGray"
+                app:layout_constraintTop_toBottomOf="@id/tv_telephone"
+                tools:layout_editor_absoluteX="33dp" />
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_48"
+                android:layout_marginStart="@dimen/margin_8"
+                android:gravity="center"
+                android:text="@string/date_customer"
+                android:textColor="@color/text"
+                android:textSize="@dimen/text_16"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view3" />
+
+            <TextView
+                android:id="@+id/tv_Option_Date"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/size_48"
+                android:background="@null"
+                android:drawableEnd="@drawable/ic_calendar"
+                android:ellipsize="start"
+                android:importantForAutofill="no"
+                android:textColor="@color/text"
+                android:paddingEnd="@dimen/padding_12"
+                android:singleLine="true"
+                android:gravity="center"
+                android:textSize="@dimen/text_16"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintLeft_toRightOf="@id/tv_date"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view3"
+                tools:ignore="RtlSymmetry,UnusedAttribute" />
+
+            <View
+                android:id="@+id/view4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="@dimen/margin_8"
+                android:layout_marginEnd="@dimen/margin_8"
+                android:background="@color/colorGray"
+                app:layout_constraintTop_toBottomOf="@id/tv_date"
+                tools:layout_editor_absoluteX="33dp" />
+
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_48"
+                android:layout_marginStart="@dimen/margin_8"
+                android:gravity="center"
+                android:text="@string/address_customer"
+                android:textColor="@color/text"
+                android:textSize="@dimen/text_16"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view4" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="@dimen/size_48"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/size_12"
+                android:background="@null"
+                android:ellipsize="start"
+                android:hint="@string/address__customer"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:paddingStart="@dimen/padding_4"
+                android:singleLine="true"
+                android:textAlignment="textStart"
+                android:textSize="@dimen/text_16"
+                app:layout_constraintLeft_toRightOf="@id/ivRequireCode"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view4"
+                tools:ignore="RtlSymmetry,UnusedAttribute" />
+
+            <View
+                android:id="@+id/view5"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="@dimen/margin_8"
+                android:layout_marginEnd="@dimen/margin_8"
+                android:background="@color/colorGray"
+                app:layout_constraintTop_toBottomOf="@id/tv_address"
+                tools:layout_editor_absoluteX="33dp" />
+
+            <Button
+                android:id="@+id/btn_Save"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_12"
+                android:layout_marginTop="@dimen/margin_32"
+                android:layout_marginRight="@dimen/margin_12"
+                android:layout_marginBottom="@dimen/margin_18"
+                android:background="@drawable/custom_button"
+                android:gravity="center"
+                android:text="@string/add"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/text_18"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view5"
+                tools:ignore="ButtonStyle" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

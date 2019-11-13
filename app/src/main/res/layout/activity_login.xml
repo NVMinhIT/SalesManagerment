@@ -144,7 +144,6 @@
             android:background="@drawable/custom_button"
             android:gravity="center"
             android:inputType="textCapCharacters"
-            android:onClick="clickLogin"
             android:text="@string/dangnhap"
             android:textColor="#FFFFFF"
             android:textSize="@dimen/text_content"

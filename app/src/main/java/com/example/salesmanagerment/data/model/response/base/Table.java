@@ -1,4 +1,4 @@
-package com.example.salesmanagerment.data.model.response;
+package com.example.salesmanagerment.data.model.response.base;
 
 public class Table {
     private String idTable;

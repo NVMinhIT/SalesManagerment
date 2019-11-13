@@ -34,8 +34,10 @@ public class LoginPresenter implements ILoginContract.IPresenter {
             public void onDataFailed(String error) {
                 if (error.equals(ErrorCode.UN_AUTHORIZED)) {
                     CommonFunc.showToastWarning(R.string.login_error);
+
                 }
                 mView.showLoading(false);
+
             }
         });
     }

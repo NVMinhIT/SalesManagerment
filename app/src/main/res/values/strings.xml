@@ -59,6 +59,7 @@
     <string name="themmon">Thêm món</string>
     <string name="namedish">Tên món</string>
     <string name="themmathang">Thêm mặt hàng</string>
+    <string name="themkhachhang">Thông tin khách hàng</string>
     <string name="huy">Hủy</string>
     <string name="yes">Có</string>
     <string name="yess">Đồng ý</string>
@@ -222,4 +223,19 @@
     <string name="more">Thêm</string>
     <string name="ultility">Tiện ích</string>
     <string name="logout_title">Đăng xuất</string>
+    <!--    order-->
+    <string name="search_order">Tìm order</string>
+    <string name="search_table">Tìm bàn </string>
+    <string name="search_dish">Tìm món</string>
+<!--    customer-->
+    <string name="code_customer">Mã khách hàng</string>
+    <string name="name_customer">Tên khách hàng</string>
+    <string name="telephone_customer">Di động</string>
+    <string name="date_customer">Ngày sinh:</string>
+    <string name="address_customer">Địa chỉ:</string>
+
+    <string name="code__customer">Nhập mã khách hàng</string>
+    <string name="name__customer">Nhập tên khách hàng</string>
+    <string name="telephone__customer">Nhập số di động</string>
+    <string name="address__customer">Nhập địa chỉ</string>
 </resources>

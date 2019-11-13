@@ -79,6 +79,8 @@ public class LoginActivity extends BaseActivity implements ILoginContract.IView 
     @Override
     public void loginSuccess() {
         mNavigator.startActivityAtRoot(MainActivity.class);
+
+
     }
 
     @Override

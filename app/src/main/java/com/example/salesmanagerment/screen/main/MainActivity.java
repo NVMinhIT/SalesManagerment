@@ -15,7 +15,7 @@ import com.example.salesmanagerment.base.BaseActivity;
 import com.example.salesmanagerment.screen.more.MoreFragment;
 import com.example.salesmanagerment.screen.paydish.PayDishFragment;
 import com.example.salesmanagerment.screen.provisional.ProvisionalFragment;
-import com.example.salesmanagerment.screen.sales.SalesFragment;
+import com.example.salesmanagerment.screen.sales.listorder.ListOrderFragment;
 import com.example.salesmanagerment.utils.Navigator;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -75,7 +75,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
         switch (selectedItemId) {
             case R.id.action_order:
-                mNavigator.addFragment(R.id.flMainContainer, SalesFragment.newInstance(), false, Navigator.NavigateAnim.NONE, SalesFragment.class.getSimpleName());
+                mNavigator.addFragment(R.id.flMainContainer, ListOrderFragment.newInstance(), false, Navigator.NavigateAnim.NONE, ListOrderFragment.class.getSimpleName());
                 tvTitle.setText(R.string.ordering);
                 imageViewDown.setVisibility(View.VISIBLE);
                 break;
