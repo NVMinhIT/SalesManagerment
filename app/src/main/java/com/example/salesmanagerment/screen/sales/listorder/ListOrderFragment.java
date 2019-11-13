@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,8 +22,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class ListOrderFragment extends BaseFragment implements View.OnClickListener {
     private Navigator mNavigator;
     private FloatingActionButton btnAddOrder;
-    private TextView tvAddOrder;
     private RecyclerView rvOrder;
+    private Spinner spinner;
     private TextView textViewOptionSearch;
 
     public static ListOrderFragment newInstance() {
@@ -42,15 +43,16 @@ public class ListOrderFragment extends BaseFragment implements View.OnClickListe
 
     private void initEvents() {
         btnAddOrder.setOnClickListener(this);
-        tvAddOrder.setOnClickListener(this);
         textViewOptionSearch.setOnClickListener(this);
+
+
     }
 
     private void initView(View view) {
-        textViewOptionSearch = view.findViewById(R.id.tv_OptionSearch);
+        textViewOptionSearch=view.findViewById(R.id.tv_OptionSearch);
         btnAddOrder = view.findViewById(R.id.btnAddOrder);
-        tvAddOrder = view.findViewById(R.id.tvAddOrder);
         rvOrder = view.findViewById(R.id.rvOrder);
+
 
     }
 

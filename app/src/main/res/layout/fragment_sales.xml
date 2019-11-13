@@ -16,20 +16,32 @@
         android:layout_gravity="center_vertical"
         android:weightSum="100"
         tools:ignore="UselessParent">
+
         <TextView
+            android:id="@+id/tv_OptionSearch"
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_42"
-            android:layout_weight="70"
-            android:id="@+id/tv_OptionSearch"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/margin_6"
-            android:gravity="center"
-            android:textColor="@color/text"
-            android:textSize="@dimen/text_16"
+            android:layout_weight="70"
             android:background="@drawable/custom_edit_text"
             android:drawableEnd="@drawable/ic_down"
+            android:gravity="center"
             android:paddingEnd="@dimen/padding_8"
+            android:textColor="@color/text"
+            android:textSize="@dimen/text_16"
             tools:ignore="RtlSymmetry" />
+<!--        <Spinner-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="40dp"-->
+<!--            -->
+<!--            android:layout_gravity="center_vertical"-->
+<!--            android:layout_marginStart="@dimen/margin_6"-->
+<!--            android:layout_weight="70"-->
+<!--            android:background="@drawable/bg_spinner"-->
+<!--            android:gravity="fill_vertical"-->
+
+<!--            />-->
         <EditText
             android:id="@+id/edt_search_oder"
             android:layout_width="match_parent"

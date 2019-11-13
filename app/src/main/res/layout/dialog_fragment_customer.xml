@@ -307,6 +307,8 @@
                 android:layout_marginRight="@dimen/margin_12"
                 android:layout_marginBottom="@dimen/margin_18"
                 android:background="@drawable/custom_button"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
                 android:gravity="center"
                 android:text="@string/add"
                 android:textColor="#FFFFFF"
