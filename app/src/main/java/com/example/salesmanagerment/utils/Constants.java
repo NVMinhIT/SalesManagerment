@@ -9,6 +9,7 @@ public final class Constants {
     public static final String ARG_TYPE_DELETE = "ARG_TYPE_DELETE";
     public static final String NAME_USER = "NAME";
     public static final String PASSWORD_USER = "PASS";
+    public static final String EXTRA_CLASS = "dialogFragmentAddCustomer";
 
     public static final int FOOD_TYPE = 0;
     public static final int DRINK_TYPE = 1;

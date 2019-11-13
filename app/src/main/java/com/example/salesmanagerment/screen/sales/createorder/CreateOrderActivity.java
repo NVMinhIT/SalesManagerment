@@ -1,8 +1,6 @@
 package com.example.salesmanagerment.screen.sales.createorder;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -19,10 +17,7 @@ import com.example.salesmanagerment.utils.CommonFunc;
 import com.example.salesmanagerment.utils.Constants;
 import com.example.salesmanagerment.utils.Navigator;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class CreateOrderActivity extends BaseActivity implements View.OnClickListener,AddPersonDialogFragment.SetPerson {
+public class CreateOrderActivity extends BaseActivity implements View.OnClickListener, AddPersonDialogFragment.SetPerson {
 
     ImageButton imageButtonSale;
     Navigator navigator;

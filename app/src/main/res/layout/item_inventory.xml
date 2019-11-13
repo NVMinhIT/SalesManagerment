@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/padding_4"
+    android:layout_marginTop="@dimen/margin_6"
+    android:layout_marginEnd="@dimen/padding_4"
+    android:layout_marginBottom="@dimen/margin_6"
+    android:clickable="true"
+    android:focusable="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clDishOrder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_dish"
+        android:clickable="true"
+        android:focusable="true"
+        android:paddingStart="@dimen/padding_16"
+        android:paddingTop="@dimen/padding_8"
+        android:paddingEnd="@dimen/padding_16"
+        android:paddingBottom="@dimen/padding_8">
+
+        <ImageView
+            android:id="@+id/ivDefault_Oder"
+            android:layout_width="@dimen/size_56"
+            android:layout_height="@dimen/size_56"
+            android:background="@drawable/ic_selected"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/ivIcon_Order"
+            android:layout_width="@dimen/size_56"
+            android:layout_height="@dimen/size_56"
+            android:scaleType="centerCrop"
+            android:background="@drawable/background_icon_dish"
+            android:clickable="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tvDishName_Oder"
+            android:layout_width="@dimen/size_0"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_8"
+            android:layout_marginEnd="@dimen/margin_8"
+            android:clickable="false"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/text"
+            android:textSize="@dimen/text_16"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/tvPrice_Order"
+            app:layout_constraintLeft_toRightOf="@id/ivIcon_Order"
+            app:layout_constraintRight_toLeftOf="@id/lnQuantity_Order"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvPrice_Order"
+            android:layout_width="@dimen/size_0"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_8"
+            android:layout_marginEnd="@dimen/margin_8"
+            android:clickable="false"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="#9E9E9E"
+            android:textSize="@dimen/text_14"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/ivIcon_Order"
+            app:layout_constraintRight_toLeftOf="@id/lnQuantity_Order"
+            app:layout_constraintTop_toBottomOf="@id/tvDishName_Oder" />
+
+        <LinearLayout
+            android:id="@+id/lnQuantity_Order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_quantity"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Button
+                android:id="@+id/btnMinus_Order"
+                android:layout_width="@dimen/size_48"
+                android:layout_height="@dimen/size_48"
+                android:background="@drawable/selector_minus_button" />
+
+            <TextView
+                android:id="@+id/tvQuantity_Order"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_48"
+                android:layout_marginStart="@dimen/margin_8"
+                android:background="@drawable/selector_white_blue_with_radius"
+                android:gravity="center"
+                android:minWidth="@dimen/size_48"
+                android:padding="@dimen/padding_8"
+                android:text="@string/giamacdinh" />
+
+            <Button
+                android:id="@+id/btnPlus_Order"
+                android:layout_width="@dimen/size_48"
+                android:layout_height="@dimen/size_48"
+                android:layout_marginStart="@dimen/margin_8"
+                android:background="@drawable/selector_plus_button" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

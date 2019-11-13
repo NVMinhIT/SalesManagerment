@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.salesmanagerment.R;
-import com.example.salesmanagerment.data.model.response.Table;
+import com.example.salesmanagerment.data.model.response.base.Table;
 import com.example.salesmanagerment.screen.sales.choosetable.AdapterOrderFood;
 
 

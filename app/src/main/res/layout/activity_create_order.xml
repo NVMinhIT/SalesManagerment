@@ -89,7 +89,7 @@
             android:layout_height="@dimen/size_32"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="@dimen/margin_16"
-            android:background="@drawable/selector_white_blue_with_radius"
+            android:background="@drawable/select_white_blue"
             android:gravity="center_vertical"
             android:hint="Chọn số bàn"
             android:paddingStart="@dimen/padding_16"
@@ -188,7 +188,7 @@
             android:background="@color/colorGray"
             android:gravity="center_horizontal"
             android:orientation="horizontal"
-            android:weightSum="3"
+            android:weightSum="4"
             app:layout_constraintBottom_toTopOf="@+id/footer"
             tools:ignore="ObsoleteLayoutParam">
 
@@ -211,13 +211,23 @@
                 tools:ignore="ContentDescription" />
 
             <ImageButton
+                android:id="@+id/imb_pay"
                 android:layout_width="@dimen/size_56"
                 android:layout_height="@dimen/size_56"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/margin_16"
-                android:id="@+id/imb_pay"
                 android:background="@drawable/background_cancel"
                 android:src="@drawable/ic_bill"
+                tools:ignore="ContentDescription" />
+
+            <ImageButton
+                android:id="@+id/imb_save_order"
+                android:layout_width="@dimen/size_56"
+                android:layout_height="@dimen/size_56"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/margin_16"
+                android:background="@drawable/background_save_order"
+                android:src="@drawable/ic_save_order"
                 tools:ignore="ContentDescription" />
 
         </LinearLayout>

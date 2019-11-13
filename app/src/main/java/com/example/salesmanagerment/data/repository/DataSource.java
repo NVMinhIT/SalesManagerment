@@ -37,12 +37,11 @@ public class DataSource {
     // màn login
     public void login(LoginRequest loginRequest, final IDataCallBack<String, String> callBack) {
         apiService.login(loginRequest).enqueue(new Callback<BaseResponse<String>>() {
-
             @Override
             public void onResponse(@NotNull Call<BaseResponse<String>> call, @NotNull Response<BaseResponse<String>> response) {
                 if (response.isSuccessful()) {
-                    String token = response.body() != null ? response.body().getData() : null;
-                        callBack.onDataSuccess(token);
+                    String tokens = response.body() != null ? response.body().getData() : null;
+                        callBack.onDataSuccess(tokens);
 
                 } else {
                     callBack.onDataFailed(response.message());
@@ -55,4 +54,6 @@ public class DataSource {
             }
         });
     }
+    // màn chọn món
+
 }

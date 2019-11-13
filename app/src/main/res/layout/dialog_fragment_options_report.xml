@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
          <TextView
              android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
+             android:layout_height="@dimen/size_42"
              android:layout_alignParentEnd="true"
              android:layout_alignParentStart="true"
              android:text="@string/time"
@@ -23,18 +23,18 @@
              android:layout_centerInParent="true"
              android:textSize="@dimen/text_20"
              android:textColor="#FFFFFF"
-
-
              android:layout_alignParentRight="true"
-             android:layout_alignParentLeft="true" />
+             android:layout_alignParentLeft="true"
+             tools:ignore="RtlHardcoded" />
         <ImageView
             android:layout_width="@dimen/size_48"
             android:layout_height="@dimen/size_42"
             android:layout_alignParentEnd="true"
             android:padding="@dimen/padding_8"
             android:id="@+id/img_Close_Dialog"
+            android:background="?selectableItemBackground"
             app:srcCompat="@drawable/ic_exit_dialog"
-            tools:ignore="ContentDescription"
+            tools:ignore="ContentDescription,RtlHardcoded"
             android:layout_alignParentRight="true" />
 
     </RelativeLayout>

@@ -23,7 +23,7 @@ public interface IBasePresenter<T extends IBaseView> {
 
     /**
      * Phương thức kết thúc tương ứng khi presenter hoàn thành công việc của mình và ngừng hoạt động
-     * Created_by Nguyễn Bá Linh on 01/04/2019
+     *
      */
     void onStop();
 }

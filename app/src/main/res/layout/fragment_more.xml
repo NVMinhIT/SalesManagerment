@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_56"
             android:layout_marginTop="@dimen/margin_48"
+            android:background="@drawable/selector_white_blue_with_radius"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -60,6 +61,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_enter"
+                android:padding="@dimen/padding_8"
                 tools:ignore="ContentDescription" />
         </RelativeLayout>
         <View
@@ -81,6 +83,7 @@
             android:orientation="horizontal"
             android:id="@+id/content_layout1"
             android:layout_marginTop="@dimen/margin_8"
+            android:background="@drawable/selector_white_blue_with_radius"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             tools:ignore="UseCompoundDrawables">
@@ -121,6 +124,7 @@
             app:layout_constraintTop_toBottomOf="@+id/view2"
             android:orientation="horizontal"
             android:layout_marginTop="@dimen/margin_8"
+            android:background="@drawable/selector_white_blue_with_radius"
             android:id="@+id/content_layout2"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -163,6 +167,7 @@
             android:orientation="horizontal"
             android:id="@+id/content_layout3"
             android:layout_marginTop="@dimen/margin_8"
+            android:background="@drawable/selector_white_blue_with_radius"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             tools:ignore="UseCompoundDrawables">
@@ -207,6 +212,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginTop="@dimen/margin_8"
+            android:background="@drawable/selector_white_blue_with_radius"
             tools:ignore="UseCompoundDrawables">
             <ImageView
                 android:layout_width="@dimen/size_28"
