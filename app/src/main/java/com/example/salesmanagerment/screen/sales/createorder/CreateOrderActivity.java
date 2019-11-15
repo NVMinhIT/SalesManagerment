@@ -132,6 +132,6 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderCon
 
     @Override
     public void showLoading(boolean isShowLoading) {
-        showDialog(isShowLoading);
+        //showDialog(isShowLoading);
     }
 }

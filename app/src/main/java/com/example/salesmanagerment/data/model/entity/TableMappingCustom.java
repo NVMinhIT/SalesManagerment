@@ -11,4 +11,5 @@ public class TableMappingCustom {
     public String FromTime;
     public String OrderDate;
     public int TableStatus;
+    public Boolean isSelected = false;
 }

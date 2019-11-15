@@ -1,32 +1,32 @@
 package com.example.salesmanagerment.screen.sales.fragmentarea;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.example.salesmanagerment.data.model.entity.Area;
+
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 public class PaperAdapterArea extends FragmentPagerAdapter {
 
-    private int numberTab = 5;
-    public PaperAdapterArea(FragmentManager fg , int numberTab){
+    private List<Area> mAreas;
+
+    public PaperAdapterArea(FragmentManager fg, List<Area> areaList) {
         super(fg);
-        this.numberTab= numberTab;
+        this.mAreas = areaList;
     }
+
     @NotNull
     @Override
     public Fragment getItem(int position) {
-        return AreaFragmentOne.newInstance("Tầng" + position);
-    }
-    @Override
-    public int getCount() {
-        return numberTab;
+        return TableFragment.newInstance(mAreas.get(position).AreaID);
     }
 
-    @Nullable
     @Override
-    public CharSequence getPageTitle(int position) {
-        return "Tầng " + (position +1);
+    public int getCount() {
+        return mAreas.size();
     }
 }

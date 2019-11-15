@@ -239,4 +239,7 @@
     <string name="telephone__customer">Nhập số di động</string>
     <string name="address__customer">Nhập địa chỉ</string>
     <string name="not_inventory_item_selected">Bạn chưa chọn món ăn nào</string>
+
+    <string name="table_not_use">Bàn đã được đặt,Vui lòng chọn bàn khác</string>
+    <string name="table_used">Bàn đã được sử dụng</string>
 </resources>

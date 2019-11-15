@@ -18,6 +18,7 @@ import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 
 public interface ApiService {
@@ -43,6 +44,6 @@ public interface ApiService {
 
     // lấy danh sách khu bàn theo AreaID
     @GET("TableMapping/GetByAreaID")
-    Call<BaseResponse<List<TableMappingCustom>>> getListTableByAreaID(@Header("authorization") String token, @Path("objectID") String areaID, @Path("time") Date time );
+    Call<BaseResponse<List<TableMappingCustom>>> getListTableByAreaID(@Header("authorization") String token, @Query("areaID") String areaID, @Query("time") String time );
 
 }

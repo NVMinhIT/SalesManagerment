@@ -1,5 +1,7 @@
 package com.example.salesmanagerment.data.repository;
 
+import android.util.Log;
+
 import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.listeners.IDataCallBack;
 import com.example.salesmanagerment.data.api.ApiService;
@@ -66,7 +68,8 @@ public class DataSource {
         token = CacheManager.cacheManager.getToken();
         getListUnit(null);
         getListArea(null);
-      //  getListInventoryItem(null);
+        //getListTableByAreaID("6f64544e-61d2-4cb8-aaec-3e0b564f5e51", null);
+        getListInventoryItem(null);
     }
 
     // đăng nhập
@@ -199,14 +202,12 @@ public class DataSource {
 
     //lấy danh sách bàn theo khu vực
     public void getListTableByAreaID(String areaID, final IDataCallBack<List<TableMappingCustom>, String> callBack) {
-
-        Date dateTime = CommonFunc.getCurrentDateTime( CommonFunc.getStringCurrentDateTime(new Date()));
-        apiService.getListTableByAreaID(token, areaID, dateTime).enqueue(new Callback<BaseResponse<List<TableMappingCustom>>>() {
+        apiService.getListTableByAreaID(token, areaID, CommonFunc.getStringCurrentDateTime(new Date())).enqueue(new Callback<BaseResponse<List<TableMappingCustom>>>() {
             @Override
             public void onResponse(@NotNull Call<BaseResponse<List<TableMappingCustom>>> call, @NotNull Response<BaseResponse<List<TableMappingCustom>>> response) {
                 if (response.isSuccessful()) {
                     List<TableMappingCustom> data = response.body().getData();
-
+                    Log.d(TAG, "onResponse: ");
                     if (callBack != null) {
                         callBack.onDataSuccess(data);
                     }
