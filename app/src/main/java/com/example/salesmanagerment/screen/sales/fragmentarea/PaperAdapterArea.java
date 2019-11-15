@@ -4,31 +4,29 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.example.salesmanagerment.data.model.entity.Area;
+
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 public class PaperAdapterArea extends FragmentPagerAdapter {
 
-    private int numberTab;
-    public PaperAdapterArea(FragmentManager fg , int numberTab){
+    private List<Area> mAreas;
+
+    public PaperAdapterArea(FragmentManager fg, List<Area> areaList) {
         super(fg);
-        this.numberTab= numberTab;
+        this.mAreas = areaList;
     }
+
     @NotNull
     @Override
     public Fragment getItem(int position) {
-        switch (position) {
-            case 0:
-                return new AreaFragmentOne();
-            case 1:
-                return  new AreaFragmentTwo();
-            case 2:
-                return  new AreaFragmentThree();
-            default:
-                return null;
-        }
+        return TableFragment.newInstance(mAreas.get(position).AreaID);
     }
+
     @Override
     public int getCount() {
-        return numberTab;
+        return mAreas.size();
     }
 }

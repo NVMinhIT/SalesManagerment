@@ -1,41 +1,69 @@
 package com.example.salesmanagerment.screen.sales.createorder;
 
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.BaseActivity;
+import com.example.salesmanagerment.data.model.entity.ItemOrder;
 import com.example.salesmanagerment.screen.sales.choosetable.OptionTableActivity;
 import com.example.salesmanagerment.screen.sales.promotion.SalesInventoryItem;
 import com.example.salesmanagerment.utils.CommonFunc;
 import com.example.salesmanagerment.utils.Constants;
 import com.example.salesmanagerment.utils.Navigator;
 
-public class CreateOrderActivity extends BaseActivity implements View.OnClickListener, AddPersonDialogFragment.SetPerson {
+import java.util.List;
 
-    ImageButton imageButtonSale;
-    Navigator navigator;
-    TextView tvAddPerson;
-    AddPersonDialogFragment addPersonDialogFragment;
+public class CreateOrderActivity extends BaseActivity implements ICreateOrderContact.IView, View.OnClickListener, AddPersonDialogFragment.SetPerson {
+
+    private ImageButton imageButtonSale;
+    private Navigator navigator;
+    private TextView tvAddPerson;
+    private AddPersonDialogFragment addPersonDialogFragment;
     private static final String EXTRA = "ListOrderDishActivity";
     private TextView tvOptionTable;
     private ImageButton imageButtonSend;
     private ImageButton imageButtonBack;
     private RecyclerView recyclerView;
     private ImageButton imageButtonPay;
+    private List<ItemOrder> mItemOrders;
+    private CreateOrderAdapter mAdapter;
+    private Button btnAddMore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_order);
-        baseInit();
         initView();
+        initEvent();
+        getData();
+    }
+
+    private void initEvent() {
+        btnAddMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
+    private void getData() {
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            mItemOrders = bundle.getParcelableArrayList(Constants.EXTRAS_INVENTORY_ITEM_LIST);
+            mAdapter.setListData(mItemOrders);
+            recyclerView.setAdapter(mAdapter);
+
+        }
     }
 
     private void initView() {
@@ -45,6 +73,7 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
         imageButtonBack = findViewById(R.id.btn_Back_Order);
         imageButtonBack.setOnClickListener(this);
         imageButtonSend = findViewById(R.id.imb_send_chef);
+        btnAddMore = findViewById(R.id.btnAddMore);
         imageButtonSend.setOnClickListener(this);
         tvOptionTable = findViewById(R.id.tv_Table);
         navigator = new Navigator(this);
@@ -54,6 +83,10 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
         tvAddPerson.setOnClickListener(this);
         imageButtonSale = findViewById(R.id.imb_sale_dish);
         imageButtonSale.setOnClickListener(this);
+        recyclerView = findViewById(R.id.recycle_name_dish);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mAdapter = new CreateOrderAdapter(this);
+
     }
 
     @Override
@@ -95,5 +128,10 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
             String s = data.getStringExtra("NAME");
             tvOptionTable.setText(s);
         }
+    }
+
+    @Override
+    public void showLoading(boolean isShowLoading) {
+        //showDialog(isShowLoading);
     }
 }

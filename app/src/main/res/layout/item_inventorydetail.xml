@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/margin_8"
-    android:layout_marginEnd="@dimen/margin_8"
     android:layout_marginTop="@dimen/margin_8"
+    android:layout_marginEnd="@dimen/margin_8"
     android:clickable="true"
     android:focusable="true"
     app:layout_constraintLeft_toLeftOf="parent"
@@ -18,7 +18,8 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_name_dish_order"
+            android:id="@+id/tvName"
+            android:text="@string/app_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_16"
@@ -35,52 +36,42 @@
             android:padding="@dimen/padding_6">
 
             <TextView
-                android:id="@+id/tv_account_dish"
+                android:id="@+id/tvUnitQuantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/tv_account_dish_order"
                 android:text="@string/account"
                 android:textSize="@dimen/text_14"
                 android:textStyle="italic"
-                tools:ignore="MissingConstraints,RtlHardcoded" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_account_dish_order"
+                android:id="@+id/tvPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_8"
-                android:layout_marginTop="@dimen/margin_16"
                 android:background="#EEEEEE"
                 android:text="45454545"
+                app:layout_constraintBaseline_toBaselineOf="@id/tvUnitQuantity"
                 android:textColor="@color/colorBlueHighLight"
                 android:textSize="@dimen/text_14"
                 android:textStyle="italic"
-                app:layout_constraintLeft_toRightOf="@id/tv_account_dish"
+                app:layout_constraintLeft_toRightOf="@id/tvUnitQuantity"
                 tools:ignore="MissingConstraints" />
 
-            <!--        <TextView-->
-            <!--            android:id="@+id/tv_values"-->
-            <!--            android:layout_width="wrap_content"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            app:layout_constraintLeft_toRightOf="@+id/tv_account_dish_order"-->
-            <!--            android:text="@string/bang"-->
-            <!--            android:textSize="@dimen/text_14"-->
-            <!--            android:layout_marginStart="@dimen/margin_32"-->
-            <!--            android:textColor="@color/color_orange"-->
-            <!--            tools:ignore="MissingConstraints" />-->
+            <TextView
+                android:id="@+id/tvAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBaseline_toBaselineOf="@id/tvUnitQuantity"
+                android:text="@string/app_name"
+                android:textColor="@color/color_orange"
+                android:textSize="@dimen/text_14"
+                app:layout_constraintRight_toRightOf="parent"/>
 
-            <!--        <TextView-->
-            <!--            android:layout_width="wrap_content"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:text="690.000"-->
-            <!--            android:textSize="@dimen/text_14"-->
-            <!--            android:textStyle="italic"-->
-            <!--            android:id="@+id/tv_money_dish"-->
-            <!--            android:textColor="@color/color_orange"-->
-            <!--            app:layout_constraintLeft_toRightOf="@+id/tv_values"-->
-            <!--            android:layout_marginStart="@dimen/margin_6"-->
-            <!--            tools:ignore="MissingConstraints" />-->
         </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

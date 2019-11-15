@@ -27,6 +27,7 @@ public class LoginPresenter implements ILoginContract.IPresenter {
             @Override
             public void onDataSuccess(String data) {
                 mView.loginSuccess();
+                CommonFunc.showToastSuccess(R.string.login_success);
                 mView.showLoading(false);
             }
 
@@ -34,7 +35,6 @@ public class LoginPresenter implements ILoginContract.IPresenter {
             public void onDataFailed(String error) {
                 if (error.equals(ErrorCode.UN_AUTHORIZED)) {
                     CommonFunc.showToastWarning(R.string.login_error);
-
                 }
                 mView.showLoading(false);
 

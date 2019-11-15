@@ -25,6 +25,7 @@ import androidx.core.content.ContextCompat;
 
 import com.example.salesmanagerment.R;
 import java.io.ByteArrayOutputStream;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -44,23 +45,44 @@ public class CommonFunc {
         return formatter.format(date);
     }
 
+    public static Date getCurrentDateTime(String dateTime) {
+        try {
+            return new SimpleDateFormat(Constants.K_DATE_FORMAT).parse(dateTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static void showToastSuccess(int msg) {
-        showToastShort(msg, ToastEnum.SUCCESS);
+        showToastShort(msg, null, ToastEnum.SUCCESS);
+    }
+    public static void showToastSuccess(String msg) {
+        showToastShort(0, msg, ToastEnum.SUCCESS);
     }
 
     public static void showToastWarning(int msg) {
-        showToastShort(msg, ToastEnum.WARN);
+        showToastShort(msg, null, ToastEnum.WARN);
     }
 
+    public static void showToastWarning(String msg) {
+        showToastShort(0, msg, ToastEnum.WARN);
+    }
     public static void showToastError(int msg) {
-        showToastShort(msg, ToastEnum.ERROR);
+        showToastShort(msg, null, ToastEnum.ERROR);
+    }
+    public static void showToastError(String msg) {
+        showToastShort(0, msg, ToastEnum.ERROR);
     }
 
     public static void showToastInfo(int msg) {
-        showToastShort(msg, ToastEnum.INFO);
+        showToastShort(msg, null, ToastEnum.INFO);
+    }
+    public static void showToastInfo(String msg) {
+        showToastShort(0, msg, ToastEnum.INFO);
     }
 
-    private static void showToastShort(int message, ToastEnum type) {
+    private static void showToastShort(int message, String msg, ToastEnum type) {
         Toast toast = new Toast(mContext);
         toast.setDuration(Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.TOP, 0, 50);
@@ -68,7 +90,11 @@ public class CommonFunc {
         TextView content = layout.findViewById(R.id.toast_content);
         LinearLayout linearLayout = layout.findViewById(R.id.ll_toast_layout);
         ImageView img = layout.findViewById(R.id.toast_icon);
-        content.setText(mContext.getString(message));
+        if (msg != null) {
+            content.setText(msg);
+        } else {
+            content.setText(mContext.getString(message));
+        }
         Drawable drawable = mContext.getResources().getDrawable(R.drawable.bg_toast);
         switch (type) {
             case SUCCESS:
