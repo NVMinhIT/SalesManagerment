@@ -1,21 +1,23 @@
 package com.example.salesmanagerment.screen.sales.choosetable;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.BaseActivity;
 import com.example.salesmanagerment.data.model.entity.Area;
-import com.example.salesmanagerment.data.model.entity.TableMappingCustom;
 import com.example.salesmanagerment.screen.sales.fragmentarea.PaperAdapterArea;
-import com.example.salesmanagerment.screen.sales.fragmentarea.TableAdapter;
 import com.example.salesmanagerment.screen.sales.fragmentarea.TableFragment;
 import com.google.android.material.tabs.TabLayout;
 
@@ -30,12 +32,28 @@ public class OptionTableActivity extends BaseActivity implements IOptionTableCon
     private OptionTablePresenter mPresenter;
     private Button btnChooseTable;
     private String NameTable;
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent != null) {
+                if (intent.getAction() != null) {
+                    try {
+                        NameTable = intent.getStringExtra(TableFragment.EXTRA_NAME_TABLE);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_option_table);
         initView();
+        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver, new IntentFilter(TableFragment.ACTION_NAME_TABLE));
     }
 
     private void initView() {
@@ -50,6 +68,12 @@ public class OptionTableActivity extends BaseActivity implements IOptionTableCon
         mPresenter = new OptionTablePresenter();
         mPresenter.setView(this);
         mPresenter.getArea();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mReceiver);
     }
 
     private void initTablayout(List<Area> areaList) {
@@ -90,8 +114,10 @@ public class OptionTableActivity extends BaseActivity implements IOptionTableCon
                 finish();
                 break;
             case R.id.btn_Yes_Table:
-
-
+                Intent intent = new Intent();
+                intent.putExtra("NAME", NameTable);
+                setResult(Activity.RESULT_OK, intent);
+                finish();
                 break;
             default:
                 break;

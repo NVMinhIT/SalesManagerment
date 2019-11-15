@@ -1,5 +1,6 @@
 package com.example.salesmanagerment.screen.sales.fragmentarea;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +26,8 @@ public class TableFragment extends BaseFragment implements ITableContract.IView,
     private String areaID;
     private TablePresenter mPresenter;
     private List<TableMappingCustom> mCustomList;
+    public static final String ACTION_NAME_TABLE = "ACTION_NAME_TABLE";
+    public static final String EXTRA_NAME_TABLE = "EXTRA_NAME_TABLE";
     String name;
 
     public static TableFragment newInstance(String areaID) {
@@ -70,7 +74,9 @@ public class TableFragment extends BaseFragment implements ITableContract.IView,
 
     @Override
     public void onClick(TableMappingCustom tableMappingCustom) {
-
+        Intent intent = new Intent(ACTION_NAME_TABLE);
+        intent.putExtra(EXTRA_NAME_TABLE, tableMappingCustom.TableName);
+        LocalBroadcastManager.getInstance(mActivity).sendBroadcast(intent);
     }
 
 }

@@ -20,7 +20,9 @@ import com.example.salesmanagerment.utils.CommonFunc;
 import com.example.salesmanagerment.utils.Constants;
 import com.example.salesmanagerment.utils.Navigator;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class CreateOrderActivity extends BaseActivity implements ICreateOrderContact.IView, View.OnClickListener, AddPersonDialogFragment.SetPerson {
 
@@ -37,6 +39,8 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderCon
     private List<ItemOrder> mItemOrders;
     private CreateOrderAdapter mAdapter;
     private Button btnAddMore;
+    private TextView tvSumMoney;
+    private Double dSumMoney;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +71,8 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderCon
     }
 
     private void initView() {
+        tvSumMoney = findViewById(R.id.tv_sum_money);
+
         imageButtonPay = findViewById(R.id.imb_pay);
         imageButtonPay.setOnClickListener(this);
         recyclerView = findViewById(R.id.recycle_name_dish);
@@ -86,6 +92,8 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderCon
         recyclerView = findViewById(R.id.recycle_name_dish);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new CreateOrderAdapter(this);
+        tvSumMoney.setText("670,000");
+
 
     }
 

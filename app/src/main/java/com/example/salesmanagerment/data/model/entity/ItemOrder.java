@@ -10,14 +10,76 @@ public class ItemOrder implements Parcelable {
     public String Image;
     public Double Price;
     public String UnitName;
+    private Double TotalMoney;
 
-    public ItemOrder(String ID, int quantity, String name, String image, Double price, String unitName) {
+    public ItemOrder(String ID, int quantity, String name, String image, Double price, String unitName, Double totalMoney) {
         this.ID = ID;
         Quantity = quantity;
         Name = name;
         Image = image;
         Price = price;
         UnitName = unitName;
+        TotalMoney = totalMoney;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    public int getQuantity() {
+        return Quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        Quantity = quantity;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String name) {
+        Name = name;
+    }
+
+    public String getImage() {
+        return Image;
+    }
+
+    public void setImage(String image) {
+        Image = image;
+    }
+
+    public Double getPrice() {
+        return Price;
+    }
+
+    public void setPrice(Double price) {
+        Price = price;
+    }
+
+    public String getUnitName() {
+        return UnitName;
+    }
+
+    public void setUnitName(String unitName) {
+        UnitName = unitName;
+    }
+
+    public Double getTotalMoney() {
+        return TotalMoney;
+    }
+
+    public void setTotalMoney(Double totalMoney) {
+        TotalMoney = totalMoney;
+    }
+
+    public static Creator<ItemOrder> getCREATOR() {
+        return CREATOR;
     }
 
     protected ItemOrder(Parcel in) {
@@ -25,11 +87,16 @@ public class ItemOrder implements Parcelable {
         Quantity = in.readInt();
         Name = in.readString();
         Image = in.readString();
-        UnitName = in.readString();
         if (in.readByte() == 0) {
             Price = null;
         } else {
             Price = in.readDouble();
+        }
+        UnitName = in.readString();
+        if (in.readByte() == 0) {
+            TotalMoney = null;
+        } else {
+            TotalMoney = in.readDouble();
         }
     }
 
@@ -51,17 +118,23 @@ public class ItemOrder implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(ID);
-        dest.writeInt(Quantity);
-        dest.writeString(Name);
-        dest.writeString(Image);
-        dest.writeString(UnitName);
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(ID);
+        parcel.writeInt(Quantity);
+        parcel.writeString(Name);
+        parcel.writeString(Image);
         if (Price == null) {
-            dest.writeByte((byte) 0);
+            parcel.writeByte((byte) 0);
         } else {
-            dest.writeByte((byte) 1);
-            dest.writeDouble(Price);
+            parcel.writeByte((byte) 1);
+            parcel.writeDouble(Price);
+        }
+        parcel.writeString(UnitName);
+        if (TotalMoney == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeDouble(TotalMoney);
         }
     }
 }
