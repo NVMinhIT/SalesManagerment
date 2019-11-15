@@ -2,6 +2,7 @@ package com.example.salesmanagerment.screen.sales.chooseinventoryitem;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,8 +28,10 @@ import java.util.List;
 import java.util.Locale;
 
 public class ChooseInventoryItemAdapter extends ListAdapter<ItemOrder, IOnItemClickListener<InventoryItem>> {
-
+    Double aDouble;
     private int size;
+    private IOnItemClickListener<Integer> mOnItemClickListener;
+
     public void setRootList(List<ItemOrder> rootList) {
         this.rootList = rootList;
         size = rootList.size();
@@ -36,6 +39,9 @@ public class ChooseInventoryItemAdapter extends ListAdapter<ItemOrder, IOnItemCl
 
     private List<ItemOrder> rootList;
 
+    public void setOnItemClickListener(IOnItemClickListener<Integer> onItemClickListener) {
+        mOnItemClickListener = onItemClickListener;
+    }
 
     /**
      * Là phương thức khởi tạo cho ListAdapter
@@ -77,23 +83,25 @@ public class ChooseInventoryItemAdapter extends ListAdapter<ItemOrder, IOnItemCl
 
     /**
      * Tính tổng tiền hóa đơn
-     * Created_by Nguyễn Bá Linh on 12/04/2019
      */
     private void totalMoney() {
         try {
             int totalMoney = 0;
-//            for (int i = 0; i < mListData.size(); i++) {
-//                totalMoney += mListData.get(i).getTotalMoney();
-//            }
-//            mOnItemClickListener.onItemClick(totalMoney);
+            for (int i = 0; i < mListData.size(); i++) {
+                totalMoney += mListData.get(i).getTotalMoney();
+                Log.d("HAHA", "" + totalMoney);
+
+            }
+            mOnItemClickListener.onItemClick(totalMoney);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    public List<ItemOrder> getTotalItemSelected(){
+
+    public List<ItemOrder> getTotalItemSelected() {
         List<ItemOrder> itemOrders = new ArrayList<>();
-        for (ItemOrder item: rootList) {
-            if(item.Quantity>0){
+        for (ItemOrder item : rootList) {
+            if (item.Quantity > 0) {
                 itemOrders.add(item);
             }
         }
@@ -109,6 +117,7 @@ public class ChooseInventoryItemAdapter extends ListAdapter<ItemOrder, IOnItemCl
         private ConstraintLayout clDishOrder;
         private ItemOrder mItemOrder;
 
+
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
             // mDishDataSource = DishDataSource.getInstance();
@@ -118,7 +127,6 @@ public class ChooseInventoryItemAdapter extends ListAdapter<ItemOrder, IOnItemCl
 
         /**
          * Phương thức gắn sự kiện cho view
-         * Created_by Nguyễn Bá Linh on 12/04/2019
          */
         private void initEvents() {
             clDishOrder.setOnClickListener(this);
@@ -146,7 +154,7 @@ public class ChooseInventoryItemAdapter extends ListAdapter<ItemOrder, IOnItemCl
 
         /**
          * Phương thức xử lý các sự kiện click cho các view được gắn sự kiện OnClick
-         * Created_by Nguyễn Bá Linh on 12/04/2019
+         * *
          *
          * @param v - view xảy ra sự kiện
          */
@@ -244,16 +252,19 @@ public class ChooseInventoryItemAdapter extends ListAdapter<ItemOrder, IOnItemCl
 //            mBillDetail.setQuantity(quantity);
 //            mBillDetail.setTotalMoney(quantity * mPrice);
             //           mListData.set(getAdapterPosition(), mBillDetail);
-          mItemOrder.Quantity = quantity;
-            totalMoney();
+            mItemOrder.Quantity = quantity;
+//            aDouble = (quantity * mItemOrder.Price);
+//            mItemOrder.setTotalMoney(aDouble);
+//            mListData.set(getAdapterPosition(), mItemOrder);
+            //totalMoney();
             setDataToRoot(quantity);
 
         }
 
-        void setDataToRoot(int quantity){
+        void setDataToRoot(int quantity) {
 //            for (int i = 0; i < size ; i++) {
 //                if (rootList.get(getAdapterPosition()).ID.equals(mItemOrder.ID)) {
-                    rootList.get(getAdapterPosition()).Quantity = quantity;
+            rootList.get(getAdapterPosition()).Quantity = quantity;
 //                }
 //            }
         }
@@ -278,5 +289,6 @@ public class ChooseInventoryItemAdapter extends ListAdapter<ItemOrder, IOnItemCl
             }
             tvPrice.setText(NumberFormat.getNumberInstance(Locale.US).format(itemOrder.Price));
         }
+
     }
 }

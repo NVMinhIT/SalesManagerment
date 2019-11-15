@@ -41,7 +41,7 @@ public class ChooseInventoryItemPresenter implements IInventoryItemContact.IPres
         List<ItemOrder> list = new ArrayList<>();
         for (int i = 0; i < itemList.size(); i++) {
             InventoryItem item = itemList.get(i);
-            list.add(new ItemOrder(item.getUnitID(), 0, item.getInventoryItemName(), item.getFileResource(), item.getUnitPrice(), getUnitName(item.getUnitID())));
+            list.add(new ItemOrder(item.getUnitID(), 0, item.getInventoryItemName(), item.getFileResource(), item.getUnitPrice(), getUnitName(item.getUnitID()),null));
         }
         return list;
     }

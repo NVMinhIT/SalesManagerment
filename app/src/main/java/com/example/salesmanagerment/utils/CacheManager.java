@@ -7,6 +7,7 @@ public class CacheManager {
 
     public static final String K_TOKEN = "K_TOKEN";
     public static final int ACCOUNT_DISH = 123;
+    public static final double ACCOUNT = 123f;
 
     private SharedPrefsImpl sharedPrefs;
 
