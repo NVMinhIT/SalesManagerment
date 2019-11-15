@@ -22,8 +22,8 @@ public abstract class ListAdapter<T,G> extends RecyclerView.Adapter<RecyclerView
 
     protected Context mContext;
     protected List<T> mListData;
-    private IOnItemClickListener<G> mOnClickListener;
-    private IOnItemLongClickListener<G> mOnLongClickListener;
+    protected IOnItemClickListener<G> mOnClickListener;
+    protected IOnItemLongClickListener<G> mOnLongClickListener;
 
     public ListAdapter<T, G> setOnClickListener(IOnItemClickListener<G> onClickListener) {
         mOnClickListener = onClickListener;

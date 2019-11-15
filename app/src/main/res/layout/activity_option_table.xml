@@ -142,26 +142,8 @@
                 android:background="@color/colorPrimary"
                 app:tabGravity="fill"
                 app:tabIndicatorColor="@android:color/white"
-                app:tabMode="fixed"
+                app:tabMode="scrollable"
                 app:tabTextColor="#FFFFFF">
-
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/tabone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/floor_one" />
-
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/tabtwo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/floor_two" />
-
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/tabthree"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/floor_three" />
             </com.google.android.material.tabs.TabLayout>
 
         </com.google.android.material.appbar.AppBarLayout>

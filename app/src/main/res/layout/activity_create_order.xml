@@ -55,7 +55,7 @@
                 android:drawableStart="@drawable/ic_customer"
                 android:drawablePadding="@dimen/padding_4"
                 android:gravity="center"
-                android:text="8"
+                android:text="0"
                 android:textColor="#FFFFFF"
                 android:textSize="@dimen/text_16"
                 android:textStyle="bold"
@@ -104,6 +104,8 @@
         android:layout_width="@dimen/size_0"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/margin_6"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/_80sdp"
         app:layout_constraintBottom_toTopOf="@+id/content_pay"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -119,7 +121,7 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <Button
-            android:id="@+id/btn_add_dish"
+            android:id="@+id/btnAddMore"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/size_38"
             android:layout_gravity="center"

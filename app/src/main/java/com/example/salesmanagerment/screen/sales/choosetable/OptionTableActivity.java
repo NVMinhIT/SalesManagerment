@@ -23,8 +23,6 @@ public class OptionTableActivity extends AppCompatActivity implements View.OnCli
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private PaperAdapterArea paperAdapter;
-    private TabItem tabItem1, tabItem2, tabItem3;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +43,16 @@ public class OptionTableActivity extends AppCompatActivity implements View.OnCli
     private void initTablayout() {
         viewPager = findViewById(R.id.view_paper);
         tabLayout = findViewById(R.id.tab_layout);
-        tabItem1 = findViewById(R.id.tabone);
-        tabItem2 = findViewById(R.id.tabtwo);
-        tabItem3 = findViewById(R.id.tabthree);
-        paperAdapter = new PaperAdapterArea(getSupportFragmentManager(), tabLayout.getTabCount());
+//        tabItem1 = findViewById(R.id.tabone);
+//        tabItem2 = findViewById(R.id.tabtwo);
+//        tabItem3 = findViewById(R.id.tabthree);
+        paperAdapter = new PaperAdapterArea(getSupportFragmentManager(), 5);
         viewPager.setAdapter(paperAdapter);
+        tabLayout.addTab(tabLayout.newTab().setText("Tầng 1"));
+        tabLayout.addTab(tabLayout.newTab().setText("Tầng 2"));
+        tabLayout.addTab(tabLayout.newTab().setText("Tầng 3"));
+        tabLayout.addTab(tabLayout.newTab().setText("Tầng 4"));
+        tabLayout.addTab(tabLayout.newTab().setText("Tầng 5"));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
             @Override

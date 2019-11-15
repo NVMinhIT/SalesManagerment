@@ -60,6 +60,7 @@ public class AddPersonDialogFragment extends DialogFragment implements View.OnCl
         btCancel = view.findViewById(R.id.btn_No_Person);
         btAddPerson.setOnClickListener(this);
         btCancel.setOnClickListener(this);
+        editTextPerson.requestFocus();
     }
 
     @Override

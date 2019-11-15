@@ -31,4 +31,5 @@ public final class Constants {
     public static final String K_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
 
 
+    public static final String EXTRAS_INVENTORY_ITEM_LIST = "EXTRAS_INVENTORY_ITEM_LIST" ;
 }

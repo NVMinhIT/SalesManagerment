@@ -4,12 +4,19 @@ import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.listeners.IDataCallBack;
 import com.example.salesmanagerment.data.api.ApiService;
 import com.example.salesmanagerment.data.api.ServiceGenerator;
+import com.example.salesmanagerment.data.model.entity.Area;
+import com.example.salesmanagerment.data.model.entity.InventoryItem;
+import com.example.salesmanagerment.data.model.entity.TableMappingCustom;
+import com.example.salesmanagerment.data.model.entity.Unit;
 import com.example.salesmanagerment.data.model.request.LoginRequest;
 import com.example.salesmanagerment.data.model.response.base.BaseResponse;
 import com.example.salesmanagerment.utils.CacheManager;
 import com.example.salesmanagerment.utils.CommonFunc;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Date;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,6 +26,31 @@ public class DataSource {
     private static final String TAG = "SalesRepository";
     private static DataSource instance;
     private String token;
+
+    private List<InventoryItem> mInventoryItemList;
+
+    public List<Unit> getUnitList() {
+        return mUnitList;
+    }
+
+    public DataSource setUnitList(List<Unit> unitList) {
+        mUnitList = unitList;
+        return this;
+    }
+
+    private List<Unit> mUnitList;
+
+    public List<Area> getAreaList() {
+        return mAreaList;
+    }
+
+    public DataSource setAreaList(List<Area> areaList) {
+        mAreaList = areaList;
+        return this;
+    }
+
+    private List<Area> mAreaList;
+
 
     public static DataSource getInstance() {
         if (instance == null) {
@@ -32,28 +64,182 @@ public class DataSource {
     private DataSource() {
         apiService = ServiceGenerator.createService(ApiService.class);
         token = CacheManager.cacheManager.getToken();
+        getListUnit(null);
+        getListArea(null);
+      //  getListInventoryItem(null);
     }
 
-    // màn login
+    // đăng nhập
     public void login(LoginRequest loginRequest, final IDataCallBack<String, String> callBack) {
         apiService.login(loginRequest).enqueue(new Callback<BaseResponse<String>>() {
             @Override
             public void onResponse(@NotNull Call<BaseResponse<String>> call, @NotNull Response<BaseResponse<String>> response) {
                 if (response.isSuccessful()) {
                     String tokens = response.body() != null ? response.body().getData() : null;
+                    CacheManager.cacheManager.cacheToken(tokens);
+                    if (callBack != null) {
                         callBack.onDataSuccess(tokens);
+                    }
+
 
                 } else {
-                    callBack.onDataFailed(response.message());
+                    if (callBack != null) {
+                        callBack.onDataFailed(response.message());
+                    }
                 }
             }
 
             @Override
             public void onFailure(@NotNull Call<BaseResponse<String>> call, @NotNull Throwable t) {
+
+                if (callBack != null) {
+                    callBack.onDataFailed(t.getMessage());
+                }
                 CommonFunc.showToastWarning(R.string.login_error);
             }
         });
     }
-    // màn chọn món
+
+
+    //lấy danh sách món ăn
+    public void getListInventoryItem(final IDataCallBack<List<InventoryItem>, String> callBack) {
+        if (!CommonFunc.isNetworkAvailable()) {
+            CommonFunc.showToastError(R.string.internet_not_available);
+            return;
+        }
+        apiService.getListInventoryItem(token).enqueue(new Callback<BaseResponse<List<InventoryItem>>>() {
+            @Override
+            public void onResponse(@NotNull Call<BaseResponse<List<InventoryItem>>> call, @NotNull Response<BaseResponse<List<InventoryItem>>> response) {
+                if (response.isSuccessful()) {
+                    List<InventoryItem> data = response.body().getData();
+                    mInventoryItemList = data;
+                    if (callBack != null) {
+                        callBack.onDataSuccess(data);
+                    }
+                } else {
+                    if (callBack != null) {
+                        callBack.onDataFailed(response.message());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<BaseResponse<List<InventoryItem>>> call, @NotNull Throwable t) {
+                if (callBack != null) {
+                    callBack.onDataFailed(t.getMessage());
+                }
+                CommonFunc.showToastWarning(R.string.somthing_went_wrong);
+            }
+        });
+    }
+
+    //lấy danh sách đơn vị
+    public void getListUnit(final IDataCallBack<List<Unit>, String> callBack) {
+        if (!CommonFunc.isNetworkAvailable()) {
+            CommonFunc.showToastError(R.string.internet_not_available);
+            return;
+        }
+        apiService.getListUnit(token).enqueue(new Callback<BaseResponse<List<Unit>>>() {
+            @Override
+            public void onResponse(@NotNull Call<BaseResponse<List<Unit>>> call, @NotNull Response<BaseResponse<List<Unit>>> response) {
+                if (response.isSuccessful()) {
+                    List<Unit> data = response.body().getData();
+                    mUnitList = data;
+                    if (callBack != null) {
+                        callBack.onDataSuccess(data);
+                    }
+                } else {
+                    if (callBack != null) {
+                        callBack.onDataFailed(response.message());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<BaseResponse<List<Unit>>> call, @NotNull Throwable t) {
+                if (callBack != null) {
+                    callBack.onDataFailed(t.getMessage());
+                }
+                CommonFunc.showToastWarning(R.string.somthing_went_wrong);
+            }
+        });
+    }
+
+    //lấy danh sách khu vực
+    public void getListArea(final IDataCallBack<List<Area>, String> callBack) {
+        if (!CommonFunc.isNetworkAvailable()) {
+            CommonFunc.showToastError(R.string.internet_not_available);
+            return;
+        }
+        apiService.getListArea(token).enqueue(new Callback<BaseResponse<List<Area>>>() {
+            @Override
+            public void onResponse(@NotNull Call<BaseResponse<List<Area>>> call, @NotNull Response<BaseResponse<List<Area>>> response) {
+                if (response.isSuccessful()) {
+                    List<Area> data = response.body().getData();
+                    mAreaList = data;
+                    if (callBack != null) {
+                        callBack.onDataSuccess(data);
+                    }
+                } else {
+                    if (callBack != null) {
+                        callBack.onDataFailed(response.message());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<BaseResponse<List<Area>>> call, @NotNull Throwable t) {
+                if (callBack != null) {
+                    callBack.onDataFailed(t.getMessage());
+                }
+                CommonFunc.showToastWarning(R.string.somthing_went_wrong);
+            }
+        });
+    }
+
+    //lấy danh sách bàn theo khu vực
+    public void getListTableByAreaID(String areaID, final IDataCallBack<List<TableMappingCustom>, String> callBack) {
+
+        Date dateTime = CommonFunc.getCurrentDateTime( CommonFunc.getStringCurrentDateTime(new Date()));
+        apiService.getListTableByAreaID(token, areaID, dateTime).enqueue(new Callback<BaseResponse<List<TableMappingCustom>>>() {
+            @Override
+            public void onResponse(@NotNull Call<BaseResponse<List<TableMappingCustom>>> call, @NotNull Response<BaseResponse<List<TableMappingCustom>>> response) {
+                if (response.isSuccessful()) {
+                    List<TableMappingCustom> data = response.body().getData();
+
+                    if (callBack != null) {
+                        callBack.onDataSuccess(data);
+                    }
+                } else {
+                    if (callBack != null) {
+                        callBack.onDataFailed(response.message());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<BaseResponse<List<TableMappingCustom>>> call, @NotNull Throwable t) {
+                if (callBack != null) {
+                    callBack.onDataFailed(t.getMessage());
+                }
+                CommonFunc.showToastWarning(R.string.somthing_went_wrong);
+            }
+        });
+    }
+
+    public List<InventoryItem> getInventoryItemList() {
+        return mInventoryItemList;
+    }
+
+    public DataSource setInventoryItemList(List<InventoryItem> inventoryItemList) {
+        mInventoryItemList = inventoryItemList;
+        return this;
+    }
+
+    //lấy danh sách khu vực
+
+    //lấy danh sách khu vực
+
+    //lấy danh sách bàn dựa vào khu vực
 
 }

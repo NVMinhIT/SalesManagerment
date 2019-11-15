@@ -115,6 +115,12 @@
 
 
     <dimen name="edt_login_input_size">@dimen/_48sdp</dimen>
+    <dimen name="padding_normal">16dp</dimen>
+    <dimen name="dish_image_width">56dp</dimen>
+    <dimen name="dish_image_height">56dp</dimen>
+    <dimen name="dp_0">0dp</dimen>
+    <dimen name="action_height">48dp</dimen>
+    <dimen name="min_width_tv_number_select">48dp</dimen>
 
 
 </resources>

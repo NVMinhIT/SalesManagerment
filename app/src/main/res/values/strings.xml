@@ -217,7 +217,7 @@
     <string name="unit_empty">Vui lòng chọn đơn vị cho món ăn</string>
 
     <!--    order đang phục vụ-->
-    <string name="order_ring">Order đang phục cụ</string>
+    <string name="order_ring">Order đang phục vụ</string>
     <string name="require_pay">Yêu cầu thanh toán</string>
     <string name="order_before">Đặt trước</string>
     <string name="more">Thêm</string>
@@ -238,4 +238,5 @@
     <string name="name__customer">Nhập tên khách hàng</string>
     <string name="telephone__customer">Nhập số di động</string>
     <string name="address__customer">Nhập địa chỉ</string>
+    <string name="not_inventory_item_selected">Bạn chưa chọn món ăn nào</string>
 </resources>
