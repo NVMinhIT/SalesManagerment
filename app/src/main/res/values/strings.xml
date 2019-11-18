@@ -242,4 +242,7 @@
 
     <string name="table_not_use">Bàn đã được đặt,Vui lòng chọn bàn khác</string>
     <string name="table_used">Bàn đã được sử dụng</string>
+    <string name="table_reserve">Bàn đã đặt trước, vui lòng chọn bàn khác</string>
+    <string name="table_are_serving">Bàn đang phục vụ rồi, vui lòng chọn bàn khác</string>
+    <string name="have_to_select_table">Bạn phải chọn bàn</string>
 </resources>

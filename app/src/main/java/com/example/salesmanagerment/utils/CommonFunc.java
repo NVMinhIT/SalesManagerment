@@ -45,6 +45,11 @@ public class CommonFunc {
         return formatter.format(date);
     }
 
+    public static String getStringCurrentDateTime() {
+        SimpleDateFormat formatter = new SimpleDateFormat(Constants.K_DATE_FORMAT, Locale.US);
+        return formatter.format(new Date());
+    }
+
     public static Date getCurrentDateTime(String dateTime) {
         try {
             return new SimpleDateFormat(Constants.K_DATE_FORMAT).parse(dateTime);

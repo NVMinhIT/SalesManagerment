@@ -22,18 +22,18 @@ public class TablePresenter implements ITableContract.IPresenter {
 
     @Override
     public void getTableByAreaID(String AreaID) {
-        //mView.showLoading(true);
+       // mView.showLoading(true);
         mDataSource.getListTableByAreaID(AreaID, new IDataCallBack<List<TableMappingCustom>, String>() {
             @Override
             public void onDataSuccess(List<TableMappingCustom> data) {
-               //mView.showLoading(false);
+                mView.showLoading(false);
                 //CommonFunc.showToastSuccess("" + data.size());
                 mView.getTableSuccess(data);
             }
 
             @Override
             public void onDataFailed(String error) {
-               //mView.showLoading(false);
+                mView.showLoading(false);
                 CommonFunc.showToastError(R.string.somthing_went_wrong);
             }
         });

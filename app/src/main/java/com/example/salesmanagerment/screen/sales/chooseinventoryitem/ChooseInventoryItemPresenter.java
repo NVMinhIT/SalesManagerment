@@ -4,6 +4,8 @@ import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.listeners.IDataCallBack;
 import com.example.salesmanagerment.data.model.entity.InventoryItem;
 import com.example.salesmanagerment.data.model.entity.ItemOrder;
+import com.example.salesmanagerment.data.model.entity.OrderDetail;
+import com.example.salesmanagerment.data.model.entity.OrderEntity;
 import com.example.salesmanagerment.data.model.entity.Unit;
 import com.example.salesmanagerment.data.repository.DataSource;
 import com.example.salesmanagerment.utils.CommonFunc;
@@ -16,10 +18,27 @@ public class ChooseInventoryItemPresenter implements IInventoryItemContact.IPres
     private static final String TAG = "ChooseInventoryItemPres";
     private DataSource mDataSource;
     private IInventoryItemContact.IView mView;
-    private List<Unit> mUnits = new ArrayList<>();
+    private List<Unit> mUnits;
+    private OrderEntity mOrderEntity;
 
     public ChooseInventoryItemPresenter() {
         mDataSource = DataSource.getInstance();
+        mUnits = mDataSource.getUnitList();
+    }
+
+    public void setOrderDetails(List<ItemOrder> itemOrders) {
+        List<OrderDetail> list = new ArrayList<>();
+        int sortOrder = 0;
+        for (ItemOrder item : itemOrders) {
+            list.add(new OrderDetail.Builder()
+                    .setOrderID(mOrderEntity.order.OrderID)
+                    .setInventoryItemID(item.ID)
+                    .setQuantity((double) item.Quantity).
+                            setSortOrder(sortOrder).
+                            build());
+            sortOrder++;
+        }
+        mOrderEntity.orderDetails = list;
     }
 
     @Override
@@ -30,18 +49,18 @@ public class ChooseInventoryItemPresenter implements IInventoryItemContact.IPres
             if (itemList != null) {
                 mView.getListSuccess(convertData(itemList));
             } else {
-                getListInventoryItem(isShowLoading);
+                getInventoryItemList(isShowLoading);
             }
             return;
         }
-        getListInventoryItem(isShowLoading);
+        getInventoryItemList(isShowLoading);
     }
 
     public List<ItemOrder> convertData(List<InventoryItem> itemList) {
         List<ItemOrder> list = new ArrayList<>();
         for (int i = 0; i < itemList.size(); i++) {
             InventoryItem item = itemList.get(i);
-            list.add(new ItemOrder(item.getUnitID(), 0, item.getInventoryItemName(), item.getFileResource(), item.getUnitPrice(), getUnitName(item.getUnitID()),null));
+            list.add(new ItemOrder(item.getUnitID(), 0, item.getInventoryItemName(), item.getFileResource(), item.getUnitPrice(), getUnitName(item.getUnitID()), null));
         }
         return list;
     }
@@ -57,35 +76,35 @@ public class ChooseInventoryItemPresenter implements IInventoryItemContact.IPres
         return unitName;
     }
 
-    private void getListUnit(final Boolean isShowLoading) {
-        mDataSource.getListUnit(new IDataCallBack<List<Unit>, String>() {
-            @Override
-            public void onDataSuccess(List<Unit> data) {
-                if (data != null) {
-                    mUnits = mDataSource.getUnitList();
-                    getInventoryItemList(isShowLoading);
-                } else {
-                    CommonFunc.showToastWarning(R.string.somthing_went_wrong);
-                }
-            }
+//    private void getListUnit(final Boolean isShowLoading) {
+//        mDataSource.getListUnit(new IDataCallBack<List<Unit>, String>() {
+//            @Override
+//            public void onDataSuccess(List<Unit> data) {
+//                if (data != null) {
+//                    mUnits = mDataSource.getUnitList();
+//                    getInventoryItemList(isShowLoading);
+//                } else {
+//                    CommonFunc.showToastWarning(R.string.somthing_went_wrong);
+//                }
+//            }
+//
+//            @Override
+//            public void onDataFailed(String error) {
+//                CommonFunc.showToastWarning(R.string.somthing_went_wrong);
+//            }
+//        });
+//    }
 
-            @Override
-            public void onDataFailed(String error) {
-                CommonFunc.showToastWarning(R.string.somthing_went_wrong);
-            }
-        });
-    }
+//    private void getListInventoryItem(Boolean isShowLoading) {
+//     //   List<Unit> unit = mDataSource.getUnitList();
+////        if (unit == null) {
+////            getListUnit(isShowLoading);
+////        } else {
+//            mUnits = mDataSource.getUnitList();
+//            getInventoryItemList(isShowLoading);
+////        }
 
-    private void getListInventoryItem(Boolean isShowLoading) {
-        List<Unit> unit = mDataSource.getUnitList();
-        if (unit == null) {
-            getListUnit(isShowLoading);
-        } else {
-            mUnits = mDataSource.getUnitList();
-            getInventoryItemList(isShowLoading);
-        }
-
-    }
+    //   }
 
     private void getInventoryItemList(Boolean isLoading) {
         mView.showLoading(isLoading);
@@ -115,11 +134,16 @@ public class ChooseInventoryItemPresenter implements IInventoryItemContact.IPres
 
     @Override
     public void onStart() {
-        getInventoryItem(false, true);
+        getInventoryItem(true, true);
     }
 
     @Override
     public void onStop() {
 
+    }
+
+    public ChooseInventoryItemPresenter setOrderEntity(OrderEntity orderEntity) {
+        mOrderEntity = orderEntity;
+        return this;
     }
 }

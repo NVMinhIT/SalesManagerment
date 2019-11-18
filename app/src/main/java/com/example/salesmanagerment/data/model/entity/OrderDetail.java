@@ -25,6 +25,7 @@ public class OrderDetail {
         QuantityAddition= builder.QuantityAddition;
         Description= builder.Description;
         SortOrder= builder.SortOrder;
+        CookedQuantity = builder.CookedQuantity;
         ServedQuantity= builder.ServedQuantity;
         CookingQuantity= builder.CookingQuantity;
         OrderDetailStatus= builder.OrderDetailStatus;

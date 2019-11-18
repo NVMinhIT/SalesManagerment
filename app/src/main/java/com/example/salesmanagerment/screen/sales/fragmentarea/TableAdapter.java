@@ -12,20 +12,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.adapters.ListAdapter;
-import com.example.salesmanagerment.base.listeners.IOnItemClickListener;
 import com.example.salesmanagerment.data.model.entity.TableMappingCustom;
 import com.example.salesmanagerment.utils.CommonFunc;
+import com.example.salesmanagerment.utils.Constants;
 
 import java.util.List;
 
-public class TableAdapter extends ListAdapter<TableMappingCustom, IOnItemClickListener<TableMappingCustom>> {
-    private IOnItemTableClick mTableClick;
-    private int mLastSelectedPosition = 10000;
-    public String idTableMapping;
+public class TableAdapter extends ListAdapter<TableMappingCustom, TableMappingCustom> {
 
-    public void setOnItemClickListener(IOnItemTableClick onItemTableClick) {
-        mTableClick = onItemTableClick;
-    }
+    private int WrongIndex = 10000;
+    private int mLastSelectedPosition = WrongIndex;
+    public String idTableMapping;
 
     public void setIdTableMapping(String idTableMapping) {
         this.idTableMapping = idTableMapping;
@@ -33,9 +30,6 @@ public class TableAdapter extends ListAdapter<TableMappingCustom, IOnItemClickLi
 
     public TableAdapter(Context context, List<TableMappingCustom> tableMappingCustoms, String id) {
         super(context);
-        if (mContext instanceof IOnItemTableClick) {
-            this.mContext = (Context) mTableClick;
-        }
         mListData = tableMappingCustoms;
         idTableMapping = id;
         setSelectedIndex();
@@ -72,14 +66,6 @@ public class TableAdapter extends ListAdapter<TableMappingCustom, IOnItemClickLi
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         ItemViewHolder itemViewHolder = (ItemViewHolder) viewHolder;
-        // TableMappingCustom tableMappingCustom = mListData.get(i);
-
-//
-//        if (i == mLastSelectedPosition && mLastSelectedPosition < 10000) {
-//            itemViewHolder.mImageButtonClick.setImageResource(R.drawable.ic_tick);
-//        } else {
-//            itemViewHolder.mImageButtonClick.setImageResource(0);
-//        }
         itemViewHolder.bind(mListData.get(i));
     }
 
@@ -90,10 +76,7 @@ public class TableAdapter extends ListAdapter<TableMappingCustom, IOnItemClickLi
 
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
-            // mDishDataSource = DishDataSource.getInstance();
             initViews(itemView);
-
-
         }
 
         /**
@@ -112,7 +95,9 @@ public class TableAdapter extends ListAdapter<TableMappingCustom, IOnItemClickLi
         void bind(final TableMappingCustom tableMappingCustom) {
             //status 0 là màu xanh, 1 là ...
             if (tableMappingCustom != null) {
-
+                    if (tableMappingCustom.isSelected == null){
+                        tableMappingCustom.isSelected = false;
+                    }
                 if (tableMappingCustom.isSelected) {
                     mImageButtonClick.setImageResource(R.drawable.ic_tick);
                 } else {
@@ -131,33 +116,26 @@ public class TableAdapter extends ListAdapter<TableMappingCustom, IOnItemClickLi
                 this.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (tableMappingCustom.TableStatus == 1) {
-                            CommonFunc.showToastWarning(R.string.somthing_went_wrong);
-                        } else if (tableMappingCustom.TableStatus == 2) {
-                            CommonFunc.showToastWarning(R.string.somthing_went_wrong);
+                        if (tableMappingCustom.TableStatus == Constants.TABLE_ARE_SERVING) {
+                            CommonFunc.showToastWarning(R.string.table_are_serving);
+                        } else if (tableMappingCustom.TableStatus == Constants.TABLE_RESERVE) {
+                            CommonFunc.showToastWarning(R.string.table_reserve);
                         } else {
                             int newPosition = getAdapterPosition();
                             mListData.get(newPosition).isSelected = true;
                             notifyItemChanged(newPosition);
-                            if (mLastSelectedPosition < 10000) {
+                            if (mLastSelectedPosition != WrongIndex) {
                                 mListData.get(mLastSelectedPosition).isSelected = false;
                                 notifyItemChanged(mLastSelectedPosition);
                             }
                             mLastSelectedPosition = newPosition;
-//                    mLastSelectedPosition = getAdapterPosition();
-                            mTableClick.onClick(tableMappingCustom);
+                            mOnClickListener.onItemClick(tableMappingCustom);
 
                         }
                     }
                 });
-
-
             }
 
         }
-    }
-
-    public interface IOnItemTableClick {
-        void onClick(TableMappingCustom tableMappingCustom);
     }
 }

@@ -15,12 +15,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.BaseFragment;
+import com.example.salesmanagerment.base.listeners.IOnItemClickListener;
 import com.example.salesmanagerment.data.model.entity.TableMappingCustom;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TableFragment extends BaseFragment implements ITableContract.IView, TableAdapter.IOnItemTableClick {
+public class TableFragment extends BaseFragment implements ITableContract.IView, IOnItemClickListener<TableMappingCustom> {
     private RecyclerView recyclerView;
     private TableAdapter mAdapter;
     private String areaID;
@@ -56,9 +57,8 @@ public class TableFragment extends BaseFragment implements ITableContract.IView,
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         mAdapter = new TableAdapter(mActivity, mCustomList, areaID);
-        mAdapter.setOnItemClickListener(this);
+        mAdapter.setOnClickListener(this);
         recyclerView.setAdapter(mAdapter);
-
     }
 
     @Override
@@ -69,15 +69,14 @@ public class TableFragment extends BaseFragment implements ITableContract.IView,
 
     @Override
     public void showLoading(boolean isShowLoading) {
-        //showDialog(isShowLoading);
+        showDialog(isShowLoading);
     }
 
     @Override
-    public void onClick(TableMappingCustom tableMappingCustom) {
+    public void onItemClick(TableMappingCustom data) {
         Intent intent = new Intent(ACTION_NAME_TABLE);
-        intent.putExtra(EXTRA_NAME_TABLE, tableMappingCustom.TableName);
+        intent.putExtra(EXTRA_NAME_TABLE, data);
         LocalBroadcastManager.getInstance(mActivity).sendBroadcast(intent);
     }
-
 }
 

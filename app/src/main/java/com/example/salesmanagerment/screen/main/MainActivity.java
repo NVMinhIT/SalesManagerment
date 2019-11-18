@@ -3,6 +3,7 @@ package com.example.salesmanagerment.screen.main;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -12,27 +13,33 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.BaseActivity;
+import com.example.salesmanagerment.data.repository.DataSource;
 import com.example.salesmanagerment.screen.more.MoreFragment;
 import com.example.salesmanagerment.screen.paydish.PayDishFragment;
 import com.example.salesmanagerment.screen.provisional.ProvisionalFragment;
 import com.example.salesmanagerment.screen.sales.listorder.ListOrderFragment;
+import com.example.salesmanagerment.utils.CommonFunc;
 import com.example.salesmanagerment.utils.Navigator;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+import static com.example.salesmanagerment.screen.main.MainActivity.*;
+
+public class MainActivity extends BaseActivity implements IInitDataCallback, OnClickListener{
     private Toolbar mToolbar;
     private TextView tvTitle;
     View contentView;
     BottomNavigationView bottomNavigationView;
     private ImageView imageViewDown;
     private int currentIDFragment;
+    private DataSource mDataSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initViews();
-        initEvents();
+        mDataSource = DataSource.getInstance();
+        showDialog(true);
+        mDataSource.init(this);
     }
 
     /**
@@ -135,5 +142,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         });
 
         popupMenu.show();
+    }
+
+    @Override
+    public void success() {
+        showDialog(false);
+        initViews();
+        initEvents();
+    }
+
+    @Override
+    public void failed() {
+        CommonFunc.showToastError(R.string.somthing_went_wrong);
+        showDialog(false);
     }
 }

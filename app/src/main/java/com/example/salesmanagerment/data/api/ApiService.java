@@ -3,6 +3,8 @@ package com.example.salesmanagerment.data.api;
 
 import com.example.salesmanagerment.data.model.entity.Area;
 import com.example.salesmanagerment.data.model.entity.InventoryItem;
+import com.example.salesmanagerment.data.model.entity.Order;
+import com.example.salesmanagerment.data.model.entity.OrderEntity;
 import com.example.salesmanagerment.data.model.entity.TableMappingCustom;
 import com.example.salesmanagerment.data.model.entity.Unit;
 import com.example.salesmanagerment.data.model.request.LoginRequest;
@@ -46,4 +48,7 @@ public interface ApiService {
     @GET("TableMapping/GetByAreaID")
     Call<BaseResponse<List<TableMappingCustom>>> getListTableByAreaID(@Header("authorization") String token, @Query("areaID") String areaID, @Query("time") String time );
 
+    // thêm order
+    @GET("Order/InsertUpdateOrderEntity")
+    Call<BaseResponse<Boolean>> createOrder(@Header("authorization") String token, @Body OrderEntity orderEntity);
 }

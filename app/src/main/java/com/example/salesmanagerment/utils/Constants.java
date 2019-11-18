@@ -32,4 +32,9 @@ public final class Constants {
 
 
     public static final String EXTRAS_INVENTORY_ITEM_LIST = "EXTRAS_INVENTORY_ITEM_LIST" ;
+
+    //trạng thái bàn
+    public static final int TABLE_EMPTY = 0; //đang trống
+    public static final int TABLE_ARE_SERVING = 1; //đang phục vụ
+    public static final int TABLE_RESERVE = 2; //đã đặt trước
 }

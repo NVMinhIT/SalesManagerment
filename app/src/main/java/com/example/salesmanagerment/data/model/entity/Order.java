@@ -11,7 +11,7 @@ public class Order {
 
     public String OrderID;
     public int OrderStatus;
-    public Date OrderDate;
+    public String OrderDate;
     public String BranchID;
     public String CustomerID;
     public int NumberOfPeople;
@@ -20,9 +20,9 @@ public class Order {
     public String CancelEmployeeID;
     public String CancelReason;
     public String TableID;
-    public Date CreatedDate;
+    public String CreatedDate;
     public String CreatedBy;
-    public Date ModifiedDate;
+    public String ModifiedDate;
     public String ModifiedBy;
 
     public Order(Builder builder) {
@@ -54,7 +54,7 @@ public class Order {
             return this;
         }
 
-        public Builder setOrderDate(Date orderDate) {
+        public Builder setOrderDate(String orderDate) {
             OrderDate = orderDate;
             return this;
         }
@@ -99,7 +99,7 @@ public class Order {
             return this;
         }
 
-        public Builder setCreatedDate(Date createdDate) {
+        public Builder setCreatedDate(String createdDate) {
             CreatedDate = createdDate;
             return this;
         }
@@ -109,7 +109,7 @@ public class Order {
             return this;
         }
 
-        public Builder setModifiedDate(Date modifiedDate) {
+        public Builder setModifiedDate(String modifiedDate) {
             ModifiedDate = modifiedDate;
             return this;
         }
@@ -125,7 +125,7 @@ public class Order {
 
         public String OrderID;
         public int OrderStatus;
-        public Date OrderDate;
+        public String OrderDate;
         public String BranchID;
         public String CustomerID;
         public int NumberOfPeople;
@@ -134,9 +134,9 @@ public class Order {
         public String CancelEmployeeID;
         public String CancelReason;
         public String TableID;
-        public Date CreatedDate;
+        public String CreatedDate;
         public String CreatedBy;
-        public Date ModifiedDate;
+        public String ModifiedDate;
         public String ModifiedBy;
     }
 }
