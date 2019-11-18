@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_nav_header"
+    tools:context=".screen.infoapp.profile_user.ProfileUserActivity">
+
+    <ImageButton
+        android:layout_width="@dimen/size_48"
+        android:layout_height="@dimen/size_48"
+        android:layout_marginStart="@dimen/margin_18"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/margin_18"
+        android:src="@drawable/ic_back"
+        android:background="@null"
+        android:id="@+id/imb_Back"
+        tools:ignore="ContentDescription" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_200"
+        android:background="@drawable/background_more"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        />
+
+    <ImageView
+        android:id="@+id/imgUser"
+        android:layout_width="@dimen/size_100"
+        android:layout_height="@dimen/size_100"
+        android:layout_marginTop="@dimen/size_128"
+        android:background="@drawable/background_dish_icon"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription,MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tvNameUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_8"
+        android:text="Nghiêm Văn Minh"
+        android:textColor="@color/text"
+        android:textSize="@dimen/text_20"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgUser" />
+
+    <TextView
+        android:id="@+id/tv_code_user"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_48"
+        android:layout_marginTop="@dimen/margin_8"
+        android:drawableStart="@drawable/ic_code_user"
+        android:drawablePadding="@dimen/padding_8"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/padding_12"
+        android:text="NVM"
+        android:textColor="@color/text"
+        android:textSize="@dimen/text_16"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvNameUser"
+        tools:ignore="RtlSymmetry" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginStart="@dimen/margin_18"
+        android:layout_marginEnd="@dimen/margin_18"
+        android:background="@color/colorGray"
+        app:layout_constraintTop_toBottomOf="@+id/tv_code_user" />
+
+    <TextView
+        android:id="@+id/tv_Sex"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_48"
+        android:layout_marginTop="@dimen/margin_8"
+        android:drawableStart="@drawable/ic_sex"
+        android:drawablePadding="@dimen/padding_8"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/padding_12"
+        android:text="Nam"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_code_user"
+        tools:ignore="RtlSymmetry" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginStart="@dimen/margin_18"
+        android:layout_marginEnd="@dimen/margin_18"
+        android:background="@color/colorGray"
+        app:layout_constraintTop_toBottomOf="@+id/tv_Sex" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginStart="@dimen/margin_18"
+        android:layout_marginEnd="@dimen/margin_18"
+        android:background="@color/colorGray"
+        app:layout_constraintTop_toBottomOf="@+id/tv_Sex" />
+
+    <TextView
+        android:id="@+id/tv_Date"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_48"
+        android:layout_marginTop="@dimen/margin_8"
+        android:drawableStart="@drawable/ic_birthday"
+        android:drawablePadding="@dimen/padding_8"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/padding_12"
+        android:text="07/06/1997"
+        android:textColor="@color/text"
+        android:textSize="@dimen/text_16"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_Sex"
+        tools:ignore="RtlSymmetry" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginStart="@dimen/margin_18"
+        android:layout_marginEnd="@dimen/margin_18"
+        android:background="@color/colorGray"
+        app:layout_constraintTop_toBottomOf="@+id/tv_Date" />
+
+    <TextView
+        android:id="@+id/tv_Email"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_48"
+        android:layout_marginTop="@dimen/margin_8"
+        android:drawableStart="@drawable/ic_email_user"
+        android:drawablePadding="@dimen/padding_8"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/padding_12"
+        android:text="nghiemminh0906@gmail.com"
+        android:textColor="@color/text"
+        android:textSize="@dimen/text_16"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_Date"
+        tools:ignore="RtlSymmetry" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginStart="@dimen/margin_18"
+        android:layout_marginEnd="@dimen/margin_18"
+        android:background="@color/colorGray"
+        app:layout_constraintTop_toBottomOf="@+id/tv_Email" />
+
+    <TextView
+        android:id="@+id/tv_Phone"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_48"
+        android:layout_marginTop="@dimen/margin_8"
+        android:drawableStart="@drawable/ic_phone"
+        android:drawablePadding="@dimen/padding_8"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/padding_12"
+        android:text="0339142262"
+        android:textColor="@color/text"
+        android:textSize="@dimen/text_16"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_Email"
+        tools:ignore="RtlSymmetry" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginStart="@dimen/margin_18"
+        android:layout_marginEnd="@dimen/margin_18"
+        android:background="@color/colorGray"
+        app:layout_constraintTop_toBottomOf="@+id/tv_Phone" />
+
+    <TextView
+        android:id="@+id/tv_Position_Work"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_48"
+        android:layout_marginTop="@dimen/margin_8"
+        android:drawableStart="@drawable/ic_work_position"
+        android:drawablePadding="@dimen/padding_8"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/padding_12"
+        android:text="Nhân viên ghi order"
+        android:textColor="@color/text"
+        android:textSize="@dimen/text_16"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_Phone"
+        tools:ignore="RtlSymmetry" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginStart="@dimen/margin_18"
+        android:layout_marginEnd="@dimen/margin_18"
+        android:background="@color/colorGray"
+        app:layout_constraintTop_toBottomOf="@+id/tv_Position_Work" />
+</androidx.constraintlayout.widget.ConstraintLayout>
