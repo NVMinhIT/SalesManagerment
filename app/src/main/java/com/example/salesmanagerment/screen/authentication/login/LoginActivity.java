@@ -76,15 +76,16 @@ public class LoginActivity extends BaseActivity implements ILoginContract.IView 
         btnLogin = findViewById(R.id.btnLogin);
     }
 
-    @Override
-    public void loginSuccess() {
-        mNavigator.startActivityAtRoot(MainActivity.class);
-
-
-    }
 
     @Override
     public void showLoading(boolean isShowLoading) {
         showDialog(isShowLoading);
     }
+
+    @Override
+    public void loginSuccess() {
+        mNavigator.startActivityAtRoot(MainActivity.class);
+
+    }
+
 }

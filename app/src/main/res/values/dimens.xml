@@ -28,6 +28,7 @@
     <dimen name="margin_72">72dp</dimen>
     <dimen name="margin_84">84dp</dimen>
     <dimen name="margin_100">100dp</dimen>
+    <dimen name="margin_200">200dp</dimen>
     <!--    padding-->
     <dimen name="padding_6">6dp</dimen>
     <dimen name="padding_8">8dp</dimen>
@@ -51,6 +52,7 @@
     <dimen name="size_24">24dp</dimen>
     <dimen name="size_12">12dp</dimen>
     <dimen name="size_128">128dp</dimen>
+    <dimen name="size_100">100dp</dimen>
     <dimen name="size_14">14dp</dimen>
     <dimen name="size_10">10dp</dimen>
     <dimen name="size_28">28dp</dimen>

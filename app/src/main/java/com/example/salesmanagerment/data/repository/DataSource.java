@@ -10,6 +10,7 @@ import com.example.salesmanagerment.data.model.entity.Area;
 import com.example.salesmanagerment.data.model.entity.InventoryItem;
 import com.example.salesmanagerment.data.model.entity.TableMappingCustom;
 import com.example.salesmanagerment.data.model.entity.Unit;
+import com.example.salesmanagerment.data.model.entity.UserProfile;
 import com.example.salesmanagerment.data.model.request.LoginRequest;
 import com.example.salesmanagerment.data.model.response.base.BaseResponse;
 import com.example.salesmanagerment.utils.CacheManager;
@@ -237,10 +238,40 @@ public class DataSource {
         return this;
     }
 
-    //lấy danh sách khu vực
+    // lấy thông tin user
+    public void getUserInfo(LoginRequest loginRequest, final IDataCallBack<UserProfile, String> callBack) {
+        apiService.getUserProfile(token, loginRequest).enqueue(new Callback<UserProfile>() {
+            @Override
+            public void onResponse(Call<UserProfile> call, Response<UserProfile> response) {
+                if (response.isSuccessful()) {
 
-    //lấy danh sách khu vực
+                    if (callBack != null) {
+                        callBack.onDataSuccess(response.body());
+                    }
 
-    //lấy danh sách bàn dựa vào khu vực
 
+                } else {
+                    if (callBack != null) {
+                        callBack.onDataFailed(response.message());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserProfile> call, Throwable t) {
+                if (callBack != null) {
+                    callBack.onDataFailed(t.getMessage());
+                }
+                CommonFunc.showToastWarning(R.string.login_error);
+            }
+        });
+
+
+        //lấy danh sách khu vực
+
+        //lấy danh sách khu vực
+
+        //lấy danh sách bàn dựa vào khu vực
+
+    }
 }

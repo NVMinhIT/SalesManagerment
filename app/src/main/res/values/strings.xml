@@ -227,7 +227,7 @@
     <string name="search_order">Tìm order</string>
     <string name="search_table">Tìm bàn </string>
     <string name="search_dish">Tìm món</string>
-<!--    customer-->
+    <!--    customer-->
     <string name="code_customer">Mã khách hàng</string>
     <string name="name_customer">Tên khách hàng</string>
     <string name="telephone_customer">Di động</string>

@@ -2,12 +2,15 @@ package com.example.salesmanagerment.utils;
 
 
 import com.example.salesmanagerment.data.Sharedprf.SharedPrefsImpl;
+import com.example.salesmanagerment.data.model.entity.UserProfile;
 
 public class CacheManager {
 
     public static final String K_TOKEN = "K_TOKEN";
     public static final int ACCOUNT_DISH = 123;
     public static final double ACCOUNT = 123f;
+    public static final String USER_INFO = "USER_INFO";
+
 
     private SharedPrefsImpl sharedPrefs;
 
@@ -43,5 +46,14 @@ public class CacheManager {
     public String getToken() {
         return sharedPrefs.get(K_TOKEN, String.class);
     }
+
+    public void cacheUser(UserProfile userProfile) {
+        sharedPrefs.put(USER_INFO, userProfile);
+    }
+
+    public UserProfile getUser() {
+        return sharedPrefs.get(USER_INFO, UserProfile.class);
+    }
+
 
 }

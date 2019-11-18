@@ -5,10 +5,10 @@ import com.example.salesmanagerment.data.model.entity.Area;
 import com.example.salesmanagerment.data.model.entity.InventoryItem;
 import com.example.salesmanagerment.data.model.entity.TableMappingCustom;
 import com.example.salesmanagerment.data.model.entity.Unit;
+import com.example.salesmanagerment.data.model.entity.UserProfile;
 import com.example.salesmanagerment.data.model.request.LoginRequest;
 import com.example.salesmanagerment.data.model.response.base.BaseResponse;
 
-import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -17,7 +17,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 
@@ -26,10 +25,10 @@ public interface ApiService {
     @POST("Login")
     Call<BaseResponse<String>> login(@Body LoginRequest loginRequest);
 
-//    @Headers("Content-Type: application/json")
-//    @GET("user")
-//    Call<UserResponse> getUser();
-//
+    @Headers("Content-Type: application/json")
+    @POST("user")
+    Call<UserProfile> getUserProfile(@Header("authorization") String token, @Body LoginRequest loginRequest);
+
     // lấy list đơn vị món ăn
     @GET("unit/getlist")
     Call<BaseResponse<List<Unit>>> getListUnit(@Header("authorization") String token);
@@ -44,6 +43,6 @@ public interface ApiService {
 
     // lấy danh sách khu bàn theo AreaID
     @GET("TableMapping/GetByAreaID")
-    Call<BaseResponse<List<TableMappingCustom>>> getListTableByAreaID(@Header("authorization") String token, @Query("areaID") String areaID, @Query("time") String time );
+    Call<BaseResponse<List<TableMappingCustom>>> getListTableByAreaID(@Header("authorization") String token, @Query("areaID") String areaID, @Query("time") String time);
 
 }
