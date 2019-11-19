@@ -16,7 +16,6 @@ public class Order implements Parcelable {
     public int OrderStatus;
     public String OrderNo;
     public String OrderDate = CommonFunc.getStringCurrentDateTime();
-    ;
     public String BranchID;
     public String CustomerID;
     public int NumberOfPeople;
@@ -26,7 +25,6 @@ public class Order implements Parcelable {
     public String CancelReason;
     public String TableID;
     public String CreatedDate;
-    ;
     public String CreatedBy;
     public String ModifiedDate;
     public String ModifiedBy;

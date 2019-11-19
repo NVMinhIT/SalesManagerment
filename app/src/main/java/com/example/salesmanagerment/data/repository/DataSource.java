@@ -9,6 +9,7 @@ import com.example.salesmanagerment.data.api.ServiceGenerator;
 import com.example.salesmanagerment.data.model.entity.Area;
 import com.example.salesmanagerment.data.model.entity.InventoryItem;
 import com.example.salesmanagerment.data.model.entity.OrderEntity;
+import com.example.salesmanagerment.data.model.entity.OrderResponse;
 import com.example.salesmanagerment.data.model.entity.TableMappingCustom;
 import com.example.salesmanagerment.data.model.entity.Unit;
 import com.example.salesmanagerment.data.model.entity.UserProfile;
@@ -56,6 +57,16 @@ public class DataSource {
     }
 
     private List<Area> mAreaList;
+
+    public List<OrderResponse> getOrderResponseList() {
+        return orderResponseList;
+    }
+
+    public void setOrderResponseList(List<OrderResponse> orderResponseList) {
+        this.orderResponseList = orderResponseList;
+    }
+
+    private List<OrderResponse> orderResponseList;
 
 
     public static DataSource getInstance() {
@@ -336,13 +347,48 @@ public class DataSource {
                 CommonFunc.showToastWarning(R.string.login_error);
             }
         });
-
-
-        //lấy danh sách khu vực
-
-        //lấy danh sách khu vực
-
-        //lấy danh sách bàn dựa vào khu vực
-
     }
+
+    //lấy danh sách order
+    public void getListOrder(final IDataCallBack<List<OrderResponse>, String> dataCallBack) {
+        if (!CommonFunc.isNetworkAvailable()) {
+            CommonFunc.showToastError(R.string.internet_not_available);
+            return;
+        }
+        apiService.getListOrder(token).enqueue(new Callback<BaseResponse<List<OrderResponse>>>() {
+            @Override
+            public void onResponse(@NotNull Call<BaseResponse<List<OrderResponse>>> call, @NotNull Response<BaseResponse<List<OrderResponse>>> response) {
+                if (response.isSuccessful()) {
+                    List<OrderResponse> list = null;
+                    if (response.body() != null) {
+                        list = response.body().getData();
+                    }
+                    orderResponseList = list;
+                    if (dataCallBack != null) {
+                        dataCallBack.onDataSuccess(list);
+                    }
+                } else {
+                    if (dataCallBack != null) {
+                        dataCallBack.onDataFailed(response.message());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<BaseResponse<List<OrderResponse>>> call, @NotNull Throwable t) {
+                if (dataCallBack != null) {
+                    dataCallBack.onDataFailed(t.getMessage());
+                }
+                CommonFunc.showToastWarning(R.string.somthing_went_wrong);
+            }
+        });
+    }
+
+    //lấy danh sách khu vực
+
+    //lấy danh sách khu vực
+
+    //lấy danh sách bàn dựa vào khu vực
+
+
 }

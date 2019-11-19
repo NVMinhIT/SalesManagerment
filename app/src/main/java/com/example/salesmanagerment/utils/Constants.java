@@ -13,6 +13,7 @@ public final class Constants {
     public static final String NUMBER_PERSON = "NUMBER_PERSON";
     public static final String NUMBER_TABLE = "NUMBER_TABLE";
     public static final String TABLE_MAPPING = "TABLE_MAPPING";
+    public static final String ACTION_ADD_ORDER = "ACTION_ADD_ORDER";
 
     public static final int FOOD_TYPE = 0;
     public static final int DRINK_TYPE = 1;
