@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,9 +19,9 @@ import com.example.salesmanagerment.data.model.entity.ItemOrder;
 import com.example.salesmanagerment.data.model.entity.OrderEntity;
 import com.example.salesmanagerment.data.model.entity.TableMappingCustom;
 import com.example.salesmanagerment.screen.Invoice.InvoiceActivity;
-import com.example.salesmanagerment.screen.main.MainActivity;
 import com.example.salesmanagerment.screen.sales.choosetable.OptionTableActivity;
 import com.example.salesmanagerment.screen.sales.fragmentarea.TableFragment;
+import com.example.salesmanagerment.screen.sales.listorder.ListOrderFragment;
 import com.example.salesmanagerment.screen.sales.promotion.SalesInventoryItem;
 import com.example.salesmanagerment.utils.CommonFunc;
 import com.example.salesmanagerment.utils.Constants;
@@ -207,6 +208,7 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderCon
 
     @Override
     public void gotoOrdersScreen() {
-        mNavigator.startActivityAtRoot(MainActivity.class);
+        Intent intent = new Intent(ListOrderFragment.ACTION_ADD_LIST_ORDER);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 }
