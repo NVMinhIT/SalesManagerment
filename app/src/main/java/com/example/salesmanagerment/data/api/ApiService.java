@@ -5,6 +5,7 @@ import com.example.salesmanagerment.data.model.entity.Area;
 import com.example.salesmanagerment.data.model.entity.InventoryItem;
 import com.example.salesmanagerment.data.model.entity.Order;
 import com.example.salesmanagerment.data.model.entity.OrderEntity;
+import com.example.salesmanagerment.data.model.entity.OrderResponse;
 import com.example.salesmanagerment.data.model.entity.TableMappingCustom;
 import com.example.salesmanagerment.data.model.entity.Unit;
 import com.example.salesmanagerment.data.model.entity.UserProfile;
@@ -50,4 +51,8 @@ public interface ApiService {
     // thêm order
     @POST("Order/InsertUpdateOrderEntity")
     Call<BaseResponse<Boolean>> createOrder(@Header("authorization") String token, @Body OrderEntity orderEntity);
+
+    // lấy danh sách  order
+    @GET("Order/GetList")
+    Call<BaseResponse<List<OrderResponse>>> getListOrder(@Header("authorization") String token);
 }
