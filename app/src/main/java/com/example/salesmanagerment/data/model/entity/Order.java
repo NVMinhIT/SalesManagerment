@@ -5,8 +5,6 @@ import android.os.Parcelable;
 
 import com.example.salesmanagerment.utils.CommonFunc;
 
-import java.util.Date;
-
 public class Order implements Parcelable {
 
     public static final int ARE_SERVING = 0; //đang phục vụ
@@ -16,7 +14,9 @@ public class Order implements Parcelable {
 
     public String OrderID;
     public int OrderStatus;
-    public String OrderDate = CommonFunc.getStringCurrentDateTime();;
+    public String OrderNo;
+    public String OrderDate = CommonFunc.getStringCurrentDateTime();
+    ;
     public String BranchID;
     public String CustomerID;
     public int NumberOfPeople;
@@ -25,13 +25,15 @@ public class Order implements Parcelable {
     public String CancelEmployeeID;
     public String CancelReason;
     public String TableID;
-    public String CreatedDate = CommonFunc.getStringCurrentDateTime();;
+    public String CreatedDate;
+    ;
     public String CreatedBy;
-    public String ModifiedDate = CommonFunc.getStringCurrentDateTime();
+    public String ModifiedDate;
     public String ModifiedBy;
 
     public Order(Builder builder) {
         OrderID = builder.OrderID;
+        OrderNo = builder.OrderNo;
         OrderStatus = builder.OrderStatus;
         OrderDate = builder.OrderDate;
         BranchID = builder.BranchID;
@@ -50,6 +52,7 @@ public class Order implements Parcelable {
 
     protected Order(Parcel in) {
         OrderID = in.readString();
+        OrderNo = in.readString();
         OrderStatus = in.readInt();
         OrderDate = in.readString();
         BranchID = in.readString();
@@ -86,6 +89,7 @@ public class Order implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(OrderID);
+        dest.writeString(OrderNo);
         dest.writeInt(OrderStatus);
         dest.writeString(OrderDate);
         dest.writeString(BranchID);
@@ -183,19 +187,26 @@ public class Order implements Parcelable {
         }
 
         public String OrderID;
-        public int OrderStatus;
+
+        public Builder setOrderNo(String orderNo) {
+            OrderNo = orderNo;
+            return this;
+        }
+
+        public String OrderNo = "";
+        public int OrderStatus = 0;
         public String OrderDate;
-        public String BranchID;
-        public String CustomerID;
-        public int NumberOfPeople;
-        public String BookingID;
-        public String EmployeeID;
-        public String CancelEmployeeID;
-        public String CancelReason;
-        public String TableID;
+        public String BranchID = "";
+        public String CustomerID = "";
+        public int NumberOfPeople = 0;
+        public String BookingID = "";
+        public String EmployeeID = "";
+        public String CancelEmployeeID = "";
+        public String CancelReason = "";
+        public String TableID = "";
         public String CreatedDate;
-        public String CreatedBy;
+        public String CreatedBy = "";
         public String ModifiedDate;
-        public String ModifiedBy;
+        public String ModifiedBy = "";
     }
 }
