@@ -2,6 +2,7 @@ package com.example.salesmanagerment.screen.sales.createorder;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -14,7 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.BaseActivity;
 import com.example.salesmanagerment.data.model.entity.ItemOrder;
+import com.example.salesmanagerment.data.model.entity.OrderEntity;
 import com.example.salesmanagerment.data.model.entity.TableMappingCustom;
+import com.example.salesmanagerment.screen.Invoice.InvoiceActivity;
 import com.example.salesmanagerment.screen.main.MainActivity;
 import com.example.salesmanagerment.screen.sales.choosetable.OptionTableActivity;
 import com.example.salesmanagerment.screen.sales.fragmentarea.TableFragment;
@@ -24,6 +27,8 @@ import com.example.salesmanagerment.utils.Constants;
 import com.example.salesmanagerment.utils.Navigator;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class CreateOrderActivity extends BaseActivity implements ICreateOrderContact.IView, View.OnClickListener, AddPersonDialogFragment.SetPerson {
@@ -46,6 +51,9 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderCon
     public static final String TABLE_ID_EXTRA = "TABLE_ID_EXTRA";
     public ImageButton imb_save_order;
     private CreateOrderPresenter mPresenter;
+    private OrderEntity orderEntity;
+    private List<ItemOrder> itemOrderList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +92,7 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderCon
     }
 
     private void initView() {
+
         tvSumMoney = findViewById(R.id.tv_sum_money);
         imageButtonPay = findViewById(R.id.imb_pay);
         imageButtonPay.setOnClickListener(this);
@@ -141,6 +150,22 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderCon
                 finish();
                 break;
             case R.id.imb_pay:
+                if (tvOptionTable.getText().toString().equals("")) {
+                    CommonFunc.showToastError(R.string.please_enter);
+                } else {
+                    orderEntity = mPresenter.mOrderEntity;
+                    itemOrderList = mPresenter.mItemOrders;
+                    String numberPerson = tvAddPerson.getText().toString();
+                    String numberTable = tvOptionTable.getText().toString();
+                    Bundle bundle1 = new Bundle();
+                    bundle1.putString(Constants.NUMBER_PERSON, numberPerson);
+                    bundle1.putString(Constants.NUMBER_TABLE, numberTable);
+                    bundle1.putParcelableArrayList(Constants.EXTRAS_INVOICE_ENTITY_lIST, (ArrayList<? extends Parcelable>) itemOrderList);
+                    bundle1.putParcelable(Constants.EXTRAS_INVOICE_ENTITY, orderEntity);
+                    bundle1.putDouble(Constants.SUM_MONEY, dSumMoney);
+                    bundle1.putParcelable(Constants.TABLE_MAPPING, mTableMappingCustom);
+                    navigator.startActivity(InvoiceActivity.class, bundle1);
+                }
                 break;
             case R.id.imb_save_order:
                 mPresenter.saveOrder();
