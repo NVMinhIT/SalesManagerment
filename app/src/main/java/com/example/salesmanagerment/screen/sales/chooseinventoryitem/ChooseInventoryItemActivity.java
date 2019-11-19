@@ -1,5 +1,7 @@
 package com.example.salesmanagerment.screen.sales.chooseinventoryitem;
 
+import android.annotation.SuppressLint;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.Editable;
@@ -15,12 +17,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.BaseActivity;
 import com.example.salesmanagerment.data.model.entity.ItemOrder;
+import com.example.salesmanagerment.data.model.entity.OrderDetail;
 import com.example.salesmanagerment.data.model.entity.OrderEntity;
 import com.example.salesmanagerment.screen.sales.createorder.CreateOrderActivity;
 import com.example.salesmanagerment.screen.sales.customer.DialogFragmentAddCustomer;
 import com.example.salesmanagerment.utils.CommonFunc;
 import com.example.salesmanagerment.utils.Constants;
 import com.example.salesmanagerment.utils.Navigator;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -112,16 +116,15 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
                 super.onBackPressed();
                 break;
             case R.id.btnAccept:
-                List<ItemOrder> itemOrders = mAdapter.getTotalItemSelected();
-                if (itemOrders.size() > 0) {
-                    mPresenter.setOrderDetails(itemOrders);
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelableArrayList(Constants.EXTRAS_INVENTORY_ITEM_LIST, (ArrayList<? extends Parcelable>) itemOrders);
-                    bundle.putParcelable(Constants.EXTRAS_ORDER_ENTITY, mPresenter.getOrderEntity());
-                    navigator.startActivity(CreateOrderActivity.class, bundle);
-                } else {
-                    CommonFunc.showToastWarning(R.string.not_inventory_item_selected);
-                }
+//                List<ItemOrder> itemOrders = mAdapter.getTotalItemSelected();
+//                 if (itemOrders.size() > 0) {
+                   // mPresenter.setOrderDetails(itemOrders);
+                    new MyAsyn().execute();
+//                    // bundle.putString(Constants.EXTRAS_INVENTORY_ITEM_LIST, new Gson().toJson(itemOrders,));
+//
+//                } else {
+//                    CommonFunc.showToastWarning(R.string.not_inventory_item_selected);
+//                }
                 break;
             case R.id.imb_AddInformation:
                 getSupportFragmentManager().beginTransaction().add(dialogFragmentAddCustomer, Constants.EXTRA_CLASS).commit();
@@ -144,4 +147,36 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
         }
         // swipeRefreshLayout.setRefreshing(false);
     }
+
+    @SuppressLint("StaticFieldLeak")
+    public class MyAsyn extends AsyncTask<Void, Void, List<ItemOrder>> {
+
+        @Override
+        protected List<ItemOrder> doInBackground(Void... voids) {
+            List<ItemOrder> itemOrders = mAdapter.getTotalItemSelected();
+            if (itemOrders.size() > 0) {
+                mPresenter.setOrderDetails(itemOrders);
+                return itemOrders;
+            } else {
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(List<ItemOrder> orderDetails) {
+            super.onPostExecute(orderDetails);
+            if (orderDetails == null) {
+                CommonFunc.showToastWarning(R.string.not_inventory_item_selected);
+                return;
+            }
+            Bundle bundle = new Bundle();
+//            bundle.putParcelableArrayList(Constants.EXTRAS_INVENTORY_ITEM_LIST, (ArrayList<? extends Parcelable>) orderDetails);
+//            bundle.putParcelable(Constants.EXTRAS_ORDER_ENTITY, mPresenter.getOrderEntity());
+            bundle.putString(Constants.EXTRAS_INVENTORY_ITEM_LIST, new Gson().toJson(orderDetails));
+            bundle.putString(Constants.EXTRAS_ORDER_ENTITY, new Gson().toJson(mPresenter.getOrderEntity()));
+            navigator.startActivity(CreateOrderActivity.class, bundle);
+
+        }
+    }
 }
+
