@@ -103,7 +103,9 @@
 
     <string name="num">Số:</string>
     <string name="date">Ngày: </string>
-    <string name="good_name">Hàng hóa</string>
+    <string name="area">Tầng: </string>
+    <string name="table_number">Bàn: </string>
+    <string name="good_name">Tên món</string>
     <string name="quatity">SL</string>
     <string name="unit_price">Đơn giá</string>
     <string name="into_money">Thành tiền</string>
@@ -247,4 +249,6 @@
     <string name="have_to_select_table">Bạn phải chọn bàn</string>
     <string name="create_order_success">Thêm order thành công</string>
     <string name="create_order_failed">Thêm order thất bại, vui lòng thử lại</string>
+    <string name="happy_again">Chúc quý khách vui vẻ, hẹn gặp lại!</string>
+    <string name="name_employee">Tên nhân viên</string>
 </resources>
