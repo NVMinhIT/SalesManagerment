@@ -116,9 +116,8 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
                 if (itemOrders.size() > 0) {
                     mPresenter.setOrderDetails(itemOrders);
                     Bundle bundle = new Bundle();
-                    //bundle.putParcelableArrayList(Constants.EXTRAS_INVENTORY_ITEM_LIST, (ArrayList<? extends Parcelable>) itemOrders);
-                    bundle.putParcelable(Constants.EXTRAS_ORDER_ENTITY, mPresenter.getOrderEntity());
                     bundle.putParcelableArrayList(Constants.EXTRAS_INVENTORY_ITEM_LIST, (ArrayList<? extends Parcelable>) itemOrders);
+                    bundle.putParcelable(Constants.EXTRAS_ORDER_ENTITY, mPresenter.getOrderEntity());
                     navigator.startActivity(CreateOrderActivity.class, bundle);
                 } else {
                     CommonFunc.showToastWarning(R.string.not_inventory_item_selected);

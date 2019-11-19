@@ -27,7 +27,9 @@ public class CreateOrderPresenter implements ICreateOrderContact.IPresenter {
             @Override
             public void onDataSuccess(Boolean data) {
                 if (data) {
+                    mView.gotoOrdersScreen();
                     CommonFunc.showToastSuccess(R.string.create_order_success);
+
                 } else {
                     CommonFunc.showToastSuccess(R.string.create_order_failed);
                 }
