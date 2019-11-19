@@ -3,8 +3,10 @@ package com.example.salesmanagerment.screen.authentication.login;
 import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.listeners.IDataCallBack;
 import com.example.salesmanagerment.data.model.app.ErrorCode;
+import com.example.salesmanagerment.data.model.entity.UserProfile;
 import com.example.salesmanagerment.data.model.request.LoginRequest;
 import com.example.salesmanagerment.data.repository.DataSource;
+import com.example.salesmanagerment.utils.CacheManager;
 import com.example.salesmanagerment.utils.CommonFunc;
 
 public class LoginPresenter implements ILoginContract.IPresenter {
@@ -17,7 +19,7 @@ public class LoginPresenter implements ILoginContract.IPresenter {
     }
 
     @Override
-    public void login(LoginRequest loginRequest) {
+    public void login(final LoginRequest loginRequest) {
         if (!CommonFunc.isNetworkAvailable()) {
             CommonFunc.showToastError(R.string.internet_not_available);
             return;
@@ -26,9 +28,7 @@ public class LoginPresenter implements ILoginContract.IPresenter {
         mDataSource.login(loginRequest, new IDataCallBack<String, String>() {
             @Override
             public void onDataSuccess(String data) {
-                mView.loginSuccess();
-                CommonFunc.showToastSuccess(R.string.login_success);
-                mView.showLoading(false);
+                getUserInfoPro(loginRequest);
             }
 
             @Override
@@ -40,6 +40,26 @@ public class LoginPresenter implements ILoginContract.IPresenter {
 
             }
         });
+    }
+
+    @Override
+    public void getUserInfoPro(LoginRequest loginRequest) {
+        mDataSource.getUserInfo(loginRequest, new IDataCallBack<UserProfile, String>() {
+            @Override
+            public void onDataSuccess(UserProfile data) {
+                mView.showLoading(false);
+                CacheManager.cacheManager.cacheUser(data);
+                mView.loginSuccess();
+            }
+
+            @Override
+            public void onDataFailed(String error) {
+                mView.showLoading(false);
+                CommonFunc.showToastSuccess(R.string.somthing_went_wrong);
+            }
+        });
+
+
     }
 
     @Override

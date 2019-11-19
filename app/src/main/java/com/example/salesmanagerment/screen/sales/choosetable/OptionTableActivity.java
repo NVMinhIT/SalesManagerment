@@ -145,15 +145,6 @@ public class OptionTableActivity extends BaseActivity implements IOptionTableCon
         super.onBackPressed();
     }
 
-
-//    @Override
-//    public void onItemClick(Table data) {
-//        Intent intent = new Intent();
-//        intent.putExtra("NAME", data.getNameTable());
-//        setResult(Activity.RESULT_OK, intent);
-//        finish();
-//    }
-
     @Override
     public void getAreaSuccess(List<Area> areaList) {
         initTablayout(areaList);

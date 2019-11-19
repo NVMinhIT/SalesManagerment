@@ -227,7 +227,7 @@
     <string name="search_order">Tìm order</string>
     <string name="search_table">Tìm bàn </string>
     <string name="search_dish">Tìm món</string>
-<!--    customer-->
+    <!--    customer-->
     <string name="code_customer">Mã khách hàng</string>
     <string name="name_customer">Tên khách hàng</string>
     <string name="telephone_customer">Di động</string>
@@ -245,4 +245,6 @@
     <string name="table_reserve">Bàn đã đặt trước, vui lòng chọn bàn khác</string>
     <string name="table_are_serving">Bàn đang phục vụ rồi, vui lòng chọn bàn khác</string>
     <string name="have_to_select_table">Bạn phải chọn bàn</string>
+    <string name="create_order_success">Thêm order thành công</string>
+    <string name="create_order_failed">Thêm order thất bại, vui lòng thử lại</string>
 </resources>

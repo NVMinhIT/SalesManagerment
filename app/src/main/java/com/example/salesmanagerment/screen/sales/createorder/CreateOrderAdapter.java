@@ -22,9 +22,6 @@ import java.util.List;
 import java.util.Locale;
 
 public class CreateOrderAdapter extends ListAdapter<ItemOrder, IOnItemClickListener<ItemOrder>> {
-    private int sum;
-    private Double b;
-
     /**
      * Là phương thức khởi tạo cho ListAdapter
      *
@@ -62,7 +59,6 @@ public class CreateOrderAdapter extends ListAdapter<ItemOrder, IOnItemClickListe
          * Created_by Nguyễn Bá Linh on 12/04/2019
          */
         private void initViews(View view) {
-
             tvName = view.findViewById(R.id.tvName);
             tvUnitQuantity = view.findViewById(R.id.tvUnitQuantity);
             tvPrice = view.findViewById(R.id.tvPrice);
@@ -71,38 +67,11 @@ public class CreateOrderAdapter extends ListAdapter<ItemOrder, IOnItemClickListe
 
         @SuppressLint("SetTextI18n")
         void bind(ItemOrder itemOrder) {
-            List<Double> list = new ArrayList<>();
             int quantity = itemOrder.Quantity;
             tvName.setText(itemOrder.Name);
             tvPrice.setText(NumberFormat.getNumberInstance(Locale.US).format(itemOrder.Price));
             tvUnitQuantity.setText(quantity + " " + itemOrder.UnitName + " x ");
-            tvAmount.setText("= " + NumberFormat.getNumberInstance(Locale.US).format((itemOrder.Price * quantity)));
-//            Double b = (itemOrder.Price * quantity);
-//            sum = b.intValue();
-//            b = (itemOrder.Price * quantity);
-//            for (double el : list) {
-//                b += el;
-//            }
-//            itemOrder.setTotalMoney(b);
-//            itemOrder.setTotalMoney(itemOrder.Price * quantity);
-//            total();
-
-
+            tvAmount.setText("= " + NumberFormat.getNumberInstance(Locale.US).format((itemOrder.TotalMoney)));
         }
     }
-
-    private void total() {
-        try {
-            int totalMoney = 0;
-            for (int i = 0; i < mListData.size(); i++) {
-                totalMoney += mListData.get(i).getTotalMoney();
-                Log.d("HAHA", "" + totalMoney);
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
 }

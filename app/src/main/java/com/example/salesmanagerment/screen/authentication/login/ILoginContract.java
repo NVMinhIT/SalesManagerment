@@ -2,7 +2,6 @@ package com.example.salesmanagerment.screen.authentication.login;
 
 import com.example.salesmanagerment.base.IBasePresenter;
 import com.example.salesmanagerment.base.IBaseView;
-import com.example.salesmanagerment.data.enums.EError;
 import com.example.salesmanagerment.data.model.request.LoginRequest;
 
 public interface ILoginContract {
@@ -13,5 +12,7 @@ public interface ILoginContract {
     interface IPresenter extends IBasePresenter<IView> {
 
         void login(LoginRequest loginRequest);
+
+        void getUserInfoPro(LoginRequest loginRequest);
     }
 }

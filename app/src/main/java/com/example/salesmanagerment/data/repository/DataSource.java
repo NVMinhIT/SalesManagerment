@@ -11,11 +11,13 @@ import com.example.salesmanagerment.data.model.entity.InventoryItem;
 import com.example.salesmanagerment.data.model.entity.OrderEntity;
 import com.example.salesmanagerment.data.model.entity.TableMappingCustom;
 import com.example.salesmanagerment.data.model.entity.Unit;
+import com.example.salesmanagerment.data.model.entity.UserProfile;
 import com.example.salesmanagerment.data.model.request.LoginRequest;
 import com.example.salesmanagerment.data.model.response.base.BaseResponse;
 import com.example.salesmanagerment.screen.main.IInitDataCallback;
 import com.example.salesmanagerment.utils.CacheManager;
 import com.example.salesmanagerment.utils.CommonFunc;
+import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -274,16 +276,18 @@ public class DataSource {
     }
 
 
-
     //lấy danh sách bàn theo khu vực
     public void createOrder(OrderEntity orderEntity, final IDataCallBack<Boolean, String> callBack) {
+        Log.d(TAG, "createOrder: \n" + new Gson().toJson(orderEntity));
         apiService.createOrder(token, orderEntity).enqueue(new Callback<BaseResponse<Boolean>>() {
             @Override
             public void onResponse(@NotNull Call<BaseResponse<Boolean>> call, @NotNull Response<BaseResponse<Boolean>> response) {
                 if (response.isSuccessful()) {
                     Log.d(TAG, "onResponse: ");
                     if (callBack != null) {
-                        callBack.onDataSuccess(response.body().getSuccess());
+                        if (response.body() != null) {
+                            callBack.onDataSuccess(response.body().getSuccess());
+                        }
                     }
                 } else {
                     if (callBack != null) {
@@ -304,8 +308,41 @@ public class DataSource {
 
     //lấy danh sách khu vực
 
-    //lấy danh sách khu vực
+    // lấy thông tin user
+    public void getUserInfo(LoginRequest loginRequest, final IDataCallBack<UserProfile, String> callBack) {
+        UserProfile userProfile = new UserProfile();
+        userProfile.setUserName(loginRequest.getUserName());
+        userProfile.setPassword(loginRequest.getPassword());
+        apiService.getUserProfile(token, userProfile).enqueue(new Callback<BaseResponse<UserProfile>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<UserProfile>> call, Response<BaseResponse<UserProfile>> response) {
+                if (response.isSuccessful()) {
 
-    //lấy danh sách bàn dựa vào khu vực
+                    if (callBack != null) {
+                        callBack.onDataSuccess(response.body().getData());
+                    }
+                } else {
+                    if (callBack != null) {
+                        callBack.onDataFailed(response.message());
+                    }
+                }
+            }
 
+            @Override
+            public void onFailure(Call<BaseResponse<UserProfile>> call, Throwable t) {
+                if (callBack != null) {
+                    callBack.onDataFailed(t.getMessage());
+                }
+                CommonFunc.showToastWarning(R.string.login_error);
+            }
+        });
+
+
+        //lấy danh sách khu vực
+
+        //lấy danh sách khu vực
+
+        //lấy danh sách bàn dựa vào khu vực
+
+    }
 }

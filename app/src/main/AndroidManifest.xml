@@ -16,10 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".screen.sales.createorder.CreateOrderActivity"></activity>
-        <activity android:name=".screen.sales.chooseinventoryitem.ChooseInventoryItemActivity">
-
-        </activity>
+        <activity android:name=".screen.infoapp.profile_user.ProfileUserActivity"></activity>
+        <activity android:name=".screen.sales.createorder.CreateOrderActivity" />
+        <activity android:name=".screen.sales.chooseinventoryitem.ChooseInventoryItemActivity"></activity>
         <activity android:name=".screen.authentication.changepassword.ChangePassActivity" />
         <activity android:name=".screen.authentication.login.LoginActivity">
             <intent-filter>
@@ -28,13 +27,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".screen.main.MainActivity">
-
-        </activity>
+        <activity android:name=".screen.main.MainActivity"></activity>
         <activity android:name=".screen.infoapp.InfoAppActivity" />
-        <activity android:name=".screen.sales.choosetable.OptionTableActivity" >
-
-        </activity>
+        <activity android:name=".screen.sales.choosetable.OptionTableActivity"></activity>
         <activity android:name=".screen.splash.SplashActivity">
 
             <!-- <intent-filter> -->

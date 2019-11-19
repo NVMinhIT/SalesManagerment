@@ -2,6 +2,7 @@ package com.example.salesmanagerment.screen.sales.createorder;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.BaseActivity;
 import com.example.salesmanagerment.data.model.entity.ItemOrder;
+import com.example.salesmanagerment.data.model.entity.OrderEntity;
 import com.example.salesmanagerment.data.model.entity.TableMappingCustom;
 import com.example.salesmanagerment.screen.sales.choosetable.OptionTableActivity;
 import com.example.salesmanagerment.screen.sales.fragmentarea.TableFragment;
@@ -22,7 +24,9 @@ import com.example.salesmanagerment.utils.CommonFunc;
 import com.example.salesmanagerment.utils.Constants;
 import com.example.salesmanagerment.utils.Navigator;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class CreateOrderActivity extends BaseActivity implements ICreateOrderContact.IView, View.OnClickListener, AddPersonDialogFragment.SetPerson {
 
@@ -36,21 +40,21 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderCon
     private ImageButton imageButtonBack;
     private RecyclerView recyclerView;
     private ImageButton imageButtonPay;
-    private List<ItemOrder> mItemOrders;
     private CreateOrderAdapter mAdapter;
     private Button btnAddMore;
     private TextView tvSumMoney;
-    private Double dSumMoney;
+    private Double dSumMoney = 0.0;
     private TableMappingCustom mTableMappingCustom;
     public static final String TABLE_ID_EXTRA = "TABLE_ID_EXTRA";
     public ImageButton imb_save_order;
+    private CreateOrderPresenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_order);
-        initView();
-        initEvent();
+        mPresenter = new CreateOrderPresenter();
+        mPresenter.setView(this);
         getData();
     }
 
@@ -61,21 +65,27 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderCon
                 finish();
             }
         });
+        imb_save_order.setOnClickListener(this);
     }
 
     private void getData() {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            mItemOrders = bundle.getParcelableArrayList(Constants.EXTRAS_INVENTORY_ITEM_LIST);
-            mAdapter.setListData(mItemOrders);
-            recyclerView.setAdapter(mAdapter);
+            mPresenter.mItemOrders = bundle.getParcelableArrayList(Constants.EXTRAS_INVENTORY_ITEM_LIST);
+            mPresenter.mOrderEntity = bundle.getParcelable(Constants.EXTRAS_ORDER_ENTITY);
+        }
+        initView();
+        initEvent();
+    }
 
+    private void calculateMoney() {
+        for (ItemOrder item : mPresenter.mItemOrders) {
+            dSumMoney += item.TotalMoney;
         }
     }
 
     private void initView() {
         tvSumMoney = findViewById(R.id.tv_sum_money);
-
         imageButtonPay = findViewById(R.id.imb_pay);
         imageButtonPay.setOnClickListener(this);
         recyclerView = findViewById(R.id.recycle_name_dish);
@@ -96,12 +106,13 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderCon
         imb_save_order = findViewById(R.id.imb_save_order);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new CreateOrderAdapter(this);
-        tvSumMoney.setText("670,000");
+        mAdapter.setListData(mPresenter.mItemOrders);
+        recyclerView.setAdapter(mAdapter);
+        calculateMoney();
+        tvSumMoney.setText(NumberFormat.getNumberInstance(Locale.US).format((dSumMoney)));
         if (mTableMappingCustom != null && !CommonFunc.isNullOrEmpty(mTableMappingCustom.TableName)) {
             tvOptionTable.setText(mTableMappingCustom.TableName);
         }
-
-
     }
 
     @Override
@@ -114,7 +125,7 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderCon
         switch (view.getId()) {
             case R.id.tv_Table:
                 Bundle bundle = new Bundle();
-               // bundle.putString(TABLE_ID_EXTRA, mTableMappingCustom.TableID);
+                // bundle.putString(TABLE_ID_EXTRA, mTableMappingCustom.TableID);
                 navigator.startActivityForResult(OptionTableActivity.class, bundle, Constants.REQUEST_CODE);
                 break;
             case R.id.tv_Add_Person:
@@ -133,7 +144,7 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderCon
             case R.id.imb_pay:
                 break;
             case R.id.imb_save_order:
-
+                mPresenter.saveOrder();
                 //navigator.startActivity(BillActivity.class);
             default:
                 break;
@@ -147,6 +158,7 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderCon
         if (requestCode == Constants.REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             mTableMappingCustom = data.getParcelableExtra(TableFragment.EXTRA_NAME_TABLE);
             tvOptionTable.setText(mTableMappingCustom.TableName);
+            mPresenter.mOrderEntity.order.TableID = mTableMappingCustom.TableID;
         }
     }
 

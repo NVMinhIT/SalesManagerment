@@ -40,6 +40,11 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
     private int TYPE_EDIT = 1;
     private int TYPE_CREATE = 0;
     private int type = TYPE_CREATE;
+
+    public OrderEntity getOrderEntiy() {
+        return mOrderEntiy;
+    }
+
     private OrderEntity mOrderEntiy;
 
     @Override
@@ -111,6 +116,8 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
                 if (itemOrders.size() > 0) {
                     mPresenter.setOrderDetails(itemOrders);
                     Bundle bundle = new Bundle();
+                    //bundle.putParcelableArrayList(Constants.EXTRAS_INVENTORY_ITEM_LIST, (ArrayList<? extends Parcelable>) itemOrders);
+                    bundle.putParcelable(Constants.EXTRAS_ORDER_ENTITY, mPresenter.getOrderEntity());
                     bundle.putParcelableArrayList(Constants.EXTRAS_INVENTORY_ITEM_LIST, (ArrayList<? extends Parcelable>) itemOrders);
                     navigator.startActivity(CreateOrderActivity.class, bundle);
                 } else {

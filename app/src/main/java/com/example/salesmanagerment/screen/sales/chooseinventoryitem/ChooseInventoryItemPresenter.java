@@ -19,11 +19,29 @@ public class ChooseInventoryItemPresenter implements IInventoryItemContact.IPres
     private DataSource mDataSource;
     private IInventoryItemContact.IView mView;
     private List<Unit> mUnits;
+
+    public OrderEntity getOrderEntity() {
+        return mOrderEntity;
+    }
+
     private OrderEntity mOrderEntity;
 
     public ChooseInventoryItemPresenter() {
         mDataSource = DataSource.getInstance();
         mUnits = mDataSource.getUnitList();
+        if (mUnits == null) {
+            mDataSource.getListUnit(new IDataCallBack<List<Unit>, String>() {
+                @Override
+                public void onDataSuccess(List<Unit> data) {
+                    mUnits = data;
+                }
+
+                @Override
+                public void onDataFailed(String error) {
+
+                }
+            });
+        }
     }
 
     public void setOrderDetails(List<ItemOrder> itemOrders) {

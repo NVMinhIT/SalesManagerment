@@ -11,7 +11,7 @@ public interface ICreateOrderContact{
     }
 
     interface IPresenter extends IBasePresenter<ICreateOrderContact.IView> {
-        void saveOrder(Order order);
+        void saveOrder();
     }
 }
 

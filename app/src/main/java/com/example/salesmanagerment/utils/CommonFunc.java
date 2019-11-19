@@ -24,10 +24,13 @@ import android.widget.Toast;
 import androidx.core.content.ContextCompat;
 
 import com.example.salesmanagerment.R;
+import com.example.salesmanagerment.data.model.entity.ItemOrder;
+
 import java.io.ByteArrayOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class CommonFunc {
@@ -46,7 +49,7 @@ public class CommonFunc {
     }
 
     public static String getStringCurrentDateTime() {
-        SimpleDateFormat formatter = new SimpleDateFormat(Constants.K_DATE_FORMAT, Locale.US);
+        SimpleDateFormat formatter = new SimpleDateFormat(Constants.K_DATE_FORMAT_2, Locale.US);
         return formatter.format(new Date());
     }
 
@@ -159,4 +162,5 @@ public class CommonFunc {
         }
         return TextUtils.isEmpty(s);
     }
+
 }
