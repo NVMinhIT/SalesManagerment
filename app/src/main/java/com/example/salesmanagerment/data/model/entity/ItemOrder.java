@@ -10,7 +10,7 @@ public class ItemOrder implements Parcelable {
     public String Image;
     public Double Price;
     public String UnitName;
-    private Double TotalMoney;
+    public Double TotalMoney = 0.0;
 
     public ItemOrder(String ID, int quantity, String name, String image, Double price, String unitName, Double totalMoney) {
         this.ID = ID;

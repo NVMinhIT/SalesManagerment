@@ -3,6 +3,7 @@ package com.example.salesmanagerment.utils;
 
 import com.example.salesmanagerment.data.Sharedprf.SharedPrefsImpl;
 import com.example.salesmanagerment.data.model.entity.UserProfile;
+import com.google.gson.Gson;
 
 public class CacheManager {
 
@@ -48,11 +49,12 @@ public class CacheManager {
     }
 
     public void cacheUser(UserProfile userProfile) {
-        sharedPrefs.put(USER_INFO, userProfile);
+        sharedPrefs.put(USER_INFO, new Gson().toJson(userProfile));
     }
 
     public UserProfile getUser() {
-        return sharedPrefs.get(USER_INFO, UserProfile.class);
+        String tracks = sharedPrefs.get(USER_INFO, String.class);
+        return new Gson().fromJson(tracks, UserProfile.class);
     }
 
 

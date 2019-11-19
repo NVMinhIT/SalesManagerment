@@ -3,6 +3,8 @@ package com.example.salesmanagerment.data.api;
 
 import com.example.salesmanagerment.data.model.entity.Area;
 import com.example.salesmanagerment.data.model.entity.InventoryItem;
+import com.example.salesmanagerment.data.model.entity.Order;
+import com.example.salesmanagerment.data.model.entity.OrderEntity;
 import com.example.salesmanagerment.data.model.entity.TableMappingCustom;
 import com.example.salesmanagerment.data.model.entity.Unit;
 import com.example.salesmanagerment.data.model.entity.UserProfile;
@@ -26,8 +28,8 @@ public interface ApiService {
     Call<BaseResponse<String>> login(@Body LoginRequest loginRequest);
 
     @Headers("Content-Type: application/json")
-    @POST("user")
-    Call<UserProfile> getUserProfile(@Header("authorization") String token, @Body LoginRequest loginRequest);
+    @POST("Login/getuser")
+    Call<BaseResponse<UserProfile>> getUserProfile(@Header("authorization") String token, @Body UserProfile userProfile);
 
     // lấy list đơn vị món ăn
     @GET("unit/getlist")
@@ -45,4 +47,7 @@ public interface ApiService {
     @GET("TableMapping/GetByAreaID")
     Call<BaseResponse<List<TableMappingCustom>>> getListTableByAreaID(@Header("authorization") String token, @Query("areaID") String areaID, @Query("time") String time);
 
+    // thêm order
+    @POST("Order/InsertUpdateOrderEntity")
+    Call<BaseResponse<Boolean>> createOrder(@Header("authorization") String token, @Body OrderEntity orderEntity);
 }

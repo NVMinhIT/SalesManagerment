@@ -8,13 +8,16 @@ import com.example.salesmanagerment.data.api.ApiService;
 import com.example.salesmanagerment.data.api.ServiceGenerator;
 import com.example.salesmanagerment.data.model.entity.Area;
 import com.example.salesmanagerment.data.model.entity.InventoryItem;
+import com.example.salesmanagerment.data.model.entity.OrderEntity;
 import com.example.salesmanagerment.data.model.entity.TableMappingCustom;
 import com.example.salesmanagerment.data.model.entity.Unit;
 import com.example.salesmanagerment.data.model.entity.UserProfile;
 import com.example.salesmanagerment.data.model.request.LoginRequest;
 import com.example.salesmanagerment.data.model.response.base.BaseResponse;
+import com.example.salesmanagerment.screen.main.IInitDataCallback;
 import com.example.salesmanagerment.utils.CacheManager;
 import com.example.salesmanagerment.utils.CommonFunc;
+import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -67,10 +70,10 @@ public class DataSource {
     private DataSource() {
         apiService = ServiceGenerator.createService(ApiService.class);
         token = CacheManager.cacheManager.getToken();
-        getListUnit(null);
-        getListArea(null);
+//        getListUnit(null);
+//        getListArea(null);
         //getListTableByAreaID("6f64544e-61d2-4cb8-aaec-3e0b564f5e51", null);
-        getListInventoryItem(null);
+//        getListInventoryItem(null);
     }
 
     // đăng nhập
@@ -238,18 +241,54 @@ public class DataSource {
         return this;
     }
 
-    // lấy thông tin user
-    public void getUserInfo(LoginRequest loginRequest, final IDataCallBack<UserProfile, String> callBack) {
-        apiService.getUserProfile(token, loginRequest).enqueue(new Callback<UserProfile>() {
+    public void init(final IInitDataCallback callback) {
+        getListArea(new IDataCallBack<List<Area>, String>() {
             @Override
-            public void onResponse(Call<UserProfile> call, Response<UserProfile> response) {
-                if (response.isSuccessful()) {
+            public void onDataSuccess(List<Area> data) {
+                getListUnit(new IDataCallBack<List<Unit>, String>() {
+                    @Override
+                    public void onDataSuccess(List<Unit> data) {
+                        getListInventoryItem(new IDataCallBack<List<InventoryItem>, String>() {
+                            @Override
+                            public void onDataSuccess(List<InventoryItem> data) {
+                                callback.success();
+                            }
 
-                    if (callBack != null) {
-                        callBack.onDataSuccess(response.body());
+                            @Override
+                            public void onDataFailed(String error) {
+                                callback.failed();
+                            }
+                        });
                     }
 
+                    @Override
+                    public void onDataFailed(String error) {
+                        callback.failed();
+                    }
+                });
+            }
 
+            @Override
+            public void onDataFailed(String error) {
+                callback.failed();
+            }
+        });
+    }
+
+
+    //lấy danh sách bàn theo khu vực
+    public void createOrder(OrderEntity orderEntity, final IDataCallBack<Boolean, String> callBack) {
+        Log.d(TAG, "createOrder: \n" + new Gson().toJson(orderEntity));
+        apiService.createOrder(token, orderEntity).enqueue(new Callback<BaseResponse<Boolean>>() {
+            @Override
+            public void onResponse(@NotNull Call<BaseResponse<Boolean>> call, @NotNull Response<BaseResponse<Boolean>> response) {
+                if (response.isSuccessful()) {
+                    Log.d(TAG, "onResponse: ");
+                    if (callBack != null) {
+                        if (response.body() != null) {
+                            callBack.onDataSuccess(response.body().getSuccess());
+                        }
+                    }
                 } else {
                     if (callBack != null) {
                         callBack.onDataFailed(response.message());
@@ -258,7 +297,39 @@ public class DataSource {
             }
 
             @Override
-            public void onFailure(Call<UserProfile> call, Throwable t) {
+            public void onFailure(@NotNull Call<BaseResponse<Boolean>> call, @NotNull Throwable t) {
+                if (callBack != null) {
+                    callBack.onDataFailed(t.getMessage());
+                }
+                CommonFunc.showToastWarning(R.string.somthing_went_wrong);
+            }
+        });
+    }
+
+    //lấy danh sách khu vực
+
+    // lấy thông tin user
+    public void getUserInfo(LoginRequest loginRequest, final IDataCallBack<UserProfile, String> callBack) {
+        UserProfile userProfile = new UserProfile();
+        userProfile.setUserName(loginRequest.getUserName());
+        userProfile.setPassword(loginRequest.getPassword());
+        apiService.getUserProfile(token, userProfile).enqueue(new Callback<BaseResponse<UserProfile>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<UserProfile>> call, Response<BaseResponse<UserProfile>> response) {
+                if (response.isSuccessful()) {
+
+                    if (callBack != null) {
+                        callBack.onDataSuccess(response.body().getData());
+                    }
+                } else {
+                    if (callBack != null) {
+                        callBack.onDataFailed(response.message());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<UserProfile>> call, Throwable t) {
                 if (callBack != null) {
                     callBack.onDataFailed(t.getMessage());
                 }

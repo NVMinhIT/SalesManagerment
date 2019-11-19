@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.BaseActivity;
 import com.example.salesmanagerment.data.model.entity.ItemOrder;
-import com.example.salesmanagerment.screen.sales.choosetable.OptionTablePresenter;
+import com.example.salesmanagerment.data.model.entity.OrderEntity;
 import com.example.salesmanagerment.screen.sales.createorder.CreateOrderActivity;
 import com.example.salesmanagerment.screen.sales.customer.DialogFragmentAddCustomer;
 import com.example.salesmanagerment.utils.CommonFunc;
@@ -37,6 +37,15 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
     private RecyclerView mRecyclerView;
     private ChooseInventoryItemAdapter mAdapter;
     private EditText edtSearch;
+    private int TYPE_EDIT = 1;
+    private int TYPE_CREATE = 0;
+    private int type = TYPE_CREATE;
+
+    public OrderEntity getOrderEntiy() {
+        return mOrderEntiy;
+    }
+
+    private OrderEntity mOrderEntiy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +55,11 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
         initEvents();
         mPresenter = new ChooseInventoryItemPresenter();
         mPresenter.setView(this);
-        mPresenter.onStart();
+        if (type == TYPE_CREATE) {
+            mOrderEntiy = new OrderEntity().initOrderEntity();
+            mPresenter.setOrderEntity(mOrderEntiy);
+            mPresenter.onStart();
+        }
     }
 
     private void initEvents() {
@@ -81,7 +94,7 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
     private void initViews() {
         dialogFragmentAddCustomer = new DialogFragmentAddCustomer();
         imageButtonAddInformation = findViewById(R.id.imb_AddInformation);
-       // swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        // swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         edtSearch = findViewById(R.id.edtSearch);
         navigator = new Navigator(this);
         buttonAccept = findViewById(R.id.btnAccept);
@@ -101,7 +114,10 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
             case R.id.btnAccept:
                 List<ItemOrder> itemOrders = mAdapter.getTotalItemSelected();
                 if (itemOrders.size() > 0) {
+                    mPresenter.setOrderDetails(itemOrders);
                     Bundle bundle = new Bundle();
+                    //bundle.putParcelableArrayList(Constants.EXTRAS_INVENTORY_ITEM_LIST, (ArrayList<? extends Parcelable>) itemOrders);
+                    bundle.putParcelable(Constants.EXTRAS_ORDER_ENTITY, mPresenter.getOrderEntity());
                     bundle.putParcelableArrayList(Constants.EXTRAS_INVENTORY_ITEM_LIST, (ArrayList<? extends Parcelable>) itemOrders);
                     navigator.startActivity(CreateOrderActivity.class, bundle);
                 } else {
@@ -127,6 +143,6 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
             mAdapter.setRootList(items);
             mAdapter.setListData(items);
         }
-      // swipeRefreshLayout.setRefreshing(false);
+        // swipeRefreshLayout.setRefreshing(false);
     }
 }

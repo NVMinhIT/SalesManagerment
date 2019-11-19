@@ -55,7 +55,7 @@ public class LoginPresenter implements ILoginContract.IPresenter {
             @Override
             public void onDataFailed(String error) {
                 mView.showLoading(false);
-                //CommonFunc.showToastSuccess(R.string.somthing_went_wrong);
+                CommonFunc.showToastSuccess(R.string.somthing_went_wrong);
             }
         });
 

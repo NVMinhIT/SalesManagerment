@@ -1,8 +1,13 @@
 package com.example.salesmanagerment.data.model.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import com.example.salesmanagerment.utils.CommonFunc;
+
 import java.util.Date;
 
-public class Order {
+public class Order implements Parcelable {
 
     public static final int ARE_SERVING = 0; //đang phục vụ
     public static final int PAYMENT_REQUEST = 1; //yc thanh toán
@@ -11,7 +16,7 @@ public class Order {
 
     public String OrderID;
     public int OrderStatus;
-    public Date OrderDate;
+    public String OrderDate = CommonFunc.getStringCurrentDateTime();;
     public String BranchID;
     public String CustomerID;
     public int NumberOfPeople;
@@ -20,9 +25,9 @@ public class Order {
     public String CancelEmployeeID;
     public String CancelReason;
     public String TableID;
-    public Date CreatedDate;
+    public String CreatedDate = CommonFunc.getStringCurrentDateTime();;
     public String CreatedBy;
-    public Date ModifiedDate;
+    public String ModifiedDate = CommonFunc.getStringCurrentDateTime();
     public String ModifiedBy;
 
     public Order(Builder builder) {
@@ -43,6 +48,60 @@ public class Order {
         ModifiedBy = builder.ModifiedBy;
     }
 
+    protected Order(Parcel in) {
+        OrderID = in.readString();
+        OrderStatus = in.readInt();
+        OrderDate = in.readString();
+        BranchID = in.readString();
+        CustomerID = in.readString();
+        NumberOfPeople = in.readInt();
+        BookingID = in.readString();
+        EmployeeID = in.readString();
+        CancelEmployeeID = in.readString();
+        CancelReason = in.readString();
+        TableID = in.readString();
+        CreatedDate = in.readString();
+        CreatedBy = in.readString();
+        ModifiedDate = in.readString();
+        ModifiedBy = in.readString();
+    }
+
+    public static final Creator<Order> CREATOR = new Creator<Order>() {
+        @Override
+        public Order createFromParcel(Parcel in) {
+            return new Order(in);
+        }
+
+        @Override
+        public Order[] newArray(int size) {
+            return new Order[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(OrderID);
+        dest.writeInt(OrderStatus);
+        dest.writeString(OrderDate);
+        dest.writeString(BranchID);
+        dest.writeString(CustomerID);
+        dest.writeInt(NumberOfPeople);
+        dest.writeString(BookingID);
+        dest.writeString(EmployeeID);
+        dest.writeString(CancelEmployeeID);
+        dest.writeString(CancelReason);
+        dest.writeString(TableID);
+        dest.writeString(CreatedDate);
+        dest.writeString(CreatedBy);
+        dest.writeString(ModifiedDate);
+        dest.writeString(ModifiedBy);
+    }
+
     public static class Builder {
         public Builder setOrderID(String orderID) {
             OrderID = orderID;
@@ -54,7 +113,7 @@ public class Order {
             return this;
         }
 
-        public Builder setOrderDate(Date orderDate) {
+        public Builder setOrderDate(String orderDate) {
             OrderDate = orderDate;
             return this;
         }
@@ -99,7 +158,7 @@ public class Order {
             return this;
         }
 
-        public Builder setCreatedDate(Date createdDate) {
+        public Builder setCreatedDate(String createdDate) {
             CreatedDate = createdDate;
             return this;
         }
@@ -109,7 +168,7 @@ public class Order {
             return this;
         }
 
-        public Builder setModifiedDate(Date modifiedDate) {
+        public Builder setModifiedDate(String modifiedDate) {
             ModifiedDate = modifiedDate;
             return this;
         }
@@ -125,7 +184,7 @@ public class Order {
 
         public String OrderID;
         public int OrderStatus;
-        public Date OrderDate;
+        public String OrderDate;
         public String BranchID;
         public String CustomerID;
         public int NumberOfPeople;
@@ -134,9 +193,9 @@ public class Order {
         public String CancelEmployeeID;
         public String CancelReason;
         public String TableID;
-        public Date CreatedDate;
+        public String CreatedDate;
         public String CreatedBy;
-        public Date ModifiedDate;
+        public String ModifiedDate;
         public String ModifiedBy;
     }
 }

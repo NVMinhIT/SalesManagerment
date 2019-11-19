@@ -90,7 +90,6 @@ public class ChooseInventoryItemAdapter extends ListAdapter<ItemOrder, IOnItemCl
             for (int i = 0; i < mListData.size(); i++) {
                 totalMoney += mListData.get(i).getTotalMoney();
                 Log.d("HAHA", "" + totalMoney);
-
             }
             mOnItemClickListener.onItemClick(totalMoney);
         } catch (Exception e) {
@@ -213,7 +212,6 @@ public class ChooseInventoryItemAdapter extends ListAdapter<ItemOrder, IOnItemCl
                 case R.id.ivDefault:
                     try {
                         ivDefault.setVisibility(View.GONE);
-                        //ivICon.setVisibility(View.VISIBLE);
                         quantity = 0;
                         tvQuantity.setText(String.valueOf(0));
                         clDishOrder.setBackground(mContext.getResources().getDrawable(R.drawable.selector_dish));
@@ -238,7 +236,6 @@ public class ChooseInventoryItemAdapter extends ListAdapter<ItemOrder, IOnItemCl
                             clDishOrder.setBackground(mContext.getResources().getDrawable(R.drawable.selector_dish));
                             lnQuantity.setVisibility(View.GONE);
                             ivDefault.setVisibility(View.INVISIBLE);
-                            // ivICon.setVisibility(View.VISIBLE);
                         } else if (quantity < 0) {
                             quantity = 0;
                         }
@@ -248,25 +245,15 @@ public class ChooseInventoryItemAdapter extends ListAdapter<ItemOrder, IOnItemCl
                     }
                     break;
             }
-            //gán số lượng và tổng tiền món ăn của hóa đơn chi tiết
-//            mBillDetail.setQuantity(quantity);
-//            mBillDetail.setTotalMoney(quantity * mPrice);
-            //           mListData.set(getAdapterPosition(), mBillDetail);
             mItemOrder.Quantity = quantity;
-//            aDouble = (quantity * mItemOrder.Price);
-//            mItemOrder.setTotalMoney(aDouble);
-//            mListData.set(getAdapterPosition(), mItemOrder);
-            //totalMoney();
             setDataToRoot(quantity);
 
         }
 
         void setDataToRoot(int quantity) {
-//            for (int i = 0; i < size ; i++) {
-//                if (rootList.get(getAdapterPosition()).ID.equals(mItemOrder.ID)) {
-            rootList.get(getAdapterPosition()).Quantity = quantity;
-//                }
-//            }
+            ItemOrder itemOrder = rootList.get(getAdapterPosition());
+            itemOrder.Quantity = quantity;
+            itemOrder.TotalMoney = quantity * itemOrder.Price;
         }
 
         void bind(ItemOrder itemOrder) {
@@ -277,11 +264,9 @@ public class ChooseInventoryItemAdapter extends ListAdapter<ItemOrder, IOnItemCl
             if (quantity > 0) {
                 tvQuantity.setText(String.valueOf(itemOrder.Quantity));
                 ivDefault.setVisibility(View.VISIBLE);
-                //ivICon.setVisibility(View.INVISIBLE);
                 clDishOrder.setBackground(mContext.getResources().getDrawable(R.drawable.selector_button_gray));
                 lnQuantity.setVisibility(View.VISIBLE);
             } else {
-                // ivICon.setVisibility(View.VISIBLE);
                 ivDefault.setVisibility(View.GONE);
                 lnQuantity.setVisibility(View.GONE);
                 tvQuantity.setText(R.string.price_default);

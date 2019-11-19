@@ -29,7 +29,30 @@ public final class Constants {
     public static final int TYPE_FOOD_4 = 0;
 
     public static final String K_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
+    public static final String K_DATE_FORMAT_2 = "MM-dd-yyyy HH:mm:ss";
 
 
-    public static final String EXTRAS_INVENTORY_ITEM_LIST = "EXTRAS_INVENTORY_ITEM_LIST" ;
+    public static final String EXTRAS_INVENTORY_ITEM_LIST = "EXTRAS_INVENTORY_ITEM_LIST";
+
+    //trạng thái bàn
+    public static final int TABLE_EMPTY = 0; //đang trống
+    public static final int TABLE_ARE_SERVING = 1; //đang phục vụ
+    public static final int TABLE_RESERVE = 2; //đã đặt trước
+
+    public static final String EXTRAS_ORDER_ENTITY = "EXTRAS_ORDER_ENTITY";
+
+    //Order status Trạng thái Order (0- đang phục vụ, 1- chờ thanh toán, 2- đã thanh toán, 3- hủy )
+    public static final int ORDER_SERVING = 0; //đang phục vụ
+    public static final int ORDER_WAIT_FOR_PAY = 1; // CHỜ THANH TOÁN
+    public static final int ORDER_PAYED = 2; //ĐÃ THANH TOÁN
+    public static final int ORDER_CANCEL = 3; //HỦY
+
+    //Trạng thái chi tiết Order: 0-chưa phục vụ,
+    // 1-đã gửi bếp, 2-đang chế biến, 3-đã chế biến, 4-đã phục vụ, 5-hủy món
+    public static final int ORDER_DETAIL_NOTHING = 0; //CHƯA PHỤC VỤ
+    public static final int ORDER_DETAIL_SENT_KITCHEN = 1; //ĐÃ GỬI BẾP
+    public static final int ORDER_DETAIL_PROCESSING = 2; //ĐANG CHẾ BIẾN
+    public static final int ORDER_DETAIL_PROCESSED = 3; //ĐÃ CHẾ BIẾN
+    public static final int ORDER_DETAIL_SERVED = 4; //ĐÃ PHỤC VỤ
+    public static final int ORDER_DETAIL_CANCEL = 5; //HỦY MÓN
 }

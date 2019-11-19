@@ -17,11 +17,15 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.BaseActivity;
 import com.example.salesmanagerment.data.model.entity.Area;
+import com.example.salesmanagerment.data.model.entity.TableMappingCustom;
 import com.example.salesmanagerment.screen.sales.fragmentarea.PaperAdapterArea;
 import com.example.salesmanagerment.screen.sales.fragmentarea.TableFragment;
+import com.example.salesmanagerment.utils.CommonFunc;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.List;
+
+import static com.example.salesmanagerment.screen.sales.fragmentarea.TableFragment.ACTION_NAME_TABLE;
 
 public class OptionTableActivity extends BaseActivity implements IOptionTableContact.IView, View.OnClickListener {
     private Button btCancelTable;
@@ -31,17 +35,24 @@ public class OptionTableActivity extends BaseActivity implements IOptionTableCon
     private PaperAdapterArea paperAdapter;
     private OptionTablePresenter mPresenter;
     private Button btnChooseTable;
-    private String NameTable;
+
+    public void setTableMappingCustom(TableMappingCustom tableMappingCustom) {
+        mTableMappingCustom = tableMappingCustom;
+    }
+
+    private TableMappingCustom mTableMappingCustom;
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent != null) {
                 if (intent.getAction() != null) {
-                    try {
-                        NameTable = intent.getStringExtra(TableFragment.EXTRA_NAME_TABLE);
+                    if (intent.getAction().equals(ACTION_NAME_TABLE)) {
+                        try {
+                            mTableMappingCustom = intent.getParcelableExtra(TableFragment.EXTRA_NAME_TABLE);
 
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
@@ -53,7 +64,7 @@ public class OptionTableActivity extends BaseActivity implements IOptionTableCon
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_option_table);
         initView();
-        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver, new IntentFilter(TableFragment.ACTION_NAME_TABLE));
+        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver, new IntentFilter(ACTION_NAME_TABLE));
     }
 
     private void initView() {
@@ -108,16 +119,21 @@ public class OptionTableActivity extends BaseActivity implements IOptionTableCon
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_Cancel_Table:
-                // finish();
+                mTableMappingCustom = null;
                 break;
             case R.id.btn_Back_Table:
                 finish();
                 break;
             case R.id.btn_Yes_Table:
-                Intent intent = new Intent();
-                intent.putExtra("NAME", NameTable);
-                setResult(Activity.RESULT_OK, intent);
-                finish();
+                if (mTableMappingCustom != null) {
+                    Intent intent = new Intent();
+                    intent.putExtra(TableFragment.EXTRA_NAME_TABLE, mTableMappingCustom);
+                    setResult(Activity.RESULT_OK, intent);
+                    finish();
+                }else {
+                    CommonFunc.showToastWarning(R.string.have_to_select_table);
+                }
+
                 break;
             default:
                 break;
@@ -128,15 +144,6 @@ public class OptionTableActivity extends BaseActivity implements IOptionTableCon
     public void onBackPressed() {
         super.onBackPressed();
     }
-
-
-//    @Override
-//    public void onItemClick(Table data) {
-//        Intent intent = new Intent();
-//        intent.putExtra("NAME", data.getNameTable());
-//        setResult(Activity.RESULT_OK, intent);
-//        finish();
-//    }
 
     @Override
     public void getAreaSuccess(List<Area> areaList) {

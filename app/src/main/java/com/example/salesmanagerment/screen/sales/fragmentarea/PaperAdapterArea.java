@@ -13,10 +13,14 @@ import java.util.List;
 public class PaperAdapterArea extends FragmentPagerAdapter {
 
     private List<Area> mAreas;
+    private List<TableFragment> mTableFragmentList;
 
     public PaperAdapterArea(FragmentManager fg, List<Area> areaList) {
         super(fg);
         this.mAreas = areaList;
+//        for (int i = 0; i < areaList.size(); i++) {
+//            mTableFragmentList.add(TableFragment.newInstance(mAreas.get(i).AreaID));
+//        }
     }
 
     @NotNull

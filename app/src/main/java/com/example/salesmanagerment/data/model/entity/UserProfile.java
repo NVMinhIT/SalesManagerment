@@ -39,13 +39,13 @@ public class UserProfile {
     private String createdDate;
     @SerializedName("CreatedBy")
     @Expose
-    private Object createdBy;
+    private String createdBy;
     @SerializedName("ModifiedDate")
     @Expose
     private String modifiedDate;
     @SerializedName("ModifiedBy")
     @Expose
-    private Object modifiedBy;
+    private String modifiedBy;
 
     public String getUserID() {
         return userID;
@@ -139,7 +139,7 @@ public class UserProfile {
         return createdBy;
     }
 
-    public void setCreatedBy(Object createdBy) {
+    public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
     }
 
@@ -151,11 +151,11 @@ public class UserProfile {
         this.modifiedDate = modifiedDate;
     }
 
-    public Object getModifiedBy() {
+    public String getModifiedBy() {
         return modifiedBy;
     }
 
-    public void setModifiedBy(Object modifiedBy) {
+    public void setModifiedBy(String modifiedBy) {
         this.modifiedBy = modifiedBy;
     }
 }
