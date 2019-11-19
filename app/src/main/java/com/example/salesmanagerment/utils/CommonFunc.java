@@ -1,7 +1,6 @@
 package com.example.salesmanagerment.utils;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,7 +14,6 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,13 +22,10 @@ import android.widget.Toast;
 import androidx.core.content.ContextCompat;
 
 import com.example.salesmanagerment.R;
-import com.example.salesmanagerment.data.model.entity.ItemOrder;
 
 import java.io.ByteArrayOutputStream;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 public class CommonFunc {
@@ -38,7 +33,7 @@ public class CommonFunc {
 
     @SuppressLint("StaticFieldLeak")
     private static Context mContext;
-    
+
     public CommonFunc(Context context) {
         mContext = context;
     }
@@ -53,18 +48,16 @@ public class CommonFunc {
         return formatter.format(new Date());
     }
 
-    public static Date getCurrentDateTime(String dateTime) {
-        try {
-            return new SimpleDateFormat(Constants.K_DATE_FORMAT).parse(dateTime);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return null;
+    public static String getCurrentDateTime(Date date) {
+        SimpleDateFormat formatter = new SimpleDateFormat(Constants.K_DATE_FORMAT_3, Locale.US);
+        return formatter.format(date);
+
     }
 
     public static void showToastSuccess(int msg) {
         showToastShort(msg, null, ToastEnum.SUCCESS);
     }
+
     public static void showToastSuccess(String msg) {
         showToastShort(0, msg, ToastEnum.SUCCESS);
     }
@@ -76,9 +69,11 @@ public class CommonFunc {
     public static void showToastWarning(String msg) {
         showToastShort(0, msg, ToastEnum.WARN);
     }
+
     public static void showToastError(int msg) {
         showToastShort(msg, null, ToastEnum.ERROR);
     }
+
     public static void showToastError(String msg) {
         showToastShort(0, msg, ToastEnum.ERROR);
     }
@@ -86,6 +81,7 @@ public class CommonFunc {
     public static void showToastInfo(int msg) {
         showToastShort(msg, null, ToastEnum.INFO);
     }
+
     public static void showToastInfo(String msg) {
         showToastShort(0, msg, ToastEnum.INFO);
     }
@@ -149,7 +145,7 @@ public class CommonFunc {
             ConnectivityManager connectivityManager = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
             return networkInfo != null && networkInfo.isConnected();
-        } catch (Exception ex)  {
+        } catch (Exception ex) {
             Log.e(TAG, "isNetworkAvailable: ", ex);
         }
 

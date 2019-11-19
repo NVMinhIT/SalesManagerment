@@ -10,6 +10,9 @@ public final class Constants {
     public static final String NAME_USER = "NAME";
     public static final String PASSWORD_USER = "PASS";
     public static final String EXTRA_CLASS = "dialogFragmentAddCustomer";
+    public static final String NUMBER_PERSON = "NUMBER_PERSON";
+    public static final String NUMBER_TABLE = "NUMBER_TABLE";
+    public static final String TABLE_MAPPING = "TABLE_MAPPING";
 
     public static final int FOOD_TYPE = 0;
     public static final int DRINK_TYPE = 1;
@@ -30,6 +33,7 @@ public final class Constants {
 
     public static final String K_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
     public static final String K_DATE_FORMAT_2 = "MM-dd-yyyy HH:mm:ss";
+    public static final String K_DATE_FORMAT_3 = "dd/MM/yyyy HH:mm:ss";
 
 
     public static final String EXTRAS_INVENTORY_ITEM_LIST = "EXTRAS_INVENTORY_ITEM_LIST";
@@ -41,7 +45,7 @@ public final class Constants {
 
     public static final String EXTRAS_ORDER_ENTITY = "EXTRAS_ORDER_ENTITY";
     public static final String EXTRAS_INVOICE_ENTITY = "EXTRAS_INVOICE_ENTITY";
-    public static final String EXTRAS_ORDER_ENTITY_lIST = "EXTRAS_ORDER_ENTITY_lIST";
+    public static final String EXTRAS_INVOICE_ENTITY_lIST = "EXTRAS_ORDER_ENTITY_lIST";
     public static final String SUM_MONEY = "SUM_MONEY";
 
     //Order status Trạng thái Order (0- đang phục vụ, 1- chờ thanh toán, 2- đã thanh toán, 3- hủy )

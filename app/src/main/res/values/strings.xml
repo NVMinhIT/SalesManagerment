@@ -250,5 +250,6 @@
     <string name="create_order_success">Thêm order thành công</string>
     <string name="create_order_failed">Thêm order thất bại, vui lòng thử lại</string>
     <string name="happy_again">Chúc quý khách vui vẻ, hẹn gặp lại!</string>
-    <string name="name_employee">Tên nhân viên</string>
+    <string name="name_employee">Tên nhân viên: </string>
+    <string name="please_enter">Vui lòng chọn bàn!</string>
 </resources>

@@ -53,6 +53,7 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderCon
     private OrderEntity orderEntity;
     private List<ItemOrder> itemOrderList;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,8 +76,7 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderCon
     private void getData() {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            mPresenter.mItemOrders = bundle.getParcelableArrayList(Constants.EXTRAS_ORDER_ENTITY_lIST);
-
+            mPresenter.mItemOrders = bundle.getParcelableArrayList(Constants.EXTRAS_INVENTORY_ITEM_LIST);
             mPresenter.mOrderEntity = bundle.getParcelable(Constants.EXTRAS_ORDER_ENTITY);
 
         }
@@ -91,6 +91,7 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderCon
     }
 
     private void initView() {
+
         tvSumMoney = findViewById(R.id.tv_sum_money);
         imageButtonPay = findViewById(R.id.imb_pay);
         imageButtonPay.setOnClickListener(this);
@@ -148,13 +149,22 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderCon
                 finish();
                 break;
             case R.id.imb_pay:
-                orderEntity = mPresenter.mOrderEntity;
-                itemOrderList = mPresenter.mItemOrders;
-                Bundle bundle1 = new Bundle();
-                bundle1.putParcelableArrayList(Constants.EXTRAS_ORDER_ENTITY_lIST, (ArrayList<? extends Parcelable>) itemOrderList);
-                bundle1.putParcelable(Constants.EXTRAS_INVOICE_ENTITY, orderEntity);
-                bundle1.putDouble(Constants.SUM_MONEY, dSumMoney);
-                navigator.startActivity(InvoiceActivity.class, bundle1);
+                if (tvOptionTable.getText().toString().equals("")) {
+                    CommonFunc.showToastError(R.string.please_enter);
+                } else {
+                    orderEntity = mPresenter.mOrderEntity;
+                    itemOrderList = mPresenter.mItemOrders;
+                    String numberPerson = tvAddPerson.getText().toString();
+                    String numberTable = tvOptionTable.getText().toString();
+                    Bundle bundle1 = new Bundle();
+                    bundle1.putString(Constants.NUMBER_PERSON, numberPerson);
+                    bundle1.putString(Constants.NUMBER_TABLE, numberTable);
+                    bundle1.putParcelableArrayList(Constants.EXTRAS_INVOICE_ENTITY_lIST, (ArrayList<? extends Parcelable>) itemOrderList);
+                    bundle1.putParcelable(Constants.EXTRAS_INVOICE_ENTITY, orderEntity);
+                    bundle1.putDouble(Constants.SUM_MONEY, dSumMoney);
+                    bundle1.putParcelable(Constants.TABLE_MAPPING, mTableMappingCustom);
+                    navigator.startActivity(InvoiceActivity.class, bundle1);
+                }
                 break;
             case R.id.imb_save_order:
                 mPresenter.saveOrder();

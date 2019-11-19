@@ -43,7 +43,7 @@
             style="@style/TextViewNormal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
+            android:layout_weight="4"
             android:text="@string/into_money"
             android:textAlignment="textEnd" />
     </LinearLayout>
@@ -52,5 +52,5 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/diliver_height"
         android:layout_marginTop="@dimen/padding_4"
-        android:background="@color/colorDarkGray" />
+        android:background="@color/colorGray" />
 </LinearLayout>

@@ -14,6 +14,7 @@ import com.example.salesmanagerment.data.model.entity.Invoice;
 import com.example.salesmanagerment.data.model.entity.InvoiceDetail;
 import com.example.salesmanagerment.data.model.entity.ItemOrder;
 import com.example.salesmanagerment.data.model.entity.OrderEntity;
+import com.example.salesmanagerment.data.model.entity.TableMappingCustom;
 import com.example.salesmanagerment.utils.CommonFunc;
 import com.example.salesmanagerment.utils.Constants;
 
@@ -33,25 +34,38 @@ public class InvoiceActivity extends AppCompatActivity implements IInvoiceContac
     private List<ItemOrder> orderList;
     private OrderEntity orderEntity;
     Double aDouble;
+    TextView dataCreateInvoice;
+    private TableMappingCustom tableMappingCustom;
+    private TextView tvAreaName, tvTableName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invoice);
+        getData();
     }
 
     private void getData() {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            orderList = bundle.getParcelableArrayList(Constants.EXTRAS_ORDER_ENTITY_lIST);
-            orderEntity = bundle.getParcelable(Constants.EXTRAS_ORDER_ENTITY);
+            tableMappingCustom = bundle.getParcelable(Constants.TABLE_MAPPING);
+            orderList = bundle.getParcelableArrayList(Constants.EXTRAS_INVOICE_ENTITY_lIST);
+            orderEntity = bundle.getParcelable(Constants.EXTRAS_INVOICE_ENTITY);
             aDouble = bundle.getDouble(Constants.SUM_MONEY);
+
         }
         initView();
+        tvAreaName.setText(tableMappingCustom.AreaName);
+        tvTableName.setText(tableMappingCustom.TableName);
     }
 
     private void initView() {
-        DateCreateInventoryItem = CommonFunc.getStringCurrentDateTime(new Date());
+        tvAreaName = findViewById(R.id.tv_Area_Name);
+        tvTableName = findViewById(R.id.tv_Table_Name);
+        dataCreateInvoice = findViewById(R.id.tvDateCreated);
+        DateCreateInventoryItem = CommonFunc.getCurrentDateTime(new Date());
+        dataCreateInvoice.setText(DateCreateInventoryItem);
         imageButtonBack = findViewById(R.id.btnBack);
         imageButtonBack.setOnClickListener(this);
         invoicePresenter = new InvoicePresenter();
