@@ -9,7 +9,7 @@ public class OrderDetail implements Parcelable {
     public String InventoryItemID;
     public String InventoryItemAdditionID;
     public Double Quantity;
-    public String QuantityAddition;
+    public Double QuantityAddition;
     public String Description;
     public int SortOrder;
     public Double CookedQuantity;
@@ -21,19 +21,19 @@ public class OrderDetail implements Parcelable {
 
     public OrderDetail(Builder builder) {
         OrderDetailID = builder.OrderDetailID;
-        OrderID= builder.OrderID;
-        InventoryItemID= builder.InventoryItemID;
-        InventoryItemAdditionID= builder.InventoryItemAdditionID;
-        Quantity= builder.Quantity;
-        QuantityAddition= builder.QuantityAddition;
-        Description= builder.Description;
-        SortOrder= builder.SortOrder;
+        OrderID = builder.OrderID;
+        InventoryItemID = builder.InventoryItemID;
+        InventoryItemAdditionID = builder.InventoryItemAdditionID;
+        Quantity = builder.Quantity;
+        QuantityAddition = builder.QuantityAddition;
+        Description = builder.Description;
+        SortOrder = builder.SortOrder;
         CookedQuantity = builder.CookedQuantity;
-        ServedQuantity= builder.ServedQuantity;
-        CookingQuantity= builder.CookingQuantity;
-        OrderDetailStatus= builder.OrderDetailStatus;
-        CancelEmployeeID= builder.CancelEmployeeID;
-        SendKitchenID= builder.SendKitchenID;
+        ServedQuantity = builder.ServedQuantity;
+        CookingQuantity = builder.CookingQuantity;
+        OrderDetailStatus = builder.OrderDetailStatus;
+        CancelEmployeeID = builder.CancelEmployeeID;
+        SendKitchenID = builder.SendKitchenID;
     }
 
     protected OrderDetail(Parcel in) {
@@ -46,7 +46,7 @@ public class OrderDetail implements Parcelable {
         } else {
             Quantity = in.readDouble();
         }
-        QuantityAddition = in.readString();
+        QuantityAddition = in.readDouble();
         Description = in.readString();
         SortOrder = in.readInt();
         if (in.readByte() == 0) {
@@ -98,7 +98,7 @@ public class OrderDetail implements Parcelable {
             dest.writeByte((byte) 1);
             dest.writeDouble(Quantity);
         }
-        dest.writeString(QuantityAddition);
+        dest.writeDouble(QuantityAddition);
         dest.writeString(Description);
         dest.writeInt(SortOrder);
         if (CookedQuantity == null) {
@@ -126,19 +126,19 @@ public class OrderDetail implements Parcelable {
 
     public static class Builder {
         public String OrderDetailID;
-        public String OrderID;
-        public String InventoryItemID;
-        public String InventoryItemAdditionID;
-        public Double Quantity;
-        public String QuantityAddition;
-        public String Description;
-        public int SortOrder;
-        public Double CookedQuantity;
-        public Double ServedQuantity;
-        public Double CookingQuantity;
-        public int OrderDetailStatus;
-        public String CancelEmployeeID;
-        public String SendKitchenID;
+        public String OrderID = "";
+        public String InventoryItemID = "";
+        public String InventoryItemAdditionID = "";
+        public Double Quantity = 0.0;
+        public Double QuantityAddition = 0.0;
+        public String Description = "";
+        public int SortOrder = 0;
+        public Double CookedQuantity = 0.0;
+        public Double ServedQuantity = 0.0;
+        public Double CookingQuantity = 0.0;
+        public int OrderDetailStatus = 0;
+        public String CancelEmployeeID = "";
+        public String SendKitchenID = "";
 
         public Builder setOrderDetailID(String orderDetailID) {
             OrderDetailID = orderDetailID;
@@ -165,7 +165,7 @@ public class OrderDetail implements Parcelable {
             return this;
         }
 
-        public Builder setQuantityAddition(String quantityAddition) {
+        public Builder setQuantityAddition(Double quantityAddition) {
             QuantityAddition = quantityAddition;
             return this;
         }

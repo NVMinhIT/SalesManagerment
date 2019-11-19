@@ -12,6 +12,7 @@ import com.example.salesmanagerment.utils.CommonFunc;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class ChooseInventoryItemPresenter implements IInventoryItemContact.IPresenter {
 
@@ -24,7 +25,7 @@ public class ChooseInventoryItemPresenter implements IInventoryItemContact.IPres
         return mOrderEntity;
     }
 
-    private OrderEntity mOrderEntity;
+    public OrderEntity mOrderEntity;
 
     public ChooseInventoryItemPresenter() {
         mDataSource = DataSource.getInstance();
@@ -47,8 +48,10 @@ public class ChooseInventoryItemPresenter implements IInventoryItemContact.IPres
     public void setOrderDetails(List<ItemOrder> itemOrders) {
         List<OrderDetail> list = new ArrayList<>();
         int sortOrder = 0;
+        //String date = CommonFunc.getStringCurrentDateTime();
         for (ItemOrder item : itemOrders) {
             list.add(new OrderDetail.Builder()
+                    .setOrderDetailID(UUID.randomUUID().toString())
                     .setOrderID(mOrderEntity.order.OrderID)
                     .setInventoryItemID(item.ID)
                     .setQuantity((double) item.Quantity).
@@ -78,7 +81,7 @@ public class ChooseInventoryItemPresenter implements IInventoryItemContact.IPres
         List<ItemOrder> list = new ArrayList<>();
         for (int i = 0; i < itemList.size(); i++) {
             InventoryItem item = itemList.get(i);
-            list.add(new ItemOrder(item.getUnitID(), 0, item.getInventoryItemName(), item.getFileResource(), item.getUnitPrice(), getUnitName(item.getUnitID()), null));
+            list.add(new ItemOrder(item.getInventoryItemID(), 0, item.getInventoryItemName(), item.getFileResource(), item.getUnitPrice(), getUnitName(item.getUnitID()), null));
         }
         return list;
     }

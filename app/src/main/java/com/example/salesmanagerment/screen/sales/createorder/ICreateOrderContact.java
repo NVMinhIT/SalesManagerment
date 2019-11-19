@@ -7,7 +7,7 @@ import com.example.salesmanagerment.screen.sales.choosetable.IOptionTableContact
 
 public interface ICreateOrderContact{
     interface IView extends IBaseView {
-
+        void gotoOrdersScreen();
     }
 
     interface IPresenter extends IBasePresenter<ICreateOrderContact.IView> {
