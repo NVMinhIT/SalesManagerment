@@ -19,6 +19,7 @@ import com.example.salesmanagerment.data.model.entity.ItemOrder;
 import com.example.salesmanagerment.data.model.entity.OrderEntity;
 import com.example.salesmanagerment.data.model.entity.TableMappingCustom;
 import com.example.salesmanagerment.screen.Invoice.InvoiceActivity;
+import com.example.salesmanagerment.screen.main.MainActivity;
 import com.example.salesmanagerment.screen.sales.choosetable.OptionTableActivity;
 import com.example.salesmanagerment.screen.sales.fragmentarea.TableFragment;
 import com.example.salesmanagerment.screen.sales.listorder.ListOrderFragment;
@@ -210,5 +211,6 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderCon
     public void gotoOrdersScreen() {
         Intent intent = new Intent(ListOrderFragment.ACTION_ADD_LIST_ORDER);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+        mNavigator.startActivityAtRoot(MainActivity.class);
     }
 }

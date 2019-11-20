@@ -51,4 +51,10 @@ public class BaseActivity extends AppCompatActivity {
             }
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        showDialog(false);
+        super.onDestroy();
+    }
 }

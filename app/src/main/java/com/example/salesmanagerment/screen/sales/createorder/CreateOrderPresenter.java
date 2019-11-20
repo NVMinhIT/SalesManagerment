@@ -31,15 +31,13 @@ public class CreateOrderPresenter implements ICreateOrderContact.IPresenter {
         mDataSource.createOrder(mOrderEntity, new IDataCallBack<Boolean, String>() {
             @Override
             public void onDataSuccess(Boolean data) {
+                mView.showLoading(false);
                 if (data) {
                     mView.gotoOrdersScreen();
                     CommonFunc.showToastSuccess(R.string.create_order_success);
-
-
                 } else {
                     CommonFunc.showToastSuccess(R.string.create_order_failed);
                 }
-                mView.showLoading(false);
             }
 
             @Override

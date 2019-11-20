@@ -55,4 +55,22 @@ public interface ApiService {
     // lấy danh sách  order
     @GET("Order/GetList")
     Call<BaseResponse<List<OrderResponse>>> getListOrder(@Header("authorization") String token);
+
+
+ // lấy danh sách  order
+    @GET("Order/GetOrdersByOrderStatus")
+    Call<BaseResponse<List<OrderResponse>>> GetOrdersByOrderStatus(@Header("authorization") String token, @Query("orderStatus") int orderStatus);
+
+//    // ktra order đã được gửi bếp chưa
+//    @GET("Order/CheckOrderIsSendKitchen")
+//    Call<BaseResponse<List<OrderResponse>>> getListOrder(@Header("authorization") String token);
+
+    // thêm order
+    @POST("Order/Delete")
+    Call<BaseResponse<Boolean>> cancelOrder(@Header("authorization") String token, @Body String orderID);
+
+    // thêm order
+    @POST("Order/RequestPayOrder")
+    Call<BaseResponse<Boolean>> RequestPayOrder(@Header("authorization") String token, @Body String orderID);
+
 }

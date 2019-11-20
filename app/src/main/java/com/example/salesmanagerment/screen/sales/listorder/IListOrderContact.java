@@ -9,10 +9,14 @@ import java.util.List;
 public interface IListOrderContact {
     interface IView extends IBaseView {
         void getListSuccess(List<OrderResponse> orderResponse);
+
+        void requestPaySuccess(Boolean isSuccess);
     }
 
     interface IPresenter extends IBasePresenter<IListOrderContact.IView> {
 
-        void getListOrder();
+        void requestPay(String orderID);
+
+        void getListOrder(Boolean isShowLoading, int orderStatus);
     }
 }

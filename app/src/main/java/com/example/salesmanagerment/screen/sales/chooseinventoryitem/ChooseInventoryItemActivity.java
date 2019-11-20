@@ -170,8 +170,6 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
                 return;
             }
             Bundle bundle = new Bundle();
-//            bundle.putParcelableArrayList(Constants.EXTRAS_INVENTORY_ITEM_LIST, (ArrayList<? extends Parcelable>) orderDetails);
-//            bundle.putParcelable(Constants.EXTRAS_ORDER_ENTITY, mPresenter.getOrderEntity());
             bundle.putString(Constants.EXTRAS_INVENTORY_ITEM_LIST, new Gson().toJson(orderDetails));
             bundle.putString(Constants.EXTRAS_ORDER_ENTITY, new Gson().toJson(mPresenter.getOrderEntity()));
             navigator.startActivity(CreateOrderActivity.class, bundle);

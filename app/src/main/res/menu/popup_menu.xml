@@ -6,7 +6,4 @@
     <item
         android:id="@+id/two"
         android:title="@string/require_pay" />
-    <item
-        android:id="@+id/three"
-        android:title="@string/order_before" />
 </menu>

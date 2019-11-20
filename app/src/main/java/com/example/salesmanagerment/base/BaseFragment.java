@@ -12,31 +12,16 @@ import com.example.salesmanagerment.utils.Navigator;
 public class BaseFragment extends Fragment {
 
     protected String loadingMsg = "Đang xử lý";
-    private ProgressDialog mDialog;
     protected Context mContext;
     protected BaseActivity mActivity;
 
-    public void setLoadingMessage(String msg) {
-        mDialog.setMessage(msg);
+    public void setLoadingMessage(int msg) {
+        mActivity.setLoadingMessage(msg);
     }
 
-    public void baseInit() {
-        mDialog = new ProgressDialog(mContext, R.style.AppCompatAlertDialogStyle);
-        mDialog.setMessage(loadingMsg);
-        mDialog.setCancelable(false);
-        mDialog.setCanceledOnTouchOutside(false);
-    }
 
     public void showDialog(Boolean isShow) {
-        if (isShow) {
-            if (mDialog != null && !mDialog.isShowing()) {
-                mDialog.show();
-            }
-        } else {
-            if (mDialog != null && mDialog.isShowing()) {
-                mDialog.dismiss();
-            }
-        }
+        mActivity.showDialog(isShow);
     }
 
     @Override

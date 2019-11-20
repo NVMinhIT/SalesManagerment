@@ -38,14 +38,30 @@ public class ListOrderPresenter implements IListOrderContact.IPresenter {
 
 
     @Override
-    public void getListOrder() {
-        orderResponses = mDataSource.getOrderResponseList();
-        if (orderResponses != null) {
-            iView.getListSuccess(orderResponses);
-        } else {
-            mDataSource.getListOrder(new IDataCallBack<List<OrderResponse>, String>() {
+    public void requestPay(String orderID) {
+        iView.showLoading(true);
+        mDataSource.RequestPayOrder(orderID, new IDataCallBack<Boolean, String>() {
+            @Override
+            public void onDataSuccess(Boolean data) {
+                iView.showLoading(false);
+                iView.requestPaySuccess(data);
+            }
+
+            @Override
+            public void onDataFailed(String error) {
+                iView.showLoading(false);
+                CommonFunc.showToastError(R.string.somthing_went_wrong);
+            }
+        });
+    }
+
+    @Override
+    public void getListOrder(Boolean isShowLoading, int orderStatus) {
+        iView.showLoading(isShowLoading);
+            mDataSource.getListOrder(orderStatus, new IDataCallBack<List<OrderResponse>, String>() {
                 @Override
                 public void onDataSuccess(List<OrderResponse> data) {
+                    iView.showLoading(false);
                     orderResponses = data;
                     iView.getListSuccess(orderResponses);
 
@@ -53,9 +69,9 @@ public class ListOrderPresenter implements IListOrderContact.IPresenter {
 
                 @Override
                 public void onDataFailed(String error) {
+                    iView.showLoading(false);
                     CommonFunc.showToastError(R.string.somthing_went_wrong);
                 }
             });
         }
-    }
 }
