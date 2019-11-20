@@ -3,8 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@drawable/background_layout"
+    android:clickable="true"
+    android:focusable="true"
     android:focusableInTouchMode="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,12 +18,12 @@
         tools:ignore="MissingConstraints">
 
         <ImageButton
+            android:id="@+id/img_Cancel"
             android:layout_width="@dimen/size_56"
             android:layout_height="@dimen/size_56"
             android:background="@null"
-            android:id="@+id/img_Cancel"
-            android:src="@drawable/ic_exit_dialog"
-            app:layout_constraintRight_toRightOf="parent"
+            android:src="@drawable/ic_back"
+            app:layout_constraintLeft_toLeftOf="parent"
             tools:ignore="ContentDescription" />
 
         <TextView
@@ -43,9 +45,10 @@
 
     <ScrollView
         android:id="@+id/scroll_content"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:scrollbars="none"
+        app:layout_constraintBottom_toTopOf="@+id/btn_Save"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cl_actionbar">
@@ -80,7 +83,7 @@
                 tools:ignore="ContentDescription" />
 
             <EditText
-                android:id="@+id/edt_DishName_Add"
+                android:id="@+id/edtCodeCustomer"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/size_48"
                 android:layout_marginStart="@dimen/margin_16"
@@ -133,7 +136,7 @@
                 tools:ignore="ContentDescription" />
 
             <EditText
-                android:id="@+id/edt_Code_Dish"
+                android:id="@+id/edtNameCustomer"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/size_48"
                 android:layout_marginStart="@dimen/margin_16"
@@ -188,6 +191,7 @@
 
 
             <EditText
+                android:id="@+id/edtPhoneNumber"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/size_48"
                 android:layout_marginStart="@dimen/margin_16"
@@ -204,7 +208,7 @@
                 app:layout_constraintLeft_toRightOf="@id/ivRequireCode"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view2"
-                tools:ignore="RtlSymmetry,UnusedAttribute" />
+                tools:ignore="RtlSymmetry,TextFields,UnusedAttribute" />
 
             <View
                 android:id="@+id/view3"
@@ -229,17 +233,17 @@
                 app:layout_constraintTop_toBottomOf="@id/view3" />
 
             <TextView
-                android:id="@+id/tv_Option_Date"
+                android:id="@+id/tvBirthday"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/size_48"
                 android:background="@null"
                 android:drawableEnd="@drawable/ic_calendar"
                 android:ellipsize="start"
+                android:gravity="center"
                 android:importantForAutofill="no"
-                android:textColor="@color/text"
                 android:paddingEnd="@dimen/padding_12"
                 android:singleLine="true"
-                android:gravity="center"
+                android:textColor="@color/text"
                 android:textSize="@dimen/text_16"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintLeft_toRightOf="@id/tv_date"
@@ -270,6 +274,7 @@
                 app:layout_constraintTop_toBottomOf="@id/view4" />
 
             <EditText
+                android:id="@+id/edtAddress"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/size_48"
                 android:layout_marginStart="@dimen/margin_16"
@@ -298,27 +303,23 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_address"
                 tools:layout_editor_absoluteX="33dp" />
 
-            <Button
-                android:id="@+id/btn_Save"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_12"
-                android:layout_marginTop="@dimen/margin_32"
-                android:layout_marginRight="@dimen/margin_12"
-                android:layout_marginBottom="@dimen/margin_18"
-                android:background="@drawable/custom_button"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                android:gravity="center"
-                android:text="@string/add"
-                android:textColor="#FFFFFF"
-                android:textSize="@dimen/text_18"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view5"
-                tools:ignore="ButtonStyle" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/btn_Save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_12"
+        android:layout_marginRight="@dimen/margin_12"
+        android:layout_marginBottom="@dimen/margin_18"
+        android:background="@drawable/custom_button"
+        android:gravity="center"
+        android:text="@string/add"
+        android:textColor="#FFFFFF"
+        android:textSize="@dimen/text_18"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

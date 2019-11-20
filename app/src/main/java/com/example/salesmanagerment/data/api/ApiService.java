@@ -2,8 +2,8 @@ package com.example.salesmanagerment.data.api;
 
 
 import com.example.salesmanagerment.data.model.entity.Area;
+import com.example.salesmanagerment.data.model.entity.Customer;
 import com.example.salesmanagerment.data.model.entity.InventoryItem;
-import com.example.salesmanagerment.data.model.entity.Order;
 import com.example.salesmanagerment.data.model.entity.OrderEntity;
 import com.example.salesmanagerment.data.model.entity.OrderResponse;
 import com.example.salesmanagerment.data.model.entity.TableMappingCustom;
@@ -55,4 +55,13 @@ public interface ApiService {
     // lấy danh sách  order
     @GET("Order/GetList")
     Call<BaseResponse<List<OrderResponse>>> getListOrder(@Header("authorization") String token);
+
+    // lấy danh sách khách hàng
+    @GET("Customer/GetList")
+    Call<BaseResponse<List<Customer>>> getListCustomer(@Header("authorization") String token);
+
+
+    // thêm khách hàng
+    @POST("Customer/InsertUpdate")
+    Call<BaseResponse<Boolean>> createCustomer(@Header("authorization") String token, @Body Customer customer);
 }

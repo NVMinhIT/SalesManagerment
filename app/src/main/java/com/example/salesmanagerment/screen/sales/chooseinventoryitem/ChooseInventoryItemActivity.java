@@ -1,5 +1,8 @@
 package com.example.salesmanagerment.screen.sales.chooseinventoryitem;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.Editable;
@@ -17,7 +20,7 @@ import com.example.salesmanagerment.base.BaseActivity;
 import com.example.salesmanagerment.data.model.entity.ItemOrder;
 import com.example.salesmanagerment.data.model.entity.OrderEntity;
 import com.example.salesmanagerment.screen.sales.createorder.CreateOrderActivity;
-import com.example.salesmanagerment.screen.sales.customer.DialogFragmentAddCustomer;
+import com.example.salesmanagerment.screen.sales.customer.choosecustomer.ListCustomerActivity;
 import com.example.salesmanagerment.utils.CommonFunc;
 import com.example.salesmanagerment.utils.Constants;
 import com.example.salesmanagerment.utils.Navigator;
@@ -31,7 +34,7 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
     private Button buttonAccept;
     private Navigator navigator;
     private ImageButton imageButtonAddInformation;
-    private DialogFragmentAddCustomer dialogFragmentAddCustomer;
+
     private ChooseInventoryItemPresenter mPresenter;
     //private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView mRecyclerView;
@@ -40,6 +43,26 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
     private int TYPE_EDIT = 1;
     private int TYPE_CREATE = 0;
     private int type = TYPE_CREATE;
+    private String idCustomer;
+
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent != null) {
+                if (intent.getAction() != null) {
+                    try {
+                        idCustomer = intent.getStringExtra(ListCustomerActivity.ACTION_CUSTOMER_SELECTED);
+                        if (idCustomer != null) {
+                            mOrderEntiy.order.CustomerID = idCustomer;
+
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    };
 
     public OrderEntity getOrderEntiy() {
         return mOrderEntiy;
@@ -92,7 +115,6 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
     }
 
     private void initViews() {
-        dialogFragmentAddCustomer = new DialogFragmentAddCustomer();
         imageButtonAddInformation = findViewById(R.id.imb_AddInformation);
         // swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         edtSearch = findViewById(R.id.edtSearch);
@@ -124,7 +146,9 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
                 }
                 break;
             case R.id.imb_AddInformation:
-                getSupportFragmentManager().beginTransaction().add(dialogFragmentAddCustomer, Constants.EXTRA_CLASS).commit();
+
+                navigator.startActivity(ListCustomerActivity.class);
+
                 break;
             default:
                 break;
