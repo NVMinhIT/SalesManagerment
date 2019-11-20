@@ -7,6 +7,7 @@ import com.example.salesmanagerment.base.listeners.IDataCallBack;
 import com.example.salesmanagerment.data.api.ApiService;
 import com.example.salesmanagerment.data.api.ServiceGenerator;
 import com.example.salesmanagerment.data.model.entity.Area;
+import com.example.salesmanagerment.data.model.entity.Customer;
 import com.example.salesmanagerment.data.model.entity.InventoryItem;
 import com.example.salesmanagerment.data.model.entity.OrderEntity;
 import com.example.salesmanagerment.data.model.entity.OrderResponse;
@@ -46,6 +47,15 @@ public class DataSource {
     }
 
     private List<Unit> mUnitList;
+    private List<Customer> customerList;
+
+    public List<Customer> getCustomerList() {
+        return customerList;
+    }
+
+    public void setCustomerList(List<Customer> customerList) {
+        this.customerList = customerList;
+    }
 
     public List<Area> getAreaList() {
         return mAreaList;
@@ -383,7 +393,6 @@ public class DataSource {
             }
         });
     }
-
     // lấy thông tin user
     public void RequestPayOrder(String orderID, final IDataCallBack<Boolean, String> callBack) {
         apiService.RequestPayOrder(token, orderID).enqueue(new Callback<BaseResponse<Boolean>>() {
@@ -412,9 +421,70 @@ public class DataSource {
     }
     //lấy danh sách khu vực
 
-    //lấy danh sách khu vực
+    //lấy danh sách khách hàng
+    public void getListCustomer(final IDataCallBack<List<Customer>, String> callBack) {
+        if (!CommonFunc.isNetworkAvailable()) {
+            CommonFunc.showToastError(R.string.internet_not_available);
+            return;
+        }
+        apiService.getListCustomer(token).enqueue(new Callback<BaseResponse<List<Customer>>>() {
+            @Override
+            public void onResponse(@NotNull Call<BaseResponse<List<Customer>>> call, @NotNull Response<BaseResponse<List<Customer>>> response) {
+                if (response.isSuccessful()) {
+                    List<Customer> data = null;
+                    if (response.body() != null) {
+                        data = response.body().getData();
+                    }
+                    customerList = data;
+                    if (callBack != null) {
+                        callBack.onDataSuccess(data);
+                    }
+                } else {
+                    if (callBack != null) {
+                        callBack.onDataFailed(response.message());
+                    }
+                }
+            }
 
-    //lấy danh sách bàn dựa vào khu vực
+            @Override
+            public void onFailure(@NotNull Call<BaseResponse<List<Customer>>> call, @NotNull Throwable t) {
+                if (callBack != null) {
+                    callBack.onDataFailed(t.getMessage());
+                }
+                CommonFunc.showToastWarning(R.string.somthing_went_wrong);
+            }
+        });
+    }
+
+    //thêm khách hàng
+    public void createCustomer(Customer customer, final IDataCallBack<Boolean, String> callBack) {
+        Log.d(TAG, "createOrder: \n" + new Gson().toJson(customer));
+        apiService.createCustomer(token, customer).enqueue(new Callback<BaseResponse<Boolean>>() {
+            @Override
+            public void onResponse(@NotNull Call<BaseResponse<Boolean>> call, @NotNull Response<BaseResponse<Boolean>> response) {
+                if (response.isSuccessful()) {
+                    Log.d(TAG, "onResponse: ");
+                    if (callBack != null) {
+                        if (response.body() != null) {
+                            callBack.onDataSuccess(response.body().getSuccess());
+                        }
+                    }
+                } else {
+                    if (callBack != null) {
+                        callBack.onDataFailed(response.message());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<BaseResponse<Boolean>> call, @NotNull Throwable t) {
+                if (callBack != null) {
+                    callBack.onDataFailed(t.getMessage());
+                }
+                CommonFunc.showToastWarning(R.string.somthing_went_wrong);
+            }
+        });
+    }
 
 
 }

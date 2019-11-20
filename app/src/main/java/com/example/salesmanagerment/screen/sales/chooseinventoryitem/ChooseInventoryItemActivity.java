@@ -1,9 +1,11 @@
 package com.example.salesmanagerment.screen.sales.chooseinventoryitem;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -17,16 +19,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.BaseActivity;
 import com.example.salesmanagerment.data.model.entity.ItemOrder;
-import com.example.salesmanagerment.data.model.entity.OrderDetail;
 import com.example.salesmanagerment.data.model.entity.OrderEntity;
 import com.example.salesmanagerment.screen.sales.createorder.CreateOrderActivity;
-import com.example.salesmanagerment.screen.sales.customer.DialogFragmentAddCustomer;
+import com.example.salesmanagerment.screen.sales.customer.choosecustomer.ListCustomerActivity;
 import com.example.salesmanagerment.utils.CommonFunc;
 import com.example.salesmanagerment.utils.Constants;
 import com.example.salesmanagerment.utils.Navigator;
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ChooseInventoryItemActivity extends BaseActivity implements View.OnClickListener, IInventoryItemContact.IView {
@@ -35,7 +35,7 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
     private Button buttonAccept;
     private Navigator navigator;
     private ImageButton imageButtonAddInformation;
-    private DialogFragmentAddCustomer dialogFragmentAddCustomer;
+
     private ChooseInventoryItemPresenter mPresenter;
     //private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView mRecyclerView;
@@ -44,6 +44,26 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
     private int TYPE_EDIT = 1;
     private int TYPE_CREATE = 0;
     private int type = TYPE_CREATE;
+    private String idCustomer;
+
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent != null) {
+                if (intent.getAction() != null) {
+                    try {
+                        idCustomer = intent.getStringExtra(ListCustomerActivity.ACTION_CUSTOMER_SELECTED);
+                        if (idCustomer != null) {
+                            mOrderEntiy.order.CustomerID = idCustomer;
+
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    };
 
     public OrderEntity getOrderEntiy() {
         return mOrderEntiy;
@@ -96,7 +116,6 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
     }
 
     private void initViews() {
-        dialogFragmentAddCustomer = new DialogFragmentAddCustomer();
         imageButtonAddInformation = findViewById(R.id.imb_AddInformation);
         // swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         edtSearch = findViewById(R.id.edtSearch);
@@ -118,8 +137,8 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
             case R.id.btnAccept:
 //                List<ItemOrder> itemOrders = mAdapter.getTotalItemSelected();
 //                 if (itemOrders.size() > 0) {
-                   // mPresenter.setOrderDetails(itemOrders);
-                    new MyAsyn().execute();
+                // mPresenter.setOrderDetails(itemOrders);
+                new MyAsyn().execute();
 //                    // bundle.putString(Constants.EXTRAS_INVENTORY_ITEM_LIST, new Gson().toJson(itemOrders,));
 //
 //                } else {
@@ -127,7 +146,9 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
 //                }
                 break;
             case R.id.imb_AddInformation:
-                getSupportFragmentManager().beginTransaction().add(dialogFragmentAddCustomer, Constants.EXTRA_CLASS).commit();
+
+                navigator.startActivity(ListCustomerActivity.class);
+
                 break;
             default:
                 break;

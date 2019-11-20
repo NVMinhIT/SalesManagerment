@@ -125,7 +125,6 @@ public class ListOrderFragment extends BaseFragment implements View.OnClickListe
                 listOrderPresenter.getListOrder(false, currentStatus);
             }
         });
-
     }
 
     @Override

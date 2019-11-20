@@ -24,6 +24,7 @@ import androidx.core.content.ContextCompat;
 import com.example.salesmanagerment.R;
 
 import java.io.ByteArrayOutputStream;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -52,6 +53,17 @@ public class CommonFunc {
         SimpleDateFormat formatter = new SimpleDateFormat(Constants.K_DATE_FORMAT_3, Locale.US);
         return formatter.format(date);
 
+    }
+
+    public static String getDateServer(String dateTime){
+        Date date1= null;
+        try {
+            date1 = new SimpleDateFormat("dd/MM/yyyy").parse(dateTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat formatter = new SimpleDateFormat(Constants.K_DATE_FORMAT_3, Locale.US);
+        return formatter.format(date1);
     }
 
     public static void showToastSuccess(int msg) {
