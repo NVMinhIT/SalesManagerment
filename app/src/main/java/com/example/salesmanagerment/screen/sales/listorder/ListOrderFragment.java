@@ -90,7 +90,7 @@ public class ListOrderFragment extends BaseFragment implements View.OnClickListe
         listOrderAdapter = new ListOrderAdapter(mActivity);
         rvOrder.setAdapter(listOrderAdapter);
         LocalBroadcastManager.getInstance(mContext).registerReceiver(mReceiver, new IntentFilter(ACTION_ADD_LIST_ORDER));
-        listOrderPresenter.getListOrder();
+        //listOrderPresenter.getListOrder();
 
     }
 

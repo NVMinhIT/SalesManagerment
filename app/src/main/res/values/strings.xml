@@ -32,6 +32,7 @@
     <string name="themunit">Thêm đơn vị tính</string>
     <string name="save">Đặt</string>
     <string name="add">Thêm</string>
+    <string name="choose">Chọn</string>
     <string name="edit">Sửa</string>
     <string name="luu">Lưu</string>
     <string name="savemoney">Thu tiền</string>
@@ -70,6 +71,7 @@
     <string name="pay_dish">Trả món order</string>
     <string name="sale">Chương trình khuyến mại</string>
     <string name="choose_dish">Chọn món</string>
+    <string name="list_customer">Danh sách khách hàng</string>
     <string name="sodo">Sơ đồ bàn</string>
     <string name="c">C</string>
     <string name="cost">Giá bán:</string>
@@ -252,4 +254,12 @@
     <string name="happy_again">Chúc quý khách vui vẻ, hẹn gặp lại!</string>
     <string name="name_employee">Tên nhân viên: </string>
     <string name="please_enter">Vui lòng chọn bàn!</string>
+    <string name="add_customer_success">Thêm khách hàng thành công</string>
+    <string name="add_customer_failed">Thêm khách hàng thất bại</string>
+
+    <string name="enter_code">Vui lòng nhập mã khách hàng</string>
+    <string name="enter_name">Vui lòng nhập tên khách hàng</string>
+    <string name="enter_phone">Vui lòng nhập số điện thoại</string>
+    <string name="enter_address">Vui lòng nhập địa chỉ</string>
+
 </resources>

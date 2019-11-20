@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/size_56"
+    android:layout_marginStart="@dimen/margin_8"
+    android:layout_marginEnd="@dimen/margin_8"
+    android:layout_marginTop="@dimen/margin_8"
+    android:clickable="true"
+    android:focusable="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_56">
+
+        <ImageView
+            android:id="@+id/imvCustomer"
+            android:layout_width="@dimen/size_32"
+            android:layout_height="@dimen/size_32"
+            android:layout_marginStart="@dimen/margin_8"
+            android:background="@null"
+            android:padding="@dimen/padding_4"
+            android:src="@drawable/ic_customer_list"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvNameCustomer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_6"
+            android:text="dfdfd"
+            android:textColor="@color/text"
+            android:textSize="@dimen/text_15"
+            app:layout_constraintLeft_toRightOf="@+id/imvCustomer"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvNumberPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_marginTop="@dimen/padding_2"
+            android:text="0339142262"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/text_15"
+            android:textStyle="italic"
+            app:layout_constraintLeft_toRightOf="@+id/imvCustomer"
+            app:layout_constraintTop_toBottomOf="@+id/tvNameCustomer" />
+        <ImageButton
+            android:id="@+id/btnTick"
+            android:layout_width="@dimen/size_32"
+            android:layout_height="@dimen/size_32"
+            android:layout_marginStart="@dimen/margin_small"
+            android:background="@null"
+            android:clickable="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginEnd="@dimen/margin_16"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_tick"
+            tools:ignore="ContentDescription" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".screen.Invoice.InvoiceActivity"></activity>
+        <activity android:name=".screen.sales.customer.choosecustomer.ListCustomerActivity"></activity>
+        <activity android:name=".screen.Invoice.InvoiceActivity" />
         <activity android:name=".screen.infoapp.profile_user.ProfileUserActivity" />
         <activity android:name=".screen.sales.createorder.CreateOrderActivity" />
         <activity android:name=".screen.sales.chooseinventoryitem.ChooseInventoryItemActivity" />

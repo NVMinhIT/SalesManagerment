@@ -56,7 +56,7 @@ public class CreateOrderAdapter extends ListAdapter<ItemOrder, IOnItemClickListe
 
         /**
          * Phương thức tham chiếu, khởi tạo view
-         * Created_by Nguyễn Bá Linh on 12/04/2019
+         *
          */
         private void initViews(View view) {
             tvName = view.findViewById(R.id.tvName);
