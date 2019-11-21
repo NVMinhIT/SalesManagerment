@@ -1,10 +1,12 @@
 package com.example.salesmanagerment.screen.sales.chooseinventoryitem;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,11 +24,12 @@ import com.example.salesmanagerment.data.model.entity.ItemOrder;
 import com.example.salesmanagerment.data.model.entity.OrderEntity;
 import com.example.salesmanagerment.screen.sales.createorder.CreateOrderActivity;
 import com.example.salesmanagerment.screen.sales.customer.choosecustomer.ListCustomerActivity;
+import com.example.salesmanagerment.screen.sales.customer.choosecustomer.ListCustomerFragment;
 import com.example.salesmanagerment.utils.CommonFunc;
 import com.example.salesmanagerment.utils.Constants;
 import com.example.salesmanagerment.utils.Navigator;
+import com.google.gson.Gson;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ChooseInventoryItemActivity extends BaseActivity implements View.OnClickListener, IInventoryItemContact.IView {
@@ -48,13 +52,30 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent != null) {
-                if (intent.getAction() != null) {
+            if (intent.getAction() != null) {
+                if (intent.getAction().equals(ListCustomerFragment.ACTION_CUSTOMER_SELECTED)) {
                     try {
-                        idCustomer = intent.getStringExtra(ListCustomerActivity.ACTION_CUSTOMER_SELECTED);
+                        idCustomer = intent.getStringExtra(ListCustomerFragment.EXTRA_CUSTOMER_SELECTED);
                         if (idCustomer != null) {
                             mOrderEntiy.order.CustomerID = idCustomer;
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    };
 
+    private BroadcastReceiver mReceiver2 = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction() != null) {
+                if (intent.getAction().equals(ListCustomerFragment.ACTION_ADD_CUSTOMER)) {
+                    try {
+                        idCustomer = intent.getStringExtra(ListCustomerFragment.ARG_CUSTOMER_ID);
+                        if (!CommonFunc.isNullOrEmpty(idCustomer)) {
+                            mOrderEntiy.order.CustomerID = idCustomer;
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -83,6 +104,9 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
             mPresenter.setOrderEntity(mOrderEntiy);
             mPresenter.onStart();
         }
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver, new IntentFilter(ListCustomerFragment.ACTION_CUSTOMER_SELECTED));
+        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver2, new IntentFilter(ListCustomerFragment.ACTION_ADD_CUSTOMER));
     }
 
     private void initEvents() {
@@ -134,21 +158,21 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
                 super.onBackPressed();
                 break;
             case R.id.btnAccept:
-                List<ItemOrder> itemOrders = mAdapter.getTotalItemSelected();
-                if (itemOrders.size() > 0) {
-                    mPresenter.setOrderDetails(itemOrders);
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelableArrayList(Constants.EXTRAS_INVENTORY_ITEM_LIST, (ArrayList<? extends Parcelable>) itemOrders);
-                    bundle.putParcelable(Constants.EXTRAS_ORDER_ENTITY, mPresenter.getOrderEntity());
-                    navigator.startActivity(CreateOrderActivity.class, bundle);
-                } else {
-                    CommonFunc.showToastWarning(R.string.not_inventory_item_selected);
-                }
+//                List<ItemOrder> itemOrders = mAdapter.getTotalItemSelected();
+//                 if (itemOrders.size() > 0) {
+                // mPresenter.setOrderDetails(itemOrders);
+                new MyAsyn().execute();
+//                    // bundle.putString(Constants.EXTRAS_INVENTORY_ITEM_LIST, new Gson().toJson(itemOrders,));
+//
+//                } else {
+//                    CommonFunc.showToastWarning(R.string.not_inventory_item_selected);
+//                }
                 break;
             case R.id.imb_AddInformation:
-
-                navigator.startActivity(ListCustomerActivity.class);
-
+                Intent intent = new Intent();
+                intent.setClass(this, ListCustomerActivity.class);
+                intent.putExtra(ListCustomerFragment.ARG_CUSTOMER_ID, mOrderEntiy.order.CustomerID);
+                navigator.startActivity(intent);
                 break;
             default:
                 break;
@@ -168,4 +192,41 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
         }
         // swipeRefreshLayout.setRefreshing(false);
     }
+
+    @SuppressLint("StaticFieldLeak")
+    public class MyAsyn extends AsyncTask<Void, Void, List<ItemOrder>> {
+
+        @Override
+        protected List<ItemOrder> doInBackground(Void... voids) {
+            List<ItemOrder> itemOrders = mAdapter.getTotalItemSelected();
+            if (itemOrders.size() > 0) {
+                mPresenter.setOrderDetails(itemOrders);
+                return itemOrders;
+            } else {
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(List<ItemOrder> orderDetails) {
+            super.onPostExecute(orderDetails);
+            if (orderDetails == null) {
+                CommonFunc.showToastWarning(R.string.not_inventory_item_selected);
+                return;
+            }
+            Bundle bundle = new Bundle();
+            bundle.putString(Constants.EXTRAS_INVENTORY_ITEM_LIST, new Gson().toJson(orderDetails));
+            bundle.putString(Constants.EXTRAS_ORDER_ENTITY, new Gson().toJson(mPresenter.getOrderEntity()));
+            navigator.startActivity(CreateOrderActivity.class, bundle);
+
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mReceiver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mReceiver2);
+        super.onDestroy();
+    }
 }
+

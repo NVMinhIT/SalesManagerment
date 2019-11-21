@@ -170,5 +170,4 @@ public class CommonFunc {
         }
         return TextUtils.isEmpty(s);
     }
-
 }

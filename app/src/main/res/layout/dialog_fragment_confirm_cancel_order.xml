@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/color_fragment_container"
+    android:layout_width="380dp"
+    android:layout_height="wrap_content"
+    android:background="@color/colorGrayLight">
+
+    <TextView
+        android:id="@+id/tv_Title_LogOut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:gravity="center"
+        android:padding="@dimen/padding_16"
+        android:text="Hủy Order"
+        android:textColor="#FFFFFF"
+        android:textSize="@dimen/text_18"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <EditText
+        android:id="@+id/edtReasonCancelOrder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:hint="Nhập lý do hủy Order"
+        android:padding="@dimen/padding_16"
+        android:textColor="@color/text"
+        android:textSize="@dimen/text_14"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_Title_LogOut"
+        tools:ignore="Autofill,LabelFor" />
+
+    <Button
+        android:id="@+id/btnOk"
+        android:layout_width="100dp"
+        android:layout_height="@dimen/size_48"
+        android:layout_margin="@dimen/margin_8"
+        android:background="@drawable/selector_button_blue"
+        android:text="OK"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edtReasonCancelOrder" />
+
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="100dp"
+        android:layout_height="@dimen/size_48"
+        android:layout_margin="@dimen/margin_8"
+        android:background="@drawable/selector_button_white"
+        android:text="Hủy"
+        android:textColor="@drawable/selector_text_button_delete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/btnOk"
+        app:layout_constraintTop_toBottomOf="@id/edtReasonCancelOrder" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+

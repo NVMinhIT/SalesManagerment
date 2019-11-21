@@ -16,23 +16,44 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".screen.sales.customer.choosecustomer.ListCustomerActivity"></activity>
-        <activity android:name=".screen.Invoice.InvoiceActivity" />
-        <activity android:name=".screen.infoapp.profile_user.ProfileUserActivity" />
-        <activity android:name=".screen.sales.createorder.CreateOrderActivity" />
-        <activity android:name=".screen.sales.chooseinventoryitem.ChooseInventoryItemActivity" />
-        <activity android:name=".screen.authentication.changepassword.ChangePassActivity" />
-        <activity android:name=".screen.authentication.login.LoginActivity">
+        <activity
+            android:name=".screen.Invoice.InvoiceActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".screen.infoapp.profile_user.ProfileUserActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".screen.sales.createorder.CreateOrderActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".screen.sales.chooseinventoryitem.ChooseInventoryItemActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".screen.authentication.changepassword.ChangePassActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".screen.authentication.login.LoginActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".screen.main.MainActivity" />
-        <activity android:name=".screen.infoapp.InfoAppActivity" />
-        <activity android:name=".screen.sales.choosetable.OptionTableActivity" />
-        <activity android:name=".screen.splash.SplashActivity">
+
+        <activity android:name=".screen.sales.customer.choosecustomer.ListCustomerActivity"></activity>
+        <activity
+            android:name=".screen.main.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".screen.infoapp.InfoAppActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".screen.sales.choosetable.OptionTableActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".screen.splash.SplashActivity"
+            android:screenOrientation="portrait">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->

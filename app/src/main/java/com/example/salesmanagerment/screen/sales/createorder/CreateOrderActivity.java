@@ -19,6 +19,7 @@ import com.example.salesmanagerment.data.model.entity.ItemOrder;
 import com.example.salesmanagerment.data.model.entity.OrderEntity;
 import com.example.salesmanagerment.data.model.entity.TableMappingCustom;
 import com.example.salesmanagerment.screen.Invoice.InvoiceActivity;
+import com.example.salesmanagerment.screen.main.MainActivity;
 import com.example.salesmanagerment.screen.sales.choosetable.OptionTableActivity;
 import com.example.salesmanagerment.screen.sales.fragmentarea.TableFragment;
 import com.example.salesmanagerment.screen.sales.listorder.ListOrderFragment;
@@ -26,7 +27,10 @@ import com.example.salesmanagerment.screen.sales.promotion.SalesInventoryItem;
 import com.example.salesmanagerment.utils.CommonFunc;
 import com.example.salesmanagerment.utils.Constants;
 import com.example.salesmanagerment.utils.Navigator;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -78,13 +82,24 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderCon
     private void getData() {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            mPresenter.mItemOrders = bundle.getParcelableArrayList(Constants.EXTRAS_INVENTORY_ITEM_LIST);
-            mPresenter.mOrderEntity = bundle.getParcelable(Constants.EXTRAS_ORDER_ENTITY);
+            mPresenter.mItemOrders = getListTrack(bundle.getString(Constants.EXTRAS_INVENTORY_ITEM_LIST));
+            mPresenter.mOrderEntity = getOrder(bundle.getString(Constants.EXTRAS_ORDER_ENTITY));
             calculateMoney();
         }
         initView();
         initEvent();
     }
+
+    public static List<ItemOrder> getListTrack(String itemsString) {
+        Type listType = new TypeToken<ArrayList<ItemOrder>>() {
+        }.getType();
+        return new Gson().fromJson(itemsString, listType);
+    }
+
+    public static OrderEntity getOrder(String itemOrderString) {
+        return new Gson().fromJson(itemOrderString, OrderEntity.class);
+    }
+
 
     private void calculateMoney() {
         for (ItemOrder item : mPresenter.mItemOrders) {
@@ -196,5 +211,6 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderCon
     public void gotoOrdersScreen() {
         Intent intent = new Intent(ListOrderFragment.ACTION_ADD_LIST_ORDER);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+        mNavigator.startActivityAtRoot(MainActivity.class);
     }
 }

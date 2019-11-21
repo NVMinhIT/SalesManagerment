@@ -19,17 +19,22 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.BaseFragment;
+import com.example.salesmanagerment.base.listeners.IOnItemClickListener;
 import com.example.salesmanagerment.data.model.entity.OrderResponse;
+import com.example.salesmanagerment.screen.main.MainActivity;
 import com.example.salesmanagerment.screen.sales.chooseinventoryitem.ChooseInventoryItemActivity;
+import com.example.salesmanagerment.utils.CommonFunc;
+import com.example.salesmanagerment.utils.Constants;
 import com.example.salesmanagerment.utils.Navigator;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
-public class ListOrderFragment extends BaseFragment implements View.OnClickListener, IListOrderContact.IView {
+public class ListOrderFragment extends BaseFragment implements View.OnClickListener, IListOrderContact.IView, IOnItemClickListener<OrderResponse>, ListOrderAdapter.IOrderRequest {
     private Navigator mNavigator;
     private FloatingActionButton btnAddOrder;
     private RecyclerView rvOrder;
@@ -38,7 +43,9 @@ public class ListOrderFragment extends BaseFragment implements View.OnClickListe
     private TextView textViewOptionSearch;
     private ListOrderPresenter listOrderPresenter;
     private ConstraintLayout clWaterMark;
+    private SwipeRefreshLayout swipeRefresh;
     public static String ACTION_ADD_LIST_ORDER = "ACTION_ADD_LIST_ORDER";
+    private int currentStatus = Constants.ORDER_SERVING;
 
     public static ListOrderFragment newInstance() {
         return new ListOrderFragment();
@@ -51,12 +58,30 @@ public class ListOrderFragment extends BaseFragment implements View.OnClickListe
 
     }
 
+    private BroadcastReceiver mReceiver2 = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent != null) {
+                if (intent.getAction() != null) {
+                    if (intent.getAction().equals(MainActivity.ACTION_SELECT_ORDER_RESERVING)) {
+                        try {
+                            currentStatus = intent.getIntExtra(MainActivity.ACTION_SELECT_ORDER_RESERVING, 0);
+                            listOrderPresenter.getListOrder(true, currentStatus);
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }
+    };
+
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent != null && intent.getAction().equals(ACTION_ADD_LIST_ORDER)) {
-                listOrderPresenter.getListOrder();
-
+                listOrderPresenter.getListOrder(true, currentStatus);
             }
         }
     };
@@ -69,7 +94,6 @@ public class ListOrderFragment extends BaseFragment implements View.OnClickListe
         listOrderPresenter.setView(this);
         initView(view);
         initEvents();
-        baseInit();
         mNavigator = mActivity.getNavigator();
         return view.getRootView();
     }
@@ -85,19 +109,29 @@ public class ListOrderFragment extends BaseFragment implements View.OnClickListe
         clWaterMark = view.findViewById(R.id.clWaterMark);
         textViewOptionSearch = view.findViewById(R.id.tv_OptionSearch);
         btnAddOrder = view.findViewById(R.id.btnAddOrder);
+        swipeRefresh = view.findViewById(R.id.swipeRefresh);
         rvOrder = view.findViewById(R.id.rvOrder);
         rvOrder.setLayoutManager(new LinearLayoutManager(mActivity));
         listOrderAdapter = new ListOrderAdapter(mActivity);
+        listOrderAdapter.setOnClickListener(this);
+        listOrderAdapter.setOrderCallBack(this);
         rvOrder.setAdapter(listOrderAdapter);
         LocalBroadcastManager.getInstance(mContext).registerReceiver(mReceiver, new IntentFilter(ACTION_ADD_LIST_ORDER));
-        //listOrderPresenter.getListOrder();
-
+        LocalBroadcastManager.getInstance(mContext).registerReceiver(mReceiver2, new IntentFilter(MainActivity.ACTION_SELECT_ORDER_RESERVING));
+        listOrderPresenter.getListOrder(true, currentStatus);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                listOrderPresenter.getListOrder(false, currentStatus);
+            }
+        });
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         LocalBroadcastManager.getInstance(mContext).unregisterReceiver(mReceiver);
+        LocalBroadcastManager.getInstance(mContext).unregisterReceiver(mReceiver2);
     }
 
     @Override
@@ -148,16 +182,53 @@ public class ListOrderFragment extends BaseFragment implements View.OnClickListe
             if (orderResponse != null && orderResponse.size() > 0) {
                 clWaterMark.setVisibility(View.GONE);
                 listOrderAdapter.setListData(orderResponse);
+                swipeRefresh.setRefreshing(false);
             } else {
                 clWaterMark.setVisibility(View.VISIBLE);
             }
         } catch (Exception e) {
+            swipeRefresh.setRefreshing(false);
             e.printStackTrace();
         }
     }
 
     @Override
+    public void requestPaySuccess(Boolean isSuccess) {
+        if (isSuccess) {
+            CommonFunc.showToastSuccess("Đã yêu cầu thanh toán");
+            listOrderPresenter.getListOrder(true, currentStatus);
+        } else {
+            CommonFunc.showToastError("Yêu cầu thất bại");
+        }
+    }
+
+    @Override
     public void showLoading(boolean isShowLoading) {
+        showDialog(isShowLoading);
+    }
+
+    @Override
+    public void onItemClick(OrderResponse data) {
+        CommonFunc.showToastWarning("Chọn order");
+    }
+
+    @Override
+    public void onRequestPay(String orderID) {
+        listOrderPresenter.requestPay(orderID);
+    }
+
+    @Override
+    public void onCancelOrder(String orderID) {
+
+    }
+
+    @Override
+    public void onSendKitchen(String orderID) {
+
+    }
+
+    @Override
+    public void onPreview(String orderID) {
 
     }
 }

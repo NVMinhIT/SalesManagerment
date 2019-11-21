@@ -21,11 +21,13 @@ import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.BaseFragment;
 import com.example.salesmanagerment.data.model.entity.Customer;
 import com.example.salesmanagerment.screen.sales.customer.choosecustomer.ListCustomerActivity;
+import com.example.salesmanagerment.screen.sales.customer.choosecustomer.ListCustomerFragment;
 import com.example.salesmanagerment.utils.CommonFunc;
 import com.example.salesmanagerment.utils.Navigator;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.LinkedHashMap;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -49,7 +51,6 @@ public class AddCustomerFragment extends BaseFragment implements View.OnClickLis
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_fragment_customer, container, false);
-        baseInit();
         initView(view);
         addCustomerPresenter = new AddCustomerPresenter();
         addCustomerPresenter.setView(this);
@@ -67,7 +68,7 @@ public class AddCustomerFragment extends BaseFragment implements View.OnClickLis
         edtPhoneNumber = view.findViewById(R.id.edtPhoneNumber);
         tvBirthday = view.findViewById(R.id.tvBirthday);
         edtAddress = view.findViewById(R.id.edtAddress);
-        imgCancel = view.findViewById(R.id.img_Cancel);
+        imgCancel = view.findViewById(R.id.btnBack);
         btAdd = view.findViewById(R.id.btn_Save);
 
 
@@ -87,7 +88,7 @@ public class AddCustomerFragment extends BaseFragment implements View.OnClickLis
                 showCalendar();
                 break;
 
-            case R.id.img_Cancel:
+            case R.id.btnBack:
                 mActivity.getSupportFragmentManager().popBackStack();
                 navigator.hideKeyboard();
                 break;
@@ -126,7 +127,8 @@ public class AddCustomerFragment extends BaseFragment implements View.OnClickLis
 
     @Override
     public void gotoListCustomerScreen() {
-        Intent intent = new Intent(ListCustomerActivity.ACTION_ADD_CUSTOMER);
+        Intent intent = new Intent(ListCustomerFragment.ACTION_ADD_CUSTOMER);
+        intent.putExtra(ListCustomerFragment.ARG_CUSTOMER_ID, mCustomer.getCustomerID());
         LocalBroadcastManager.getInstance(Objects.requireNonNull(getActivity())).sendBroadcast(intent);
         mActivity.finish();
     }

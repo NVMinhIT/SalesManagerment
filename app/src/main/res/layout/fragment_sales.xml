@@ -6,14 +6,15 @@
     android:layout_height="match_parent"
     android:background="@color/colorGrayNormal"
     android:orientation="vertical">
+
     <LinearLayout
+        android:id="@+id/search_order"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_56"
-        android:background="@color/colorGray"
-        android:orientation="horizontal"
-        android:id="@+id/search_order"
         android:layout_alignParentTop="true"
         android:layout_gravity="center_vertical"
+        android:background="@color/colorGray"
+        android:orientation="horizontal"
         android:weightSum="100"
         tools:ignore="UselessParent">
 
@@ -30,25 +31,27 @@
             android:paddingEnd="@dimen/padding_8"
             android:textColor="@color/text"
             android:textSize="@dimen/text_16"
+            android:visibility="gone"
             tools:ignore="RtlSymmetry" />
-<!--        <Spinner-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="40dp"-->
-<!--            -->
-<!--            android:layout_gravity="center_vertical"-->
-<!--            android:layout_marginStart="@dimen/margin_6"-->
-<!--            android:layout_weight="70"-->
-<!--            android:background="@drawable/bg_spinner"-->
-<!--            android:gravity="fill_vertical"-->
+        <!--        <Spinner-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="40dp"-->
+        <!--            -->
+        <!--            android:layout_gravity="center_vertical"-->
+        <!--            android:layout_marginStart="@dimen/margin_6"-->
+        <!--            android:layout_weight="70"-->
+        <!--            android:background="@drawable/bg_spinner"-->
+        <!--            android:gravity="fill_vertical"-->
 
-<!--            />-->
+        <!--            />-->
         <EditText
             android:id="@+id/edt_search_oder"
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_42"
             android:layout_gravity="center_vertical"
-            android:layout_weight="30"
+            android:layout_marginStart="@dimen/margin_6"
             android:layout_marginEnd="@dimen/margin_6"
+            android:layout_weight="30"
             android:background="@drawable/custom_edit_text"
             android:drawableStart="@drawable/ic_search"
             android:drawablePadding="@dimen/padding_6"
@@ -62,15 +65,23 @@
             tools:ignore="Autofill,HardcodedText,LabelFor,RtlHardcoded,RtlSymmetry,SpUsage,TextFields" />
 
     </LinearLayout>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvOrder"
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/search_order"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:clipToPadding="false" />
+        android:layout_alignParentEnd="true">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvOrder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/_80sdp" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clWaterMark"
@@ -119,7 +130,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_margin="@dimen/margin_18"
-        android:backgroundTint="@color/colorPrimaryDark"
+        android:backgroundTint="@color/color_orange"
         android:clickable="true"
         android:focusable="true"
         android:src="@drawable/ic_add_dish"

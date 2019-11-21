@@ -10,11 +10,11 @@
         android:icon="@drawable/ic_pan"
         android:enabled="true"
         android:title="@string/tramon" />
-    <item
-        android:id="@+id/action_caculater"
-        android:icon="@drawable/ic_bill_nav"
-        android:enabled="true"
-        android:title="@string/tamtinh" />
+<!--    <item-->
+<!--        android:id="@+id/action_caculater"-->
+<!--        android:icon="@drawable/ic_bill_nav"-->
+<!--        android:enabled="true"-->
+<!--        android:title="@string/tamtinh" />-->
     <item
         android:id="@+id/action_more"
         android:icon="@drawable/ic_more"

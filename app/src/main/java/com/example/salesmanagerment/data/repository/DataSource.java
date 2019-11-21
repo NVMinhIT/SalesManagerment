@@ -360,12 +360,12 @@ public class DataSource {
     }
 
     //lấy danh sách order
-    public void getListOrder(final IDataCallBack<List<OrderResponse>, String> dataCallBack) {
+    public void getListOrder(int orderStatus, final IDataCallBack<List<OrderResponse>, String> dataCallBack) {
         if (!CommonFunc.isNetworkAvailable()) {
             CommonFunc.showToastError(R.string.internet_not_available);
             return;
         }
-        apiService.getListOrder(token).enqueue(new Callback<BaseResponse<List<OrderResponse>>>() {
+        apiService.GetOrdersByOrderStatus(token, orderStatus).enqueue(new Callback<BaseResponse<List<OrderResponse>>>() {
             @Override
             public void onResponse(@NotNull Call<BaseResponse<List<OrderResponse>>> call, @NotNull Response<BaseResponse<List<OrderResponse>>> response) {
                 if (response.isSuccessful()) {
@@ -393,7 +393,33 @@ public class DataSource {
             }
         });
     }
+    // lấy thông tin user
+    public void RequestPayOrder(String orderID, final IDataCallBack<Boolean, String> callBack) {
+        apiService.RequestPayOrder(token, orderID).enqueue(new Callback<BaseResponse<Boolean>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<Boolean>> call, Response<BaseResponse<Boolean>> response) {
+                if (response.isSuccessful()) {
 
+                    if (callBack != null) {
+                        callBack.onDataSuccess(response.body().getSuccess());
+                    }
+                } else {
+                    if (callBack != null) {
+                        callBack.onDataFailed(response.message());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<Boolean>> call, Throwable t) {
+                if (callBack != null) {
+                    callBack.onDataFailed(t.getMessage());
+                }
+               // CommonFunc.showToastWarning(R.string.somthing_went_wrong);
+            }
+        });
+    }
+    //lấy danh sách khu vực
 
     //lấy danh sách khách hàng
     public void getListCustomer(final IDataCallBack<List<Customer>, String> callBack) {

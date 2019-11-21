@@ -1,5 +1,6 @@
 package com.example.salesmanagerment.screen.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,21 +11,21 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.BaseActivity;
 import com.example.salesmanagerment.data.repository.DataSource;
 import com.example.salesmanagerment.screen.more.MoreFragment;
 import com.example.salesmanagerment.screen.paydish.PayDishFragment;
-import com.example.salesmanagerment.screen.provisional.ProvisionalFragment;
 import com.example.salesmanagerment.screen.sales.listorder.ListOrderFragment;
 import com.example.salesmanagerment.utils.CommonFunc;
+import com.example.salesmanagerment.utils.Constants;
 import com.example.salesmanagerment.utils.Navigator;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import static com.example.salesmanagerment.screen.main.MainActivity.*;
-
-public class MainActivity extends BaseActivity implements IInitDataCallback, OnClickListener{
+public class MainActivity extends BaseActivity implements IInitDataCallback, OnClickListener {
+    public static final String ACTION_SELECT_ORDER_RESERVING = "ACTION_SELECT_ORDER_RESERVING";
     private Toolbar mToolbar;
     private TextView tvTitle;
     View contentView;
@@ -91,11 +92,11 @@ public class MainActivity extends BaseActivity implements IInitDataCallback, OnC
                 imageViewDown.setVisibility(View.GONE);
                 mNavigator.addFragment(R.id.flMainContainer, PayDishFragment.newInstance(), false, Navigator.NavigateAnim.NONE, PayDishFragment.class.getSimpleName());
                 break;
-            case R.id.action_caculater:
-                tvTitle.setText(R.string.tamtinh);
-                imageViewDown.setVisibility(View.GONE);
-                mNavigator.addFragment(R.id.flMainContainer, ProvisionalFragment.newInstance(), false, Navigator.NavigateAnim.NONE, ProvisionalFragment.class.getSimpleName());
-                break;
+//            case R.id.action_caculater:
+//                tvTitle.setText(R.string.tamtinh);
+//                imageViewDown.setVisibility(View.GONE);
+//                mNavigator.addFragment(R.id.flMainContainer, ProvisionalFragment.newInstance(), false, Navigator.NavigateAnim.NONE, ProvisionalFragment.class.getSimpleName());
+//                break;
             case R.id.action_more:
                 tvTitle.setText(R.string.more);
                 imageViewDown.setVisibility(View.GONE);
@@ -127,12 +128,15 @@ public class MainActivity extends BaseActivity implements IInitDataCallback, OnC
                 switch (item.getItemId()) {
                     case R.id.one:
                         tvTitle.setText(R.string.ordering);
+                        Intent intent = new Intent(ACTION_SELECT_ORDER_RESERVING);
+                        intent.putExtra(ACTION_SELECT_ORDER_RESERVING, Constants.ORDER_SERVING);
+                        LocalBroadcastManager.getInstance(MainActivity.this).sendBroadcast(intent);
                         break;
                     case R.id.two:
                         tvTitle.setText(R.string.require_pay);
-                        break;
-                    case R.id.three:
-                        tvTitle.setText(R.string.order_before);
+                        Intent intent2 = new Intent(ACTION_SELECT_ORDER_RESERVING);
+                        intent2.putExtra(ACTION_SELECT_ORDER_RESERVING, Constants.ORDER_WAIT_FOR_PAY);
+                        LocalBroadcastManager.getInstance(MainActivity.this).sendBroadcast(intent2);
                         break;
                     default:
                         break;
