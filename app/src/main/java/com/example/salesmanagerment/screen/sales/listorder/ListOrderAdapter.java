@@ -106,7 +106,7 @@ public class ListOrderAdapter extends ListAdapter<OrderResponse, OrderResponse> 
                 lnPay.setVisibility(View.GONE);
                 lnPayDish.setVisibility(View.GONE);
                 lnCancel.setVisibility(View.GONE);
-                rlStatus.setBackgroundColor(mContext.getResources().getColor(R.color.color_orange));
+                rlStatus.setBackgroundColor(mContext.getResources().getColor(R.color.color_orange_active));
             }
         }
 
@@ -117,6 +117,7 @@ public class ListOrderAdapter extends ListAdapter<OrderResponse, OrderResponse> 
                     break;
                 case R.id.lnCancel:
                     //show dialog confirm
+                    mOrderCallBack.onCancelOrder(mOrderResponse.OrderID);
                     break;
                 case R.id.lnPreview:
                     //hiển thị phiếu tạm tính

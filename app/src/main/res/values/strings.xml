@@ -67,6 +67,8 @@
     <string name="no">Không</string>
     <string name="time_start">Từ ngày</string>
     <string name="time_end">Đến ngày</string>
+    <string name="cancel_order">Bạn có muốn hủy order này không?</string>
+    <string name="enter_order">Nhập lý do hủy order này !</string>
     <string name="pay">Thu tiền</string>
     <string name="pay_dish">Trả món order</string>
     <string name="sale">Chương trình khuyến mại</string>
