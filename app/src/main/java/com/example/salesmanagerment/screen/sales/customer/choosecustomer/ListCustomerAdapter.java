@@ -13,10 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.adapters.ListAdapter;
 import com.example.salesmanagerment.data.model.entity.Customer;
+import com.example.salesmanagerment.utils.CommonFunc;
+
+import java.util.List;
 
 public class ListCustomerAdapter extends ListAdapter<Customer, Customer> {
-    private int mLastSelectedPosition = 1000;
-    public String idCustomer;
+    private int mLastSelectedPosition = 100000;
+    public String customerID;
 
     /**
      * Là phương thức khởi tạo cho ListAdapter
@@ -24,16 +27,33 @@ public class ListCustomerAdapter extends ListAdapter<Customer, Customer> {
      * @param context là được truyền tới từ context nơi khởi tạo thể hiện của lớp
      */
 
-    public ListCustomerAdapter(Context context) {
+    public ListCustomerAdapter(Context context, String customerID) {
         super(context);
+        this.customerID = customerID;
+    }
+
+    public void setSelectedIndex() {
+        if (!CommonFunc.isNullOrEmpty(customerID)) {
+            for (int i = 0; i < mListData.size(); i++) {
+                if (mListData.get(i).getCustomerID().equals(customerID)) {
+                    mLastSelectedPosition = i;
+                    break;
+                }
+            }
+        }
 
     }
 
-    private void setSelectedIndex() {
-    }
-
-    String getCustomerId() {
-        return mListData.get(mLastSelectedPosition).getCustomerID();
+    @Override
+    public void setListData(List<Customer> listData) {
+        mListData.clear();
+        if (listData != null) {
+            mListData.addAll(listData);
+            setSelectedIndex();
+            notifyDataSetChanged();
+            return;
+        }
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -45,15 +65,29 @@ public class ListCustomerAdapter extends ListAdapter<Customer, Customer> {
         return new ItemViewHolder(view);
     }
 
+
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
+        final Customer customer = mListData.get(i);
         ItemViewHolder itemViewHolder = (ItemViewHolder) viewHolder;
         if (i == mLastSelectedPosition) {
             itemViewHolder.btnTick.setImageResource(R.drawable.ic_tick);
         } else {
             itemViewHolder.btnTick.setImageResource(0);
         }
-        itemViewHolder.bind(mListData.get(i));
+        itemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                customerID = customer.getCustomerID();
+                int oldPosition = mLastSelectedPosition;
+                mLastSelectedPosition = i;
+                if (oldPosition != 100000) {
+                    notifyItemChanged(oldPosition);
+                }
+                notifyItemChanged(mLastSelectedPosition);
+            }
+        });
+        itemViewHolder.bind(customer);
 
     }
 
@@ -76,21 +110,9 @@ public class ListCustomerAdapter extends ListAdapter<Customer, Customer> {
 
         public void bind(Customer customer) {
             if (customer != null) {
-
                 tvNameCustomer.setText(customer.getCustomerName());
                 tvNumberPhone.setText(customer.getMobile());
-
-                this.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        int newPosition = mLastSelectedPosition;
-                        mLastSelectedPosition = getAdapterPosition();
-                        notifyItemChanged(newPosition);
-                        notifyItemChanged(mLastSelectedPosition);
-                    }
-                });
             }
-
         }
     }
 }

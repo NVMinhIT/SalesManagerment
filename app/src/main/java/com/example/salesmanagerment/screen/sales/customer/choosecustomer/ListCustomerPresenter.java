@@ -22,18 +22,17 @@ public class ListCustomerPresenter implements IListCustomerContact.IPresenter {
     @Override
     public void getListCustomer() {
        iView.showLoading(true);
-        customerList = dataSource.getCustomerList();
-        if (customerList != null) {
-            iView.setListSuccess(customerList);
-
-        } else {
+//        customerList = dataSource.getCustomerList();
+//        if (customerList != null) {
+//            iView.setListSuccess(customerList);
+//
+//        } else {
             dataSource.getListCustomer(new IDataCallBack<List<Customer>, String>() {
                 @Override
                 public void onDataSuccess(List<Customer> data) {
-                    customerList = data;
-                    iView.setListSuccess(customerList);
                     iView.showLoading(false);
-
+                   // customerList = data;
+                    iView.setListSuccess(data);
                 }
 
                 @Override
@@ -42,7 +41,7 @@ public class ListCustomerPresenter implements IListCustomerContact.IPresenter {
                     CommonFunc.showToastError(R.string.somthing_went_wrong);
                 }
             });
-        }
+      //  }
 
     }
 

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,6 +24,7 @@ import com.example.salesmanagerment.data.model.entity.ItemOrder;
 import com.example.salesmanagerment.data.model.entity.OrderEntity;
 import com.example.salesmanagerment.screen.sales.createorder.CreateOrderActivity;
 import com.example.salesmanagerment.screen.sales.customer.choosecustomer.ListCustomerActivity;
+import com.example.salesmanagerment.screen.sales.customer.choosecustomer.ListCustomerFragment;
 import com.example.salesmanagerment.utils.CommonFunc;
 import com.example.salesmanagerment.utils.Constants;
 import com.example.salesmanagerment.utils.Navigator;
@@ -49,13 +52,30 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent != null) {
-                if (intent.getAction() != null) {
+            if (intent.getAction() != null) {
+                if (intent.getAction().equals(ListCustomerFragment.ACTION_CUSTOMER_SELECTED)) {
                     try {
-                        idCustomer = intent.getStringExtra(ListCustomerActivity.ACTION_CUSTOMER_SELECTED);
+                        idCustomer = intent.getStringExtra(ListCustomerFragment.EXTRA_CUSTOMER_SELECTED);
                         if (idCustomer != null) {
                             mOrderEntiy.order.CustomerID = idCustomer;
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    };
 
+    private BroadcastReceiver mReceiver2 = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction() != null) {
+                if (intent.getAction().equals(ListCustomerFragment.ACTION_ADD_CUSTOMER)) {
+                    try {
+                        idCustomer = intent.getStringExtra(ListCustomerFragment.ARG_CUSTOMER_ID);
+                        if (!CommonFunc.isNullOrEmpty(idCustomer)) {
+                            mOrderEntiy.order.CustomerID = idCustomer;
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -84,6 +104,9 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
             mPresenter.setOrderEntity(mOrderEntiy);
             mPresenter.onStart();
         }
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver, new IntentFilter(ListCustomerFragment.ACTION_CUSTOMER_SELECTED));
+        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver2, new IntentFilter(ListCustomerFragment.ACTION_ADD_CUSTOMER));
     }
 
     private void initEvents() {
@@ -146,9 +169,10 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
 //                }
                 break;
             case R.id.imb_AddInformation:
-
-                navigator.startActivity(ListCustomerActivity.class);
-
+                Intent intent = new Intent();
+                intent.setClass(this, ListCustomerActivity.class);
+                intent.putExtra(ListCustomerFragment.ARG_CUSTOMER_ID, mOrderEntiy.order.CustomerID);
+                navigator.startActivity(intent);
                 break;
             default:
                 break;
@@ -196,6 +220,13 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
             navigator.startActivity(CreateOrderActivity.class, bundle);
 
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mReceiver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mReceiver2);
+        super.onDestroy();
     }
 }
 

@@ -4,21 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_layout"
-    android:clickable="true"
-    android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:background="@android:color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_actionbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_56"
-        android:background="@drawable/background_layout_blue"
+        android:background="@color/colorPrimaryDark"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
 
         <ImageButton
-            android:id="@+id/img_Cancel"
+            android:id="@+id/btnBack"
             android:layout_width="@dimen/size_56"
             android:layout_height="@dimen/size_56"
             android:background="@null"
