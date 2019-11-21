@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -25,8 +26,10 @@ import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.BaseFragment;
 import com.example.salesmanagerment.base.listeners.IOnItemClickListener;
 import com.example.salesmanagerment.data.model.entity.OrderResponse;
+import com.example.salesmanagerment.screen.authentication.logout.LogOutDialogFragment;
 import com.example.salesmanagerment.screen.main.MainActivity;
 import com.example.salesmanagerment.screen.sales.chooseinventoryitem.ChooseInventoryItemActivity;
+import com.example.salesmanagerment.screen.sales.listorder.dialog.ConfirmCancelOrderDialog;
 import com.example.salesmanagerment.utils.CommonFunc;
 import com.example.salesmanagerment.utils.Constants;
 import com.example.salesmanagerment.utils.Navigator;
@@ -46,6 +49,8 @@ public class ListOrderFragment extends BaseFragment implements View.OnClickListe
     private SwipeRefreshLayout swipeRefresh;
     public static String ACTION_ADD_LIST_ORDER = "ACTION_ADD_LIST_ORDER";
     private int currentStatus = Constants.ORDER_SERVING;
+    private ImageButton imvCancelOrder;
+    public static final String CANCEL_ORDER = "CANCEL_ORDER";
 
     public static ListOrderFragment newInstance() {
         return new ListOrderFragment();
@@ -219,7 +224,7 @@ public class ListOrderFragment extends BaseFragment implements View.OnClickListe
 
     @Override
     public void onCancelOrder(String orderID) {
-
+        mActivity.getSupportFragmentManager().beginTransaction().add(new ConfirmCancelOrderDialog(), CANCEL_ORDER).commit();
     }
 
     @Override

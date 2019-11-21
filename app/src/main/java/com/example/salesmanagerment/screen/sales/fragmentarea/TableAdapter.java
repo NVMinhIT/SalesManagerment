@@ -81,7 +81,7 @@ public class TableAdapter extends ListAdapter<TableMappingCustom, TableMappingCu
 
         /**
          * Phương thức tham chiếu, khởi tạo view
-         * Created_by Nguyễn Bá Linh on 12/04/2019
+         *
          */
         private void initViews(View view) {
             //tìm view theo layout

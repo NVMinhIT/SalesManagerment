@@ -14,9 +14,10 @@
         android:background="@color/colorPrimaryDark"
         android:gravity="center"
         android:padding="@dimen/padding_16"
-        android:text="Hủy Order"
+        android:text="@string/cancel_order"
         android:textColor="#FFFFFF"
-        android:textSize="@dimen/text_18"
+        android:textSize="@dimen/text_16"
+        android:textStyle="bold"
         app:layout_constraintRight_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,13 +27,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
-        android:hint="Nhập lý do hủy Order"
+        android:hint="@string/enter_order"
         android:padding="@dimen/padding_16"
         android:textColor="@color/text"
         android:textSize="@dimen/text_14"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_Title_LogOut"
-        tools:ignore="Autofill,LabelFor" />
+        tools:ignore="Autofill,LabelFor,TextFields" />
 
     <Button
         android:id="@+id/btnOk"
@@ -40,8 +41,9 @@
         android:layout_height="@dimen/size_48"
         android:layout_margin="@dimen/margin_8"
         android:background="@drawable/selector_button_blue"
-        android:text="OK"
+        android:text="@string/yes"
         android:textColor="#FFFFFF"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edtReasonCancelOrder" />
@@ -52,7 +54,8 @@
         android:layout_height="@dimen/size_48"
         android:layout_margin="@dimen/margin_8"
         android:background="@drawable/selector_button_white"
-        android:text="Hủy"
+        android:text="@string/no"
+        android:textStyle="bold"
         android:textColor="@drawable/selector_text_button_delete"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toLeftOf="@id/btnOk"

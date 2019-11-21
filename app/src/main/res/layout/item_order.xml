@@ -209,6 +209,7 @@
                     android:paddingBottom="@dimen/margin_12">
 
                     <ImageView
+                        android:id="@+id/imvCancelOrder"
                         android:layout_width="@dimen/size_38"
                         android:layout_height="@dimen/size_38"
                         android:padding="@dimen/padding_4"

@@ -393,7 +393,7 @@ public class DataSource {
             }
         });
     }
-    // lấy thông tin user
+    // lọc order status
     public void RequestPayOrder(String orderID, final IDataCallBack<Boolean, String> callBack) {
         apiService.RequestPayOrder(token, orderID).enqueue(new Callback<BaseResponse<Boolean>>() {
             @Override
@@ -419,7 +419,7 @@ public class DataSource {
             }
         });
     }
-    //lấy danh sách khu vực
+
 
     //lấy danh sách khách hàng
     public void getListCustomer(final IDataCallBack<List<Customer>, String> callBack) {

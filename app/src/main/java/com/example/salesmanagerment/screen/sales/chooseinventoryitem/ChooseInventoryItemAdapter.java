@@ -137,7 +137,7 @@ public class ChooseInventoryItemAdapter extends ListAdapter<ItemOrder, IOnItemCl
 
         /**
          * Phương thức tham chiếu, khởi tạo view
-         * Created_by Nguyễn Bá Linh on 12/04/2019
+         *
          */
         private void initViews(View view) {
             ivICon = view.findViewById(R.id.ivIcon);

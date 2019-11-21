@@ -23,7 +23,6 @@ import androidx.fragment.app.DialogFragment;
 import com.example.salesmanagerment.R;
 
 import java.util.Objects;
-import java.util.UUID;
 
 public class ConfirmCancelOrderDialog extends DialogFragment implements View.OnClickListener {
     private Button btnOk, btnCancel;
@@ -48,7 +47,6 @@ public class ConfirmCancelOrderDialog extends DialogFragment implements View.OnC
 
     /**
      * Phương thức gắn sự kiện cho view
-     * Created_by Nguyễn Bá Linh on 10/04/2019
      */
     private void initEvents() {
         try {
@@ -61,7 +59,6 @@ public class ConfirmCancelOrderDialog extends DialogFragment implements View.OnC
 
     /**
      * Phương thức tham chiếu, khởi tạo view
-     * Created_by Nguyễn Bá Linh on 10/04/2019
      */
     private void initViews(View view) {
         btnOk = view.findViewById(R.id.btnOk);
@@ -105,7 +102,6 @@ public class ConfirmCancelOrderDialog extends DialogFragment implements View.OnC
 
     /**
      * Ghi đè hàm khởi tạo dialog, thiết lập dialog
-     * Created_by Nguyễn Bá Linh on 10/04/2019
      *
      * @param savedInstanceState - gói dữ liệu
      * @return - dialog
@@ -156,7 +152,7 @@ public class ConfirmCancelOrderDialog extends DialogFragment implements View.OnC
 //                } else {
 //                    mCallBack.onAddUnit(new Unit(UUID.randomUUID().toString(), unitName));
 //                }
-                dismiss();
+                //dismiss();
                 break;
             case R.id.btnCancel:
                 dismiss();

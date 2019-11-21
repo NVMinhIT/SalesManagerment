@@ -73,6 +73,7 @@
         android:layout_below="@+id/search_order"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvOrder"
             android:layout_width="match_parent"
@@ -130,7 +131,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_margin="@dimen/margin_18"
-        android:backgroundTint="@color/color_orange"
+        android:backgroundTint="@color/colorPrimaryDark"
         android:clickable="true"
         android:focusable="true"
         android:src="@drawable/ic_add_dish"
