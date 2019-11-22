@@ -1,18 +1,15 @@
 package com.example.salesmanagerment.screen.sales.createorder;
 
-import android.content.Intent;
-
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
 import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.listeners.IDataCallBack;
+import com.example.salesmanagerment.data.model.app.ErrorCode;
 import com.example.salesmanagerment.data.model.entity.ItemOrder;
 import com.example.salesmanagerment.data.model.entity.OrderEntity;
 import com.example.salesmanagerment.data.repository.DataSource;
-import com.example.salesmanagerment.screen.sales.listorder.ListOrderFragment;
 import com.example.salesmanagerment.utils.CommonFunc;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class CreateOrderPresenter implements ICreateOrderContact.IPresenter {
 
@@ -43,11 +40,19 @@ public class CreateOrderPresenter implements ICreateOrderContact.IPresenter {
             @Override
             public void onDataFailed(String error) {
                 mView.showLoading(false);
-                CommonFunc.showToastSuccess(error);
+                if (error.equals(ErrorCode.DUPLICATE)) {
+                    CommonFunc.showToastInfo("Trùng mã order, đang khởi tạo lại");
+                    String[] temp = mOrderEntity.order.OrderNo.split(Pattern.quote("."));
+                    int no = Integer.parseInt(temp[1]) + 1;
+                    mOrderEntity.order.OrderNo = temp[0] + "." + no;
+                    saveOrder();
+                } else {
+                    CommonFunc.showToastError(error);
+                }
+
             }
         });
     }
-
 
 
     @Override

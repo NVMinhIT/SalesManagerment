@@ -49,6 +49,11 @@ public class CommonFunc {
         return formatter.format(new Date());
     }
 
+    public static String getStringCurrentDateTimeMMddyyyy() {
+        SimpleDateFormat formatter = new SimpleDateFormat(Constants.K_DATE_FORMAT_4, Locale.US);
+        return formatter.format(new Date());
+    }
+
     public static String getCurrentDateTime(Date date) {
         SimpleDateFormat formatter = new SimpleDateFormat(Constants.K_DATE_FORMAT_3, Locale.US);
         return formatter.format(date);
@@ -58,11 +63,11 @@ public class CommonFunc {
     public static String getDateServer(String dateTime){
         Date date1= null;
         try {
-            date1 = new SimpleDateFormat("dd/MM/yyyy").parse(dateTime);
+            date1 = new SimpleDateFormat(Constants.K_DATE_FORMAT_4).parse(dateTime);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        SimpleDateFormat formatter = new SimpleDateFormat(Constants.K_DATE_FORMAT_3, Locale.US);
+        SimpleDateFormat formatter = new SimpleDateFormat(Constants.K_DATE_FORMAT_4, Locale.US);
         return formatter.format(date1);
     }
 

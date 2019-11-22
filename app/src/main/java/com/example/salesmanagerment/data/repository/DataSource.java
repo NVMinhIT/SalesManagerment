@@ -25,6 +25,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Date;
 import java.util.List;
+import java.util.PropertyPermission;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -307,7 +308,14 @@ public class DataSource {
                     Log.d(TAG, "onResponse: ");
                     if (callBack != null) {
                         if (response.body() != null) {
-                            callBack.onDataSuccess(response.body().getSuccess());
+                            String errCode = response.body().getErrorCode();
+                            if (CommonFunc.isNullOrEmpty(errCode)){
+                                callBack.onDataSuccess(true);
+                            } else {
+                                callBack.onDataFailed(errCode);
+                            }
+                        } else {
+                            callBack.onDataSuccess(false);
                         }
                     }
                 } else {
@@ -486,5 +494,35 @@ public class DataSource {
         });
     }
 
+    //lấy mã order
+    public void getOrderNo(final IDataCallBack<String, String> callBack) {
+        if (!CommonFunc.isNetworkAvailable()) {
+            CommonFunc.showToastError(R.string.internet_not_available);
+            return;
+        }
+        apiService.getOrderNo(token).enqueue(new Callback<BaseResponse<String>>() {
+            @Override
+            public void onResponse(@NotNull Call<BaseResponse<String>> call, @NotNull Response<BaseResponse<String>> response) {
+                if (response.isSuccessful()) {
+                    String orderNo = response.body().getData();
+                    if (callBack != null) {
+                        callBack.onDataSuccess(orderNo);
+                    }
+                } else {
+                    if (callBack != null) {
+                        callBack.onDataFailed(response.message());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<BaseResponse<String>> call, @NotNull Throwable t) {
+                if (callBack != null) {
+                    callBack.onDataFailed(t.getMessage());
+                }
+                CommonFunc.showToastWarning(R.string.somthing_went_wrong);
+            }
+        });
+    }
 
 }

@@ -10,9 +10,13 @@ import java.util.List;
 public interface IInventoryItemContact {
     interface IView extends IBaseView {
         void getListSuccess(List<ItemOrder> items);
+
+        void getOrderNoSuccess(String orderNo);
     }
 
     interface IPresenter extends IBasePresenter<IInventoryItemContact.IView> {
         void getInventoryItem(Boolean isLoadNewData, Boolean isShowLoading);
+
+        void getOrderNo();
     }
 }

@@ -47,11 +47,11 @@ public class OrderEntity implements Parcelable {
         }
     };
 
-    public OrderEntity initOrderEntity() {
+    public OrderEntity initOrderEntity(String orderNo) {
         orderDetails = new ArrayList<>();
         order = new Order.Builder().setOrderID(UUID.randomUUID().toString()).
                 setCreatedDate(CommonFunc.getStringCurrentDateTime())
-                .setOrderNo("Something")
+                .setOrderNo(orderNo)
                 .setModifiedDate(CommonFunc.getStringCurrentDateTime())
                 .setOrderDate(CommonFunc.getStringCurrentDateTime())
                 .setCancelReason("")
