@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/size_72"
+    android:layout_marginStart="@dimen/margin_6"
+    android:layout_marginTop="@dimen/margin_6"
+    android:layout_marginEnd="@dimen/margin_6"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_72">
+
+        <ImageView
+            android:id="@+id/img_pan"
+            android:layout_width="@dimen/size_26"
+            android:layout_height="@dimen/size_26"
+            android:layout_marginStart="@dimen/margin_12"
+            android:layout_marginTop="@dimen/margin_12"
+            android:padding="@dimen/padding_4"
+            android:src="@drawable/ic_pan_active"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_12"
+            android:layout_marginTop="@dimen/margin_12"
+            android:text="Shushi cá hồi"
+            android:textColor="@color/text"
+            android:textSize="@dimen/text_18"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toRightOf="@+id/img_pan"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_dish_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_48"
+            android:layout_marginTop="@dimen/margin_6"
+            android:background="#EEEEEE"
+            android:text="4 suất Shushi cá hồi"
+            android:textColor="@color/colorBlueHighLight"
+            android:textSize="@dimen/text_16"
+            android:textStyle="italic"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_pan"
+            tools:ignore="MissingConstraints" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/size_48"
+            android:layout_marginEnd="@dimen/margin_6"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:padding="@dimen/padding_4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="UselessLeaf">
+
+            <ImageButton
+                android:id="@+id/imb_delete_dish"
+                android:layout_width="@dimen/size_42"
+                android:layout_height="@dimen/size_42"
+                android:layout_marginEnd="@dimen/margin_6"
+                android:layout_weight="0.5"
+                android:background="#F5F5F5"
+                android:src="@drawable/ic_close_red"
+                tools:ignore="ContentDescription" />
+
+            <ImageButton
+                android:id="@+id/imb_pay_dish"
+                android:layout_width="@dimen/size_42"
+                android:layout_height="@dimen/size_42"
+                android:layout_weight="0.5"
+                android:background="#F5F5F5"
+                android:src="@drawable/ic_tick_order"
+                tools:ignore="ContentDescription" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
