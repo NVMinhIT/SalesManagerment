@@ -71,6 +71,7 @@
     <string name="enter_order">Nhập lý do hủy order này !</string>
     <string name="pay">Thu tiền</string>
     <string name="pay_dish">Trả món order</string>
+    <string name="pay_inventory_item">Trả món </string>
     <string name="sale">Chương trình khuyến mại</string>
     <string name="choose_dish">Chọn món</string>
     <string name="list_customer">Danh sách khách hàng</string>
@@ -93,6 +94,8 @@
     <string name="_3">3</string>
     <string name="sum_sub">+/-</string>
     <string name="_0">0</string>
+    <string name="pay_inventoryitem">Theo món ăn</string>
+    <string name="pay_table">Theo bàn</string>
     <string name="thousand">000</string>
     <string name="comma">,</string>
     <string name="equal_done">Xong</string>
