@@ -100,9 +100,7 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
         mPresenter = new ChooseInventoryItemPresenter();
         mPresenter.setView(this);
         if (type == TYPE_CREATE) {
-            mOrderEntiy = new OrderEntity().initOrderEntity();
-            mPresenter.setOrderEntity(mOrderEntiy);
-            mPresenter.onStart();
+            mPresenter.getOrderNo();
         }
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver, new IntentFilter(ListCustomerFragment.ACTION_CUSTOMER_SELECTED));
@@ -161,6 +159,10 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
 //                List<ItemOrder> itemOrders = mAdapter.getTotalItemSelected();
 //                 if (itemOrders.size() > 0) {
                 // mPresenter.setOrderDetails(itemOrders);
+                if(CommonFunc.isNullOrEmpty(mOrderEntiy.order.CustomerID)) {
+                    CommonFunc.showToastWarning("Vui lòng chọn khách hàng");
+                    return;
+                }
                 new MyAsyn().execute();
 //                    // bundle.putString(Constants.EXTRAS_INVENTORY_ITEM_LIST, new Gson().toJson(itemOrders,));
 //
@@ -191,6 +193,13 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
             mAdapter.setListData(items);
         }
         // swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void getOrderNoSuccess(String orderNo) {
+        mOrderEntiy = new OrderEntity().initOrderEntity(orderNo);
+        mPresenter.setOrderEntity(mOrderEntiy);
+        mPresenter.onStart();
     }
 
     @SuppressLint("StaticFieldLeak")

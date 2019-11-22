@@ -18,26 +18,24 @@ public class AddCustomerPresenter implements IAddCustomerContact.IPresenter {
 
     @Override
     public void addCustomer() {
-        if (customer.getCustomerCode().equals("")) {
+        if (CommonFunc.isNullOrEmpty(customer.getCustomerCode())) {
             CommonFunc.showToastError(R.string.enter_code);
-        } else if (customer.getCustomerName().equals("")) {
+        } else if (CommonFunc.isNullOrEmpty(customer.getCustomerName())) {
             CommonFunc.showToastError(R.string.enter_name);
-        } else if (customer.getMobile().equals("")) {
+        } else if (CommonFunc.isNullOrEmpty(customer.getMobile())) {
             CommonFunc.showToastError(R.string.enter_phone);
-        } else if (customer.getAddress().equals("")) {
-            CommonFunc.showToastError(R.string.enter_address);
-
         } else {
             iView.showLoading(true);
             dataSource.createCustomer(customer, new IDataCallBack<Boolean, String>() {
                 @Override
                 public void onDataSuccess(Boolean data) {
                     if (data) {
+                        iView.showLoading(false);
                         CommonFunc.showToastSuccess(R.string.add_customer_success);
                         iView.gotoListCustomerScreen();
-                        iView.showLoading(false);
 
                     } else {
+                        iView.showLoading(false);
                         CommonFunc.showToastSuccess(R.string.add_customer_failed);
                     }
 

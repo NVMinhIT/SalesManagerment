@@ -73,6 +73,10 @@ public interface ApiService {
     Call<BaseResponse<Boolean>> RequestPayOrder(@Header("authorization") String token, @Body String orderID);
 
     // lấy danh sách khách hàng
+    @GET("Order/GetOrderNo")
+    Call<BaseResponse<String>> getOrderNo(@Header("authorization") String token);
+
+    // lấy danh sách khách hàng
     @GET("Customer/GetList")
     Call<BaseResponse<List<Customer>>> getListCustomer(@Header("authorization") String token);
 

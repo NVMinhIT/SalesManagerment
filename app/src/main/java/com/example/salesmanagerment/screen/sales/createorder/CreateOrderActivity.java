@@ -149,7 +149,6 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderCon
         switch (view.getId()) {
             case R.id.tv_Table:
                 Bundle bundle = new Bundle();
-                // bundle.putString(TABLE_ID_EXTRA, mTableMappingCustom.TableID);
                 navigator.startActivityForResult(OptionTableActivity.class, bundle, Constants.REQUEST_CODE);
                 break;
             case R.id.tv_Add_Person:
@@ -167,7 +166,7 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderCon
                 break;
             case R.id.imb_pay:
                 if (tvOptionTable.getText().toString().equals("")) {
-                    CommonFunc.showToastError(R.string.please_enter);
+                    CommonFunc.showToastWarning(R.string.please_enter);
                 } else {
                     orderEntity = mPresenter.mOrderEntity;
                     itemOrderList = mPresenter.mItemOrders;
@@ -184,8 +183,11 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderCon
                 }
                 break;
             case R.id.imb_save_order:
+                if (tvOptionTable.getText().toString().equals("")) {
+                    CommonFunc.showToastWarning(R.string.please_enter);
+                    return;
+                }
                 mPresenter.saveOrder();
-                //navigator.startActivity(BillActivity.class);
             default:
                 break;
 

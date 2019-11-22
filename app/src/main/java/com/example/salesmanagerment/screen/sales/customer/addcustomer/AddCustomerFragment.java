@@ -20,14 +20,12 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.BaseFragment;
 import com.example.salesmanagerment.data.model.entity.Customer;
-import com.example.salesmanagerment.screen.sales.customer.choosecustomer.ListCustomerActivity;
 import com.example.salesmanagerment.screen.sales.customer.choosecustomer.ListCustomerFragment;
 import com.example.salesmanagerment.utils.CommonFunc;
 import com.example.salesmanagerment.utils.Navigator;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.LinkedHashMap;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -93,8 +91,12 @@ public class AddCustomerFragment extends BaseFragment implements View.OnClickLis
                 navigator.hideKeyboard();
                 break;
             case R.id.btn_Save:
+                String date = CommonFunc.getDateServer(CommonFunc.getStringCurrentDateTimeMMddyyyy());
+                if (!CommonFunc.isNullOrEmpty(tvBirthday.getText().toString())){
+                    date = CommonFunc.getDateServer(tvBirthday.getText().toString());
+                }
                 mCustomer = new Customer(UUID.randomUUID().toString(), edtCodeCustomer.getText().toString(),
-                        edtNameCustomer.getText().toString(), CommonFunc.getDateServer(tvBirthday.getText().toString()), null, edtPhoneNumber.getText().toString(),
+                        edtNameCustomer.getText().toString(), date, null, edtPhoneNumber.getText().toString(),
                         edtAddress.getText().toString(), null, false);
                 addCustomerPresenter.customer = mCustomer;
                 addCustomerPresenter.addCustomer();
@@ -116,12 +118,12 @@ public class AddCustomerFragment extends BaseFragment implements View.OnClickLis
             @SuppressLint("SetTextI18n")
             @Override
             public void onDateSet(DatePicker datePicker, int dayOfMonth, int monthOfYear, int year) {
-                calendar.set(dayOfMonth, monthOfYear, year);
+                //calendar.set(dayOfMonth, monthOfYear, year);
                 @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 final String strDate = simpleDateFormat.format(calendar.getTime());
                 tvBirthday.setText(strDate);
             }
-        }, mDay, mMonth, mYear);
+        }, mYear, mMonth, mDay);
         datePickerDialog.show();
     }
 

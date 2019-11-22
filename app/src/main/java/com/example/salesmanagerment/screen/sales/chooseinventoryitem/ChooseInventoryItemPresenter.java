@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class ChooseInventoryItemPresenter implements IInventoryItemContact.IPresenter {
+        public class ChooseInventoryItemPresenter implements IInventoryItemContact.IPresenter {
 
     private static final String TAG = "ChooseInventoryItemPres";
     private DataSource mDataSource;
@@ -75,6 +75,24 @@ public class ChooseInventoryItemPresenter implements IInventoryItemContact.IPres
             return;
         }
         getInventoryItemList(isShowLoading);
+    }
+
+    @Override
+    public void getOrderNo() {
+        mView.showLoading(true);
+        mDataSource.getOrderNo(new IDataCallBack<String, String>() {
+            @Override
+            public void onDataSuccess(String data) {
+                mView.showLoading(false);
+                mView.getOrderNoSuccess(data);
+            }
+
+            @Override
+            public void onDataFailed(String error) {
+                mView.showLoading(false);
+                CommonFunc.showToastError(R.string.somthing_went_wrong);
+            }
+        });
     }
 
     public List<ItemOrder> convertData(List<InventoryItem> itemList) {
