@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.salesmanagerment.R;
@@ -221,6 +222,13 @@ public class Navigator {
         if (isShowPrevious) {
             mFragment.getChildFragmentManager().popBackStackImmediate();
         }
+
+//        FragmentManager fm = getFragmentManager();
+//        fm.beginTransaction()
+//                .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+//                .hide(somefrag)
+//                .show()
+//                .commit();
         return isShowPrevious;
     }
 

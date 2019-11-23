@@ -9,6 +9,7 @@ import com.example.salesmanagerment.data.model.entity.OrderResponse;
 import com.example.salesmanagerment.data.model.entity.TableMappingCustom;
 import com.example.salesmanagerment.data.model.entity.Unit;
 import com.example.salesmanagerment.data.model.entity.UserProfile;
+import com.example.salesmanagerment.data.model.request.CancelOrderRequest;
 import com.example.salesmanagerment.data.model.request.LoginRequest;
 import com.example.salesmanagerment.data.model.response.base.BaseResponse;
 
@@ -64,9 +65,9 @@ public interface ApiService {
 //    @GET("Order/CheckOrderIsSendKitchen")
 //    Call<BaseResponse<List<OrderResponse>>> getListOrder(@Header("authorization") String token);
 
-    // thêm order
-    @POST("Order/Delete")
-    Call<BaseResponse<Boolean>> cancelOrder(@Header("authorization") String token, @Body String orderID);
+    // hủy order
+    @POST("Order/CancelOrder")
+    Call<BaseResponse<Boolean>> cancelOrder(@Header("authorization") String token, @Body CancelOrderRequest de);
 
     // thêm order
     @POST("Order/RequestPayOrder")
@@ -75,6 +76,10 @@ public interface ApiService {
     // lấy danh sách khách hàng
     @GET("Order/GetOrderNo")
     Call<BaseResponse<String>> getOrderNo(@Header("authorization") String token);
+
+    // thêm khách hàng
+    @POST("Order/CheckOrderIsSendKitchen")
+    Call<BaseResponse<Boolean>> checkOrderBeforeCancel(@Header("authorization") String token, @Body String orderID);
 
     // lấy danh sách khách hàng
     @GET("Customer/GetList")

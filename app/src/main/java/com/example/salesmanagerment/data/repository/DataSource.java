@@ -14,6 +14,7 @@ import com.example.salesmanagerment.data.model.entity.OrderResponse;
 import com.example.salesmanagerment.data.model.entity.TableMappingCustom;
 import com.example.salesmanagerment.data.model.entity.Unit;
 import com.example.salesmanagerment.data.model.entity.UserProfile;
+import com.example.salesmanagerment.data.model.request.CancelOrderRequest;
 import com.example.salesmanagerment.data.model.request.LoginRequest;
 import com.example.salesmanagerment.data.model.response.base.BaseResponse;
 import com.example.salesmanagerment.screen.main.IInitDataCallback;
@@ -25,7 +26,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Date;
 import java.util.List;
-import java.util.PropertyPermission;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -309,7 +309,7 @@ public class DataSource {
                     if (callBack != null) {
                         if (response.body() != null) {
                             String errCode = response.body().getErrorCode();
-                            if (CommonFunc.isNullOrEmpty(errCode)){
+                            if (CommonFunc.isNullOrEmpty(errCode)) {
                                 callBack.onDataSuccess(true);
                             } else {
                                 callBack.onDataFailed(errCode);
@@ -401,6 +401,7 @@ public class DataSource {
             }
         });
     }
+
     // lọc order status
     public void RequestPayOrder(String orderID, final IDataCallBack<Boolean, String> callBack) {
         apiService.RequestPayOrder(token, orderID).enqueue(new Callback<BaseResponse<Boolean>>() {
@@ -423,7 +424,7 @@ public class DataSource {
                 if (callBack != null) {
                     callBack.onDataFailed(t.getMessage());
                 }
-               // CommonFunc.showToastWarning(R.string.somthing_went_wrong);
+                // CommonFunc.showToastWarning(R.string.somthing_went_wrong);
             }
         });
     }
@@ -517,6 +518,70 @@ public class DataSource {
 
             @Override
             public void onFailure(@NotNull Call<BaseResponse<String>> call, @NotNull Throwable t) {
+                if (callBack != null) {
+                    callBack.onDataFailed(t.getMessage());
+                }
+                CommonFunc.showToastWarning(R.string.somthing_went_wrong);
+            }
+        });
+    }
+
+
+    //kiểm tra order đã gửi bếp hay chưa
+    public void checkOrderIsSendKitchen(String orderID, final IDataCallBack<Boolean, String> callBack) {
+        if (!CommonFunc.isNetworkAvailable()) {
+            CommonFunc.showToastError(R.string.internet_not_available);
+            return;
+        }
+        apiService.checkOrderBeforeCancel(token, orderID).enqueue(new Callback<BaseResponse<Boolean>>() {
+            @Override
+            public void onResponse(@NotNull Call<BaseResponse<Boolean>> call, @NotNull Response<BaseResponse<Boolean>> response) {
+                if (response.isSuccessful()) {
+                    Boolean data = response.body().getSuccess();
+                    if (callBack != null) {
+                        callBack.onDataSuccess(data);
+                    }
+                } else {
+                    if (callBack != null) {
+                        callBack.onDataFailed(response.message());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<BaseResponse<Boolean>> call, @NotNull Throwable t) {
+                if (callBack != null) {
+                    callBack.onDataFailed(t.getMessage());
+                }
+                CommonFunc.showToastWarning(R.string.somthing_went_wrong);
+            }
+        });
+    }
+
+
+    //hủy order
+    public void cancelOrder(CancelOrderRequest cancelOrderRequest, final IDataCallBack<Boolean, String> callBack) {
+        if (!CommonFunc.isNetworkAvailable()) {
+            CommonFunc.showToastError(R.string.internet_not_available);
+            return;
+        }
+        apiService.cancelOrder(token, cancelOrderRequest).enqueue(new Callback<BaseResponse<Boolean>>() {
+            @Override
+            public void onResponse(@NotNull Call<BaseResponse<Boolean>> call, @NotNull Response<BaseResponse<Boolean>> response) {
+                if (response.isSuccessful()) {
+                    Boolean data = response.body().getSuccess();
+                    if (callBack != null) {
+                        callBack.onDataSuccess(data);
+                    }
+                } else {
+                    if (callBack != null) {
+                        callBack.onDataFailed(response.message());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<BaseResponse<Boolean>> call, @NotNull Throwable t) {
                 if (callBack != null) {
                     callBack.onDataFailed(t.getMessage());
                 }

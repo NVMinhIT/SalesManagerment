@@ -26,7 +26,7 @@ import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.BaseFragment;
 import com.example.salesmanagerment.base.listeners.IOnItemClickListener;
 import com.example.salesmanagerment.data.model.entity.OrderResponse;
-import com.example.salesmanagerment.screen.authentication.logout.LogOutDialogFragment;
+import com.example.salesmanagerment.data.model.request.CancelOrderRequest;
 import com.example.salesmanagerment.screen.main.MainActivity;
 import com.example.salesmanagerment.screen.sales.chooseinventoryitem.ChooseInventoryItemActivity;
 import com.example.salesmanagerment.screen.sales.listorder.dialog.ConfirmCancelOrderDialog;
@@ -50,6 +50,7 @@ public class ListOrderFragment extends BaseFragment implements View.OnClickListe
     public static String ACTION_ADD_LIST_ORDER = "ACTION_ADD_LIST_ORDER";
     private int currentStatus = Constants.ORDER_SERVING;
     private ImageButton imvCancelOrder;
+    private String cancelOrderID;
     public static final String CANCEL_ORDER = "CANCEL_ORDER";
 
     public static ListOrderFragment newInstance() {
@@ -208,6 +209,28 @@ public class ListOrderFragment extends BaseFragment implements View.OnClickListe
     }
 
     @Override
+    public void checkCancelOrderDone(Boolean isCancelable) {
+        if (isCancelable) { //nếu order có thể hủy - chưa gửi bếp -> show dialog confirm
+            ConfirmCancelOrderDialog dialog = new ConfirmCancelOrderDialog();
+            dialog.setCallBack(new ConfirmCancelOrderDialog.ConfirmCancelOrderCallBack() {
+                @Override
+                public void onCancelOrder(String cancelReason) {
+                    listOrderPresenter.cancelOrder(new CancelOrderRequest(cancelOrderID, cancelReason));
+                }
+            });
+            mActivity.getSupportFragmentManager().beginTransaction().add(dialog, CANCEL_ORDER).commit();
+        } else {
+            cancelOrderID = null;
+            CommonFunc.showToastWarning("Order đã được gửi bếp, bạn không thể hủy");
+        }
+    }
+
+    @Override
+    public void cancelOrderSuccess() {
+        listOrderPresenter.getListOrder(true, currentStatus);
+    }
+
+    @Override
     public void showLoading(boolean isShowLoading) {
         showDialog(isShowLoading);
     }
@@ -224,7 +247,8 @@ public class ListOrderFragment extends BaseFragment implements View.OnClickListe
 
     @Override
     public void onCancelOrder(String orderID) {
-        mActivity.getSupportFragmentManager().beginTransaction().add(new ConfirmCancelOrderDialog(), CANCEL_ORDER).commit();
+        cancelOrderID = orderID;
+        listOrderPresenter.checkCancelOrder(orderID);
     }
 
     @Override

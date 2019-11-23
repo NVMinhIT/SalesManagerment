@@ -64,19 +64,7 @@ public class ConfirmCancelOrderDialog extends DialogFragment implements View.OnC
         btnOk = view.findViewById(R.id.btnOk);
         btnCancel = view.findViewById(R.id.btnCancel);
         edtReasonCancelOrder = view.findViewById(R.id.edtReasonCancelOrder);
-        Bundle bundle = getArguments();
-//        if (bundle != null) {
-//            mUnit = bundle.getParcelable(AppConstants.ARG_UNIT);
-//            if (mUnit != null) {
-//                isEdit = true;
-//                tvTitle.setText(R.string.edit_unit);
-//                etUnitName.setText(mUnit.getUnitName());
-//                etUnitName.setSelection(mUnit.getUnitName().length());
-//            } else {
-//                isEdit = false;
-//                tvTitle.setText(R.string.add_new_unit);
-//            }
-//        }
+        edtReasonCancelOrder.setText("");
 
     }
 
@@ -146,13 +134,8 @@ public class ConfirmCancelOrderDialog extends DialogFragment implements View.OnC
         switch (v.getId()) {
 
             case R.id.btnOk:
-//                String unitName = etUnitName.getText().toString().trim();
-//                if (isEdit) {
-//                    mCallBack.onUpdateUnit(new Unit(mUnit.getUnitId(), unitName));
-//                } else {
-//                    mCallBack.onAddUnit(new Unit(UUID.randomUUID().toString(), unitName));
-//                }
-                //dismiss();
+                mCallBack.onCancelOrder(edtReasonCancelOrder.getText().toString());
+                dismiss();
                 break;
             case R.id.btnCancel:
                 dismiss();
@@ -177,7 +160,7 @@ public class ConfirmCancelOrderDialog extends DialogFragment implements View.OnC
      * Created_by Nguyễn Bá Linh on 09/04/2019
      */
     public interface ConfirmCancelOrderCallBack {
-        void onCancelSuccess();
+        void onCancelOrder(String cancelReason);
     }
 
 }
