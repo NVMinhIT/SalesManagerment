@@ -23,6 +23,7 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.salesmanagerment.R;
+import com.example.salesmanagerment.utils.CommonFunc;
 
 import java.util.Objects;
 
@@ -30,6 +31,7 @@ public class AddPersonDialogFragment extends DialogFragment implements View.OnCl
     private SetPerson setPerson;
     private EditText editTextPerson;
     private Button btAddPerson, btCancel;
+    private String numberOfPeople = "0";
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -41,8 +43,9 @@ public class AddPersonDialogFragment extends DialogFragment implements View.OnCl
     }
 
 
-    public static AddPersonDialogFragment getInstance() {
+    public static AddPersonDialogFragment getInstance(String numberOfPeople) {
         AddPersonDialogFragment addPersonDialogFragment = new AddPersonDialogFragment();
+        addPersonDialogFragment.numberOfPeople = numberOfPeople;
         return addPersonDialogFragment;
     }
 
@@ -61,6 +64,9 @@ public class AddPersonDialogFragment extends DialogFragment implements View.OnCl
         btAddPerson.setOnClickListener(this);
         btCancel.setOnClickListener(this);
         editTextPerson.requestFocus();
+        if (!CommonFunc.isNullOrEmpty(numberOfPeople)) {
+            editTextPerson.setText(numberOfPeople);
+        }
     }
 
     @Override

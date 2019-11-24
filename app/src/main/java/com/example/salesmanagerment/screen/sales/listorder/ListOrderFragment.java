@@ -26,7 +26,7 @@ import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.BaseFragment;
 import com.example.salesmanagerment.base.listeners.IOnItemClickListener;
 import com.example.salesmanagerment.data.model.entity.OrderResponse;
-import com.example.salesmanagerment.screen.authentication.logout.LogOutDialogFragment;
+import com.example.salesmanagerment.data.model.request.CancelOrderRequest;
 import com.example.salesmanagerment.screen.main.MainActivity;
 import com.example.salesmanagerment.screen.sales.chooseinventoryitem.ChooseInventoryItemActivity;
 import com.example.salesmanagerment.screen.sales.listorder.dialog.ConfirmCancelOrderDialog;
@@ -43,13 +43,14 @@ public class ListOrderFragment extends BaseFragment implements View.OnClickListe
     private RecyclerView rvOrder;
     private ListOrderAdapter listOrderAdapter;
     private Spinner spinner;
-    private TextView textViewOptionSearch;
+    private TextView textViewOptionSearch, tvAddOrder;
     private ListOrderPresenter listOrderPresenter;
     private ConstraintLayout clWaterMark;
     private SwipeRefreshLayout swipeRefresh;
     public static String ACTION_ADD_LIST_ORDER = "ACTION_ADD_LIST_ORDER";
     private int currentStatus = Constants.ORDER_SERVING;
     private ImageButton imvCancelOrder;
+    private String cancelOrderID;
     public static final String CANCEL_ORDER = "CANCEL_ORDER";
 
     public static ListOrderFragment newInstance() {
@@ -106,13 +107,13 @@ public class ListOrderFragment extends BaseFragment implements View.OnClickListe
     private void initEvents() {
         btnAddOrder.setOnClickListener(this);
         textViewOptionSearch.setOnClickListener(this);
-
-
+        tvAddOrder.setOnClickListener(this);
     }
 
     private void initView(View view) {
         clWaterMark = view.findViewById(R.id.clWaterMark);
         textViewOptionSearch = view.findViewById(R.id.tv_OptionSearch);
+        tvAddOrder = view.findViewById(R.id.tvAddOrder);
         btnAddOrder = view.findViewById(R.id.btnAddOrder);
         swipeRefresh = view.findViewById(R.id.swipeRefresh);
         rvOrder = view.findViewById(R.id.rvOrder);
@@ -143,8 +144,6 @@ public class ListOrderFragment extends BaseFragment implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tvAddOrder:
-                //mNavigator.startActivity(ChooseInventoryItemActivity.class);
-                break;
             case R.id.btnAddOrder:
                 mNavigator.startActivity(ChooseInventoryItemActivity.class);
                 break;
@@ -208,13 +207,38 @@ public class ListOrderFragment extends BaseFragment implements View.OnClickListe
     }
 
     @Override
+    public void checkCancelOrderDone(Boolean isCancelable) {
+        if (isCancelable) { //nếu order có thể hủy - chưa gửi bếp -> show dialog confirm
+            ConfirmCancelOrderDialog dialog = new ConfirmCancelOrderDialog();
+            dialog.setCallBack(new ConfirmCancelOrderDialog.ConfirmCancelOrderCallBack() {
+                @Override
+                public void onCancelOrder(String cancelReason) {
+                    listOrderPresenter.cancelOrder(new CancelOrderRequest(cancelOrderID, cancelReason));
+                }
+            });
+            mActivity.getSupportFragmentManager().beginTransaction().add(dialog, CANCEL_ORDER).commit();
+        } else {
+            cancelOrderID = null;
+            CommonFunc.showToastWarning("Order đã được gửi bếp, bạn không thể hủy");
+        }
+    }
+
+    @Override
+    public void cancelOrderSuccess() {
+        listOrderPresenter.getListOrder(true, currentStatus);
+    }
+
+    @Override
     public void showLoading(boolean isShowLoading) {
         showDialog(isShowLoading);
     }
 
     @Override
     public void onItemClick(OrderResponse data) {
-        CommonFunc.showToastWarning("Chọn order");
+        Intent intent = new Intent();
+        intent.setClass(mActivity, ChooseInventoryItemActivity.class);
+        intent.putExtra(ChooseInventoryItemActivity.EXTRA_ORDER_RESPONSE, data);
+        mNavigator.startActivity(intent);
     }
 
     @Override
@@ -224,7 +248,8 @@ public class ListOrderFragment extends BaseFragment implements View.OnClickListe
 
     @Override
     public void onCancelOrder(String orderID) {
-        mActivity.getSupportFragmentManager().beginTransaction().add(new ConfirmCancelOrderDialog(), CANCEL_ORDER).commit();
+        cancelOrderID = orderID;
+        listOrderPresenter.checkCancelOrder(orderID);
     }
 
     @Override

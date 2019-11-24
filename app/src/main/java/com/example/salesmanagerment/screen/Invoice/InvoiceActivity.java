@@ -2,6 +2,7 @@ package com.example.salesmanagerment.screen.Invoice;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -27,6 +28,7 @@ public class InvoiceActivity extends AppCompatActivity implements IInvoiceContac
     private InvoiceAdapter invoiceAdapter;
     private RecyclerView recyclerView;
     private TextView textViewMoney;
+    private TextView tvBillNumber;
     private InvoicePresenter invoicePresenter;
     Double dSumMoney = 0.0;
     private ImageButton imageButtonBack;
@@ -37,6 +39,7 @@ public class InvoiceActivity extends AppCompatActivity implements IInvoiceContac
     TextView dataCreateInvoice;
     private TableMappingCustom tableMappingCustom;
     private TextView tvAreaName, tvTableName;
+    private Button btn_Done_Pay;
 
 
     @Override
@@ -58,10 +61,13 @@ public class InvoiceActivity extends AppCompatActivity implements IInvoiceContac
         initView();
         tvAreaName.setText(tableMappingCustom.AreaName);
         tvTableName.setText(tableMappingCustom.TableName);
+        tvBillNumber.setText(orderEntity.order.OrderNo);
     }
 
     private void initView() {
         tvAreaName = findViewById(R.id.tv_Area_Name);
+        btn_Done_Pay = findViewById(R.id.btn_Done_Pay);
+        tvBillNumber = findViewById(R.id.tvBillNumber);
         tvTableName = findViewById(R.id.tv_Table_Name);
         dataCreateInvoice = findViewById(R.id.tvDateCreated);
         DateCreateInventoryItem = CommonFunc.getCurrentDateTime(new Date());
@@ -77,7 +83,12 @@ public class InvoiceActivity extends AppCompatActivity implements IInvoiceContac
         invoiceAdapter.setListData(orderList);
         recyclerView.setAdapter(invoiceAdapter);
         textViewMoney.setText(NumberFormat.getNumberInstance(Locale.US).format((aDouble)));
-
+        btn_Done_Pay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
 

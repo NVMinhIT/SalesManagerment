@@ -88,7 +88,7 @@ public class ChooseInventoryItemAdapter extends ListAdapter<ItemOrder, IOnItemCl
         try {
             int totalMoney = 0;
             for (int i = 0; i < mListData.size(); i++) {
-                totalMoney += mListData.get(i).getTotalMoney();
+                totalMoney += mListData.get(i).TotalMoney;
                 Log.d("HAHA", "" + totalMoney);
             }
             mOnItemClickListener.onItemClick(totalMoney);
@@ -137,7 +137,6 @@ public class ChooseInventoryItemAdapter extends ListAdapter<ItemOrder, IOnItemCl
 
         /**
          * Phương thức tham chiếu, khởi tạo view
-         *
          */
         private void initViews(View view) {
             ivICon = view.findViewById(R.id.ivIcon);
@@ -160,7 +159,7 @@ public class ChooseInventoryItemAdapter extends ListAdapter<ItemOrder, IOnItemCl
         @Override
         public void onClick(View v) {
             //lấy số lượng món ăn từ text view
-            int quantity = Integer.parseInt(tvQuantity.getText().toString());
+            Double quantity = Double.parseDouble(tvQuantity.getText().toString());
             switch (v.getId()) {
                 case R.id.clDishOrder:
                     try {
@@ -212,7 +211,7 @@ public class ChooseInventoryItemAdapter extends ListAdapter<ItemOrder, IOnItemCl
                 case R.id.ivDefault:
                     try {
                         ivDefault.setVisibility(View.GONE);
-                        quantity = 0;
+                        quantity = 0.0;
                         tvQuantity.setText(String.valueOf(0));
                         clDishOrder.setBackground(mContext.getResources().getDrawable(R.drawable.selector_dish));
                         lnQuantity.setVisibility(View.GONE);
@@ -237,7 +236,7 @@ public class ChooseInventoryItemAdapter extends ListAdapter<ItemOrder, IOnItemCl
                             lnQuantity.setVisibility(View.GONE);
                             ivDefault.setVisibility(View.INVISIBLE);
                         } else if (quantity < 0) {
-                            quantity = 0;
+                            quantity = 0.0;
                         }
                         tvQuantity.setText(String.valueOf(quantity));
                     } catch (Resources.NotFoundException e) {
@@ -250,7 +249,7 @@ public class ChooseInventoryItemAdapter extends ListAdapter<ItemOrder, IOnItemCl
 
         }
 
-        void setDataToRoot(int quantity) {
+        void setDataToRoot(Double quantity) {
             ItemOrder itemOrder = rootList.get(getAdapterPosition());
             itemOrder.Quantity = quantity;
             itemOrder.TotalMoney = quantity * itemOrder.Price;
@@ -258,7 +257,7 @@ public class ChooseInventoryItemAdapter extends ListAdapter<ItemOrder, IOnItemCl
 
         void bind(ItemOrder itemOrder) {
             mItemOrder = itemOrder;
-            int quantity = itemOrder.Quantity;
+            Double quantity = itemOrder.Quantity;
             tvDishName.setText(itemOrder.Name);
             ivICon.setImageBitmap(CommonFunc.StringToBitMap(itemOrder.Image));
             if (quantity > 0) {

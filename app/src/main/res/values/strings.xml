@@ -108,7 +108,7 @@
 
     // bill
 
-    <string name="num">Số:</string>
+    <string name="num">Số: </string>
     <string name="date">Ngày: </string>
     <string name="area">Tầng: </string>
     <string name="table_number">Bàn: </string>

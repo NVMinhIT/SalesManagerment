@@ -4,11 +4,13 @@ package com.example.salesmanagerment.data.api;
 import com.example.salesmanagerment.data.model.entity.Area;
 import com.example.salesmanagerment.data.model.entity.Customer;
 import com.example.salesmanagerment.data.model.entity.InventoryItem;
+import com.example.salesmanagerment.data.model.entity.OrderDetail;
 import com.example.salesmanagerment.data.model.entity.OrderEntity;
 import com.example.salesmanagerment.data.model.entity.OrderResponse;
 import com.example.salesmanagerment.data.model.entity.TableMappingCustom;
 import com.example.salesmanagerment.data.model.entity.Unit;
 import com.example.salesmanagerment.data.model.entity.UserProfile;
+import com.example.salesmanagerment.data.model.request.CancelOrderRequest;
 import com.example.salesmanagerment.data.model.request.LoginRequest;
 import com.example.salesmanagerment.data.model.response.base.BaseResponse;
 
@@ -60,13 +62,14 @@ public interface ApiService {
     @GET("Order/GetOrdersByOrderStatus")
     Call<BaseResponse<List<OrderResponse>>> GetOrdersByOrderStatus(@Header("authorization") String token, @Query("orderStatus") int orderStatus);
 
-//    // ktra order đã được gửi bếp chưa
-//    @GET("Order/CheckOrderIsSendKitchen")
-//    Call<BaseResponse<List<OrderResponse>>> getListOrder(@Header("authorization") String token);
+    // lấy danh sách  order detail với orderID
+    @GET("Order/GetOrderDetailsByOrderID")
+    Call<BaseResponse<List<OrderDetail>>> GetOrderDetailsByOrderID(@Header("authorization") String token, @Query("orderID") String orderID);
 
-    // thêm order
-    @POST("Order/Delete")
-    Call<BaseResponse<Boolean>> cancelOrder(@Header("authorization") String token, @Body String orderID);
+
+    // hủy order
+    @POST("Order/CancelOrder")
+    Call<BaseResponse<Boolean>> cancelOrder(@Header("authorization") String token, @Body CancelOrderRequest de);
 
     // thêm order
     @POST("Order/RequestPayOrder")
@@ -75,6 +78,10 @@ public interface ApiService {
     // lấy danh sách khách hàng
     @GET("Order/GetOrderNo")
     Call<BaseResponse<String>> getOrderNo(@Header("authorization") String token);
+
+    // thêm khách hàng
+    @POST("Order/CheckOrderIsSendKitchen")
+    Call<BaseResponse<Boolean>> checkOrderBeforeCancel(@Header("authorization") String token, @Body String orderID);
 
     // lấy danh sách khách hàng
     @GET("Customer/GetList")

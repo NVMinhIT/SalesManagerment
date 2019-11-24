@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-        public class ChooseInventoryItemPresenter implements IInventoryItemContact.IPresenter {
+public class ChooseInventoryItemPresenter implements IInventoryItemContact.IPresenter {
 
     private static final String TAG = "ChooseInventoryItemPres";
     private DataSource mDataSource;
@@ -77,6 +77,7 @@ import java.util.UUID;
         getInventoryItemList(isShowLoading);
     }
 
+
     @Override
     public void getOrderNo() {
         mView.showLoading(true);
@@ -95,12 +96,67 @@ import java.util.UUID;
         });
     }
 
+    @Override
+    public void getOrderDetailsByOrderID(String orderID) {
+        mView.showLoading(true);
+        mDataSource.GetOrderDetailsByOrderID(orderID, new IDataCallBack<List<OrderDetail>, String>() {
+            @Override
+            public void onDataSuccess(List<OrderDetail> data) {
+                mView.showLoading(true);
+                if (data != null) {
+                    mView.getListOrderDetailSuccess(data);
+                } else {
+                    CommonFunc.showToastError(R.string.somthing_went_wrong);
+                }
+            }
+
+            @Override
+            public void onDataFailed(String error) {
+                mView.showLoading(true);
+                CommonFunc.showToastError(R.string.somthing_went_wrong);
+            }
+        });
+    }
+
     public List<ItemOrder> convertData(List<InventoryItem> itemList) {
         List<ItemOrder> list = new ArrayList<>();
         for (int i = 0; i < itemList.size(); i++) {
             InventoryItem item = itemList.get(i);
-            list.add(new ItemOrder(item.getInventoryItemID(), 0, item.getInventoryItemName(), item.getFileResource(), item.getUnitPrice(), getUnitName(item.getUnitID()), null));
-        }
+            String OrderDetailID = "";
+            Double Quantity = 0.0;
+            Double CookedQuantity = 0.0;
+            Double ServedQuantity = 0.0;
+            Double CookingQuantity = 0.0;
+            int OrderDetailStatus = 0;
+            String CancelEmployeeID = "";
+            if(mOrderEntity.orderDetails != null) {
+                for (OrderDetail od : mOrderEntity.orderDetails) {
+                    if (od.InventoryItemID.equalsIgnoreCase(item.getInventoryItemID())) {
+                        OrderDetailID = od.OrderDetailID;
+                        CookedQuantity = od.CookedQuantity;
+                        ServedQuantity = od.ServedQuantity;
+                        CookingQuantity = od.CookingQuantity;
+                        OrderDetailStatus = od.OrderDetailStatus;
+                        CancelEmployeeID = od.CancelEmployeeID;
+                        Quantity = od.Quantity;
+                    }
+                }
+            }
+            list.add(new ItemOrder.Builder()
+                    .setID(item.getInventoryItemID())
+                    .setName(item.getInventoryItemName())
+                    .setImage(item.getFileResource())
+                    .setPrice(item.getUnitPrice())
+                    .setUnitName(getUnitName(item.getUnitID()))
+                    .setQuantity(Quantity)
+                    .setTotalMoney(item.getUnitPrice() * Quantity)
+                    .setOrderDetailID(OrderDetailID)
+                    .setCookedQuantity(CookedQuantity)
+                    .setServedQuantity(ServedQuantity)
+                    .setCookingQuantity(CookingQuantity)
+                    .setOrderDetailStatus(OrderDetailStatus)
+                    .setCancelEmployeeID(CancelEmployeeID)
+                    .build()); }
         return list;
     }
 
@@ -114,36 +170,6 @@ import java.util.UUID;
         }
         return unitName;
     }
-
-//    private void getListUnit(final Boolean isShowLoading) {
-//        mDataSource.getListUnit(new IDataCallBack<List<Unit>, String>() {
-//            @Override
-//            public void onDataSuccess(List<Unit> data) {
-//                if (data != null) {
-//                    mUnits = mDataSource.getUnitList();
-//                    getInventoryItemList(isShowLoading);
-//                } else {
-//                    CommonFunc.showToastWarning(R.string.somthing_went_wrong);
-//                }
-//            }
-//
-//            @Override
-//            public void onDataFailed(String error) {
-//                CommonFunc.showToastWarning(R.string.somthing_went_wrong);
-//            }
-//        });
-//    }
-
-//    private void getListInventoryItem(Boolean isShowLoading) {
-//     //   List<Unit> unit = mDataSource.getUnitList();
-////        if (unit == null) {
-////            getListUnit(isShowLoading);
-////        } else {
-//            mUnits = mDataSource.getUnitList();
-//            getInventoryItemList(isShowLoading);
-////        }
-
-    //   }
 
     private void getInventoryItemList(Boolean isLoading) {
         mView.showLoading(isLoading);

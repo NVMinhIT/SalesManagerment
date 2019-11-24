@@ -67,7 +67,7 @@ public class CreateOrderAdapter extends ListAdapter<ItemOrder, IOnItemClickListe
 
         @SuppressLint("SetTextI18n")
         void bind(ItemOrder itemOrder) {
-            int quantity = itemOrder.Quantity;
+            Double quantity = itemOrder.Quantity;
             tvName.setText(itemOrder.Name);
             tvPrice.setText(NumberFormat.getNumberInstance(Locale.US).format(itemOrder.Price));
             tvUnitQuantity.setText(quantity + " " + itemOrder.UnitName + " x ");
