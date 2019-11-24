@@ -91,7 +91,7 @@
             android:layout_marginEnd="@dimen/margin_16"
             android:background="@drawable/select_white_blue"
             android:gravity="center_vertical"
-            android:hint="Chọn số bàn"
+            android:hint="Chọn bàn"
             android:paddingStart="@dimen/padding_16"
             android:textSize="@dimen/text_18"
             android:textStyle="italic"
@@ -195,6 +195,7 @@
             tools:ignore="ObsoleteLayoutParam">
 
             <ImageButton
+                android:id="@+id/btnClose"
                 android:layout_width="@dimen/size_56"
                 android:layout_height="@dimen/size_56"
                 android:layout_gravity="center_vertical"

@@ -62,11 +62,11 @@ public class InvoiceAdapter extends ListAdapter<ItemOrder, IOnItemClickListener<
 
 
         public void bind(ItemOrder itemOrder) {
-            tvInventoryItemName.setText(itemOrder.getName());
-            int quality = itemOrder.getQuantity();
+            tvInventoryItemName.setText(itemOrder.Name);
+            Double quality = itemOrder.Quantity;
             tvQuantity.setText(String.valueOf(quality));
-            tvPrice.setText(NumberFormat.getNumberInstance(Locale.US).format(itemOrder.getPrice()));
-            tvTotalMoney.setText(NumberFormat.getNumberInstance(Locale.US).format((itemOrder.getTotalMoney())));
+            tvPrice.setText(NumberFormat.getNumberInstance(Locale.US).format(itemOrder.Price));
+            tvTotalMoney.setText(NumberFormat.getNumberInstance(Locale.US).format((itemOrder.TotalMoney)));
 
         }
     }

@@ -48,6 +48,8 @@ public final class Constants {
     public static final String EXTRAS_ORDER_ENTITY = "EXTRAS_ORDER_ENTITY";
     public static final String EXTRAS_INVOICE_ENTITY = "EXTRAS_INVOICE_ENTITY";
     public static final String EXTRAS_INVOICE_ENTITY_lIST = "EXTRAS_ORDER_ENTITY_lIST";
+    public static final String EXTRAS_TABLE_NAME = "EXTRAS_TABLE_NAME";
+    public static final String EXTRAS_NUM_OF_PEOPLE = "EXTRAS_NUM_OF_PEOPLE";
     public static final String SUM_MONEY = "SUM_MONEY";
 
     //Order status Trạng thái Order (0- đang phục vụ, 1- chờ thanh toán, 2- đã thanh toán, 3- hủy )
