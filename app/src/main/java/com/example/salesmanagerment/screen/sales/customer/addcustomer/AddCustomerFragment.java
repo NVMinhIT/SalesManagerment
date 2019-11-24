@@ -118,7 +118,7 @@ public class AddCustomerFragment extends BaseFragment implements View.OnClickLis
             @SuppressLint("SetTextI18n")
             @Override
             public void onDateSet(DatePicker datePicker, int dayOfMonth, int monthOfYear, int year) {
-                //calendar.set(dayOfMonth, monthOfYear, year);
+                calendar.set(dayOfMonth, monthOfYear, year);
                 @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 final String strDate = simpleDateFormat.format(calendar.getTime());
                 tvBirthday.setText(strDate);
