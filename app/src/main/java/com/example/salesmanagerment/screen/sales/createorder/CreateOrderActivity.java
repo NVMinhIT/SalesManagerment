@@ -59,6 +59,8 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderCon
     private CreateOrderPresenter mPresenter;
     private OrderEntity orderEntity;
     private List<ItemOrder> itemOrderList;
+    private String tableName;
+    private String numOfPeople;
 
 
     @Override
@@ -75,6 +77,8 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderCon
         if (bundle != null) {
             mPresenter.mItemOrders = getListTrack(bundle.getString(Constants.EXTRAS_INVENTORY_ITEM_LIST));
             mPresenter.mOrderEntity = getOrder(bundle.getString(Constants.EXTRAS_ORDER_ENTITY));
+            tableName = bundle.getString(Constants.EXTRAS_TABLE_NAME);
+            numOfPeople = bundle.getString(Constants.EXTRAS_NUM_OF_PEOPLE);
             calculateMoney();
         }
         initView();
@@ -91,8 +95,11 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderCon
         btnAddMore = findViewById(R.id.btnAddMore);
         tvOptionTable = findViewById(R.id.tv_Table);
         navigator = new Navigator(this);
-        addPersonDialogFragment = new AddPersonDialogFragment();
+        addPersonDialogFragment = AddPersonDialogFragment.getInstance(numOfPeople);
         tvAddPerson = findViewById(R.id.tv_Add_Person);
+        if(!CommonFunc.isNullOrEmpty(numOfPeople)){
+            tvAddPerson.setText(numOfPeople);
+        }
         imageButtonSale = findViewById(R.id.imb_sale_dish);
         imageButtonSale.setOnClickListener(this);
         recyclerView = findViewById(R.id.recycle_name_dish);
@@ -101,6 +108,10 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderCon
         mAdapter = new CreateOrderAdapter(this);
         mAdapter.setListData(mPresenter.mItemOrders);
         recyclerView.setAdapter(mAdapter);
+
+        if (!CommonFunc.isNullOrEmpty(tableName)) {
+            tvOptionTable.setText(tableName);
+        }
         tvSumMoney.setText(NumberFormat.getNumberInstance(Locale.US).format((dSumMoney)));
         if (mTableMappingCustom != null && !CommonFunc.isNullOrEmpty(mTableMappingCustom.TableName)) {
             tvOptionTable.setText(mTableMappingCustom.TableName);

@@ -9,6 +9,7 @@ import com.example.salesmanagerment.data.api.ServiceGenerator;
 import com.example.salesmanagerment.data.model.entity.Area;
 import com.example.salesmanagerment.data.model.entity.Customer;
 import com.example.salesmanagerment.data.model.entity.InventoryItem;
+import com.example.salesmanagerment.data.model.entity.OrderDetail;
 import com.example.salesmanagerment.data.model.entity.OrderEntity;
 import com.example.salesmanagerment.data.model.entity.OrderResponse;
 import com.example.salesmanagerment.data.model.entity.TableMappingCustom;
@@ -582,6 +583,40 @@ public class DataSource {
 
             @Override
             public void onFailure(@NotNull Call<BaseResponse<Boolean>> call, @NotNull Throwable t) {
+                if (callBack != null) {
+                    callBack.onDataFailed(t.getMessage());
+                }
+                CommonFunc.showToastWarning(R.string.somthing_went_wrong);
+            }
+        });
+    }
+
+    //lấy danh sách chi tiết order với orderID
+    public void GetOrderDetailsByOrderID(String orderID, final IDataCallBack<List<OrderDetail>, String> callBack) {
+        if (!CommonFunc.isNetworkAvailable()) {
+            CommonFunc.showToastError(R.string.internet_not_available);
+            return;
+        }
+        apiService.GetOrderDetailsByOrderID(token, orderID).enqueue(new Callback<BaseResponse<List<OrderDetail>>>() {
+            @Override
+            public void onResponse(@NotNull Call<BaseResponse<List<OrderDetail>>> call, @NotNull Response<BaseResponse<List<OrderDetail>>> response) {
+                if (response.isSuccessful()) {
+                    List<OrderDetail> data = null;
+                    if (response.body() != null) {
+                        data = response.body().getData();
+                    }
+                    if (callBack != null) {
+                        callBack.onDataSuccess(data);
+                    }
+                } else {
+                    if (callBack != null) {
+                        callBack.onDataFailed(response.message());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<BaseResponse<List<OrderDetail>>> call, @NotNull Throwable t) {
                 if (callBack != null) {
                     callBack.onDataFailed(t.getMessage());
                 }

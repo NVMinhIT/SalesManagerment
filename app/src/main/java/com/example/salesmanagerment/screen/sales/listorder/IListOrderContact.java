@@ -27,5 +27,6 @@ public interface IListOrderContact {
         void checkCancelOrder(String orderID);
 
         void cancelOrder(CancelOrderRequest cancelOrderRequest);
+
     }
 }

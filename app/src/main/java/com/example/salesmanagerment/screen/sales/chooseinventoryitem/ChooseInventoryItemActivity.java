@@ -21,7 +21,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.BaseActivity;
 import com.example.salesmanagerment.data.model.entity.ItemOrder;
+import com.example.salesmanagerment.data.model.entity.OrderDetail;
 import com.example.salesmanagerment.data.model.entity.OrderEntity;
+import com.example.salesmanagerment.data.model.entity.OrderResponse;
 import com.example.salesmanagerment.screen.sales.createorder.CreateOrderActivity;
 import com.example.salesmanagerment.screen.sales.customer.choosecustomer.ListCustomerActivity;
 import com.example.salesmanagerment.screen.sales.customer.choosecustomer.ListCustomerFragment;
@@ -44,10 +46,10 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
     private RecyclerView mRecyclerView;
     private ChooseInventoryItemAdapter mAdapter;
     private EditText edtSearch;
-    private int TYPE_EDIT = 1;
-    private int TYPE_CREATE = 0;
-    private int type = TYPE_CREATE;
+    public static String EXTRA_ORDER_RESPONSE = "EXTRA_ORDER_RESPONSE";
     private String idCustomer;
+    private String tableName;
+    private String numOfPeople;
 
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
@@ -85,7 +87,7 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
         }
     };
 
-    public OrderEntity getOrderEntiy() {
+    public OrderEntity getOrderEntity() {
         return mOrderEntiy;
     }
 
@@ -99,8 +101,16 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
         initEvents();
         mPresenter = new ChooseInventoryItemPresenter();
         mPresenter.setView(this);
-        if (type == TYPE_CREATE) {
+        Intent intent = getIntent();
+        OrderResponse orderResponse = intent.getParcelableExtra(EXTRA_ORDER_RESPONSE);
+        if (orderResponse == null) {
             mPresenter.getOrderNo();
+        } else {
+            mOrderEntiy = new OrderEntity();
+            mOrderEntiy.order = orderResponse.getOrder();
+            tableName = orderResponse.TableName;
+            numOfPeople = String.valueOf(orderResponse.NumberOfPeople);
+            mPresenter.getOrderDetailsByOrderID(mOrderEntiy.order.OrderID);
         }
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver, new IntentFilter(ListCustomerFragment.ACTION_CUSTOMER_SELECTED));
@@ -159,7 +169,7 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
 //                List<ItemOrder> itemOrders = mAdapter.getTotalItemSelected();
 //                 if (itemOrders.size() > 0) {
                 // mPresenter.setOrderDetails(itemOrders);
-                if(CommonFunc.isNullOrEmpty(mOrderEntiy.order.CustomerID)) {
+                if (CommonFunc.isNullOrEmpty(mOrderEntiy.order.CustomerID)) {
                     CommonFunc.showToastWarning("Vui lòng chọn khách hàng");
                     return;
                 }
@@ -202,6 +212,13 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
         mPresenter.onStart();
     }
 
+    @Override
+    public void getListOrderDetailSuccess(List<OrderDetail> orderDetails) {
+        mOrderEntiy.orderDetails = orderDetails;
+        mPresenter.setOrderEntity(mOrderEntiy);
+        mPresenter.onStart();
+    }
+
     @SuppressLint("StaticFieldLeak")
     public class MyAsyn extends AsyncTask<Void, Void, List<ItemOrder>> {
 
@@ -225,6 +242,8 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
             }
             Bundle bundle = new Bundle();
             bundle.putString(Constants.EXTRAS_INVENTORY_ITEM_LIST, new Gson().toJson(orderDetails));
+            bundle.putString(Constants.EXTRAS_TABLE_NAME, tableName);
+            bundle.putString(Constants.EXTRAS_NUM_OF_PEOPLE, numOfPeople);
             bundle.putString(Constants.EXTRAS_ORDER_ENTITY, new Gson().toJson(mPresenter.getOrderEntity()));
             navigator.startActivity(CreateOrderActivity.class, bundle);
 

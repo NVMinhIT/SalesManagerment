@@ -43,7 +43,7 @@ public class ListOrderFragment extends BaseFragment implements View.OnClickListe
     private RecyclerView rvOrder;
     private ListOrderAdapter listOrderAdapter;
     private Spinner spinner;
-    private TextView textViewOptionSearch;
+    private TextView textViewOptionSearch, tvAddOrder;
     private ListOrderPresenter listOrderPresenter;
     private ConstraintLayout clWaterMark;
     private SwipeRefreshLayout swipeRefresh;
@@ -107,13 +107,13 @@ public class ListOrderFragment extends BaseFragment implements View.OnClickListe
     private void initEvents() {
         btnAddOrder.setOnClickListener(this);
         textViewOptionSearch.setOnClickListener(this);
-
-
+        tvAddOrder.setOnClickListener(this);
     }
 
     private void initView(View view) {
         clWaterMark = view.findViewById(R.id.clWaterMark);
         textViewOptionSearch = view.findViewById(R.id.tv_OptionSearch);
+        tvAddOrder = view.findViewById(R.id.tvAddOrder);
         btnAddOrder = view.findViewById(R.id.btnAddOrder);
         swipeRefresh = view.findViewById(R.id.swipeRefresh);
         rvOrder = view.findViewById(R.id.rvOrder);
@@ -144,8 +144,6 @@ public class ListOrderFragment extends BaseFragment implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tvAddOrder:
-                //mNavigator.startActivity(ChooseInventoryItemActivity.class);
-                break;
             case R.id.btnAddOrder:
                 mNavigator.startActivity(ChooseInventoryItemActivity.class);
                 break;
@@ -237,7 +235,10 @@ public class ListOrderFragment extends BaseFragment implements View.OnClickListe
 
     @Override
     public void onItemClick(OrderResponse data) {
-        CommonFunc.showToastWarning("Chọn order");
+        Intent intent = new Intent();
+        intent.setClass(mActivity, ChooseInventoryItemActivity.class);
+        intent.putExtra(ChooseInventoryItemActivity.EXTRA_ORDER_RESPONSE, data);
+        mNavigator.startActivity(intent);
     }
 
     @Override

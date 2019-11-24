@@ -4,6 +4,7 @@ package com.example.salesmanagerment.data.api;
 import com.example.salesmanagerment.data.model.entity.Area;
 import com.example.salesmanagerment.data.model.entity.Customer;
 import com.example.salesmanagerment.data.model.entity.InventoryItem;
+import com.example.salesmanagerment.data.model.entity.OrderDetail;
 import com.example.salesmanagerment.data.model.entity.OrderEntity;
 import com.example.salesmanagerment.data.model.entity.OrderResponse;
 import com.example.salesmanagerment.data.model.entity.TableMappingCustom;
@@ -61,9 +62,10 @@ public interface ApiService {
     @GET("Order/GetOrdersByOrderStatus")
     Call<BaseResponse<List<OrderResponse>>> GetOrdersByOrderStatus(@Header("authorization") String token, @Query("orderStatus") int orderStatus);
 
-//    // ktra order đã được gửi bếp chưa
-//    @GET("Order/CheckOrderIsSendKitchen")
-//    Call<BaseResponse<List<OrderResponse>>> getListOrder(@Header("authorization") String token);
+    // lấy danh sách  order detail với orderID
+    @GET("Order/GetOrderDetailsByOrderID")
+    Call<BaseResponse<List<OrderDetail>>> GetOrderDetailsByOrderID(@Header("authorization") String token, @Query("orderID") String orderID);
+
 
     // hủy order
     @POST("Order/CancelOrder")
