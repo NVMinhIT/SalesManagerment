@@ -36,6 +36,7 @@ public final class Constants {
     public static final String K_DATE_FORMAT_2 = "MM-dd-yyyy HH:mm:ss";
     public static final String K_DATE_FORMAT_3 = "dd/MM/yyyy HH:mm:ss";
     public static final String K_DATE_FORMAT_4 = "MM/dd/yyyy";
+    public static final String K_DATE_FORMAT_5 = "dd/MM/yyyy";
 
 
     public static final String EXTRAS_INVENTORY_ITEM_LIST = "EXTRAS_INVENTORY_ITEM_LIST";

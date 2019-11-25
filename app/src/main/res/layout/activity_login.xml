@@ -49,7 +49,6 @@
             tools:ignore="RtlHardcoded">
 
             <EditText
-                android:text="khanhjm"
                 android:id="@+id/edtUserName"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_48"
@@ -92,7 +91,6 @@
             app:layout_constraintTop_toBottomOf="@id/content_email">
 
             <EditText
-                android:text="meohen12"
                 android:id="@+id/edtPassword"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_48"
