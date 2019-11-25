@@ -168,6 +168,7 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderCon
                         true, Navigator.NavigateAnim.BOTTOM_UP, SalesInventoryItem.class.getSimpleName());
                 break;
             case R.id.imb_send_chef:
+
                 CommonFunc.showToastSuccess(R.string.send_chef);
                 break;
             case R.id.btn_Back_Order:

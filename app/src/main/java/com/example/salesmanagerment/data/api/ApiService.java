@@ -11,6 +11,7 @@ import com.example.salesmanagerment.data.model.entity.TableMappingCustom;
 import com.example.salesmanagerment.data.model.entity.Unit;
 import com.example.salesmanagerment.data.model.entity.UserProfile;
 import com.example.salesmanagerment.data.model.request.CancelOrderRequest;
+import com.example.salesmanagerment.data.model.request.ChangePasswordRequest;
 import com.example.salesmanagerment.data.model.request.LoginRequest;
 import com.example.salesmanagerment.data.model.response.base.BaseResponse;
 
@@ -91,4 +92,10 @@ public interface ApiService {
     // thêm khách hàng
     @POST("Customer/InsertUpdate")
     Call<BaseResponse<Boolean>> createCustomer(@Header("authorization") String token, @Body Customer customer);
+
+      // thêm khách hàng
+    @POST("User/ChangePassword")
+    Call<BaseResponse<Boolean>> ChangePassword(@Header("authorization") String token, @Body ChangePasswordRequest changePasswordRequest);
+
+
 }
