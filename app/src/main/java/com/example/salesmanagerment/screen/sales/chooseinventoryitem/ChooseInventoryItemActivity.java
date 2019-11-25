@@ -24,6 +24,8 @@ import com.example.salesmanagerment.data.model.entity.ItemOrder;
 import com.example.salesmanagerment.data.model.entity.OrderDetail;
 import com.example.salesmanagerment.data.model.entity.OrderEntity;
 import com.example.salesmanagerment.data.model.entity.OrderResponse;
+import com.example.salesmanagerment.data.model.entity.TableMapping;
+import com.example.salesmanagerment.data.model.entity.TableMappingCustom;
 import com.example.salesmanagerment.screen.sales.createorder.CreateOrderActivity;
 import com.example.salesmanagerment.screen.sales.customer.choosecustomer.ListCustomerActivity;
 import com.example.salesmanagerment.screen.sales.customer.choosecustomer.ListCustomerFragment;
@@ -50,6 +52,7 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
     private String idCustomer;
     private String tableName;
     private String numOfPeople;
+    private TableMappingCustom mTableMappingCustom;
 
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
@@ -108,7 +111,9 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
         } else {
             mOrderEntiy = new OrderEntity();
             mOrderEntiy.order = orderResponse.getOrder();
-            tableName = orderResponse.TableName;
+            mTableMappingCustom = new TableMappingCustom();
+            mTableMappingCustom.TableName = orderResponse.TableName;
+            mTableMappingCustom.AreaName = orderResponse.AreaName;
             numOfPeople = String.valueOf(orderResponse.NumberOfPeople);
             mPresenter.getOrderDetailsByOrderID(mOrderEntiy.order.OrderID);
         }
@@ -242,7 +247,7 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
             }
             Bundle bundle = new Bundle();
             bundle.putString(Constants.EXTRAS_INVENTORY_ITEM_LIST, new Gson().toJson(orderDetails));
-            bundle.putString(Constants.EXTRAS_TABLE_NAME, tableName);
+            bundle.putParcelable(Constants.TABLE_MAPPING, mTableMappingCustom);
             bundle.putString(Constants.EXTRAS_NUM_OF_PEOPLE, numOfPeople);
             bundle.putString(Constants.EXTRAS_ORDER_ENTITY, new Gson().toJson(mPresenter.getOrderEntity()));
             navigator.startActivity(CreateOrderActivity.class, bundle);

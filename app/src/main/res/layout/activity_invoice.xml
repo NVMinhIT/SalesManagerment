@@ -97,7 +97,8 @@
                     <TextView
                         android:id="@+id/tvBillNumber"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_8" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -112,6 +113,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/margin_16"
                         android:text="@string/date"
+                        android:textSize="@dimen/text_16"
                         android:textStyle="bold" />
 
                     <TextView
@@ -248,6 +250,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/diliver_height"
                     android:background="@color/colorGray" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

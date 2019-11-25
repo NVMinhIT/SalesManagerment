@@ -77,7 +77,7 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderCon
         if (bundle != null) {
             mPresenter.mItemOrders = getListTrack(bundle.getString(Constants.EXTRAS_INVENTORY_ITEM_LIST));
             mPresenter.mOrderEntity = getOrder(bundle.getString(Constants.EXTRAS_ORDER_ENTITY));
-            tableName = bundle.getString(Constants.EXTRAS_TABLE_NAME);
+            mTableMappingCustom = bundle.getParcelable(Constants.TABLE_MAPPING);
             numOfPeople = bundle.getString(Constants.EXTRAS_NUM_OF_PEOPLE);
             calculateMoney();
         }

@@ -60,8 +60,16 @@ public class CommonFunc {
 
     }
 
-    public static String getDateServer(String dateTime){
-        Date date1= null;
+
+    public static String getCurrentDateBirthday(Date date) {
+        SimpleDateFormat formatter = new SimpleDateFormat(Constants.K_DATE_FORMAT_5, Locale.US);
+        return formatter.format(date);
+
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    public static String getDateServer(String dateTime) {
+        Date date1 = null;
         try {
             date1 = new SimpleDateFormat(Constants.K_DATE_FORMAT_4).parse(dateTime);
         } catch (ParseException e) {
@@ -70,6 +78,18 @@ public class CommonFunc {
         SimpleDateFormat formatter = new SimpleDateFormat(Constants.K_DATE_FORMAT_4, Locale.US);
         return formatter.format(date1);
     }
+
+//    @SuppressLint("SimpleDateFormat")
+//    public static String getDateBirthday(String dateTime) {
+//        Date date2 = null;
+//        try {
+//            date2 = new SimpleDateFormat(Constants.K_DATE_FORMAT_5).parse(dateTime);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        SimpleDateFormat format = new SimpleDateFormat(Constants.K_DATE_FORMAT_5, Locale.US);
+//        return format.format(date2);
+//    }
 
     public static void showToastSuccess(int msg) {
         showToastShort(msg, null, ToastEnum.SUCCESS);

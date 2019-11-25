@@ -16,7 +16,7 @@ import com.example.salesmanagerment.data.model.entity.TableMappingCustom;
 import com.example.salesmanagerment.data.model.entity.Unit;
 import com.example.salesmanagerment.data.model.entity.UserProfile;
 import com.example.salesmanagerment.data.model.request.CancelOrderRequest;
-import com.example.salesmanagerment.data.model.request.ChangePasswordRequest;
+import com.example.salesmanagerment.data.model.request.ChangePassRequest;
 import com.example.salesmanagerment.data.model.request.LoginRequest;
 import com.example.salesmanagerment.data.model.response.base.BaseResponse;
 import com.example.salesmanagerment.screen.main.IInitDataCallback;
@@ -626,19 +626,19 @@ public class DataSource {
         });
     }
 
-    //kiểm tra order đã gửi bếp hay chưa
-    public void ChangePassword(ChangePasswordRequest changePasswordRequest, final IDataCallBack<Boolean, String> callBack) {
+    public void ChangePassword(ChangePassRequest changePasswordRequest, final IDataCallBack<Boolean, String> callBack) {
         if (!CommonFunc.isNetworkAvailable()) {
             CommonFunc.showToastError(R.string.internet_not_available);
             return;
         }
-        apiService.ChangePassword(token, changePasswordRequest).enqueue(new Callback<BaseResponse<Boolean>>() {
+        Log.d(TAG, "createOrder: \n" + new Gson().toJson(changePasswordRequest));
+        apiService.changePassWord(token, changePasswordRequest).enqueue(new Callback<BaseResponse<Boolean>>() {
             @Override
             public void onResponse(@NotNull Call<BaseResponse<Boolean>> call, @NotNull Response<BaseResponse<Boolean>> response) {
                 if (response.isSuccessful()) {
                     Boolean data = response.body().getSuccess();
                     if (callBack != null) {
-                        //nếu true thì thông báo thành công. đóng màn hình
+                   //nếu true thì thông báo thành công. đóng màn hình
                         //failed thì báo sai mật khẩu cũ
                         callBack.onDataSuccess(data);
                     }

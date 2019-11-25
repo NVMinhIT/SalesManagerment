@@ -199,7 +199,12 @@
     <string name="username_empty">Vui lòng nhập tên tài khoản</string>
     <string name="pw_empty">Vui lòng nhập mật khẩu</string>
     <string name="login_ing">Đang đăng nhập…</string>
+<!--   change pass-->
 
+    <string name="old_empty">Vui lòng nhập mật khẩu trước đó</string>
+    <string name="new_pass">Vui lòng nhập mật khẩu mới</string>
+    <string name="new_pass_again">Vui lòng nhập lại mật khẩu mới</string>
+    <string name="no_yes">Mật khẩu không khớp</string>
 
     <string name="in_progress">Đang xử lý</string>
     <string name="somthing_went_wrong">Đã có lỗi xảy ra, vui lòng thử lại</string>
@@ -266,5 +271,7 @@
     <string name="enter_name">Vui lòng nhập tên khách hàng</string>
     <string name="enter_phone">Vui lòng nhập số điện thoại</string>
     <string name="enter_address">Vui lòng nhập địa chỉ</string>
+
+    <string name="change_pass_success">Đổi mật khẩu thành công</string>
 
 </resources>

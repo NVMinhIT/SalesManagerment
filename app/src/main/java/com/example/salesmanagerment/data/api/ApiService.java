@@ -11,7 +11,7 @@ import com.example.salesmanagerment.data.model.entity.TableMappingCustom;
 import com.example.salesmanagerment.data.model.entity.Unit;
 import com.example.salesmanagerment.data.model.entity.UserProfile;
 import com.example.salesmanagerment.data.model.request.CancelOrderRequest;
-import com.example.salesmanagerment.data.model.request.ChangePasswordRequest;
+import com.example.salesmanagerment.data.model.request.ChangePassRequest;
 import com.example.salesmanagerment.data.model.request.LoginRequest;
 import com.example.salesmanagerment.data.model.response.base.BaseResponse;
 
@@ -59,7 +59,7 @@ public interface ApiService {
     @GET("Order/GetList")
     Call<BaseResponse<List<OrderResponse>>> getListOrder(@Header("authorization") String token);
 
- // lấy danh sách  order
+    // lấy danh sách  order
     @GET("Order/GetOrdersByOrderStatus")
     Call<BaseResponse<List<OrderResponse>>> GetOrdersByOrderStatus(@Header("authorization") String token, @Query("orderStatus") int orderStatus);
 
@@ -93,9 +93,7 @@ public interface ApiService {
     @POST("Customer/InsertUpdate")
     Call<BaseResponse<Boolean>> createCustomer(@Header("authorization") String token, @Body Customer customer);
 
-      // thêm khách hàng
+    // đổi mật khẩu
     @POST("User/ChangePassword")
-    Call<BaseResponse<Boolean>> ChangePassword(@Header("authorization") String token, @Body ChangePasswordRequest changePasswordRequest);
-
-
+    Call<BaseResponse<Boolean>> changePassWord(@Header("authorization") String token, @Body ChangePassRequest changePassRequest);
 }
