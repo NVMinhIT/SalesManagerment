@@ -21,29 +21,28 @@ public class ProfileUserActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_user);
         initView();
+        initEvent();
+    }
+
+    private void initEvent() {
+        imageButtonBack.setOnClickListener(this);
     }
 
     private void initView() {
         userProfile = new UserProfile();
         userProfile = CacheManager.cacheManager.getUser();
         tvName = findViewById(R.id.tvNameUser);
-        tvCode = findViewById(R.id.tv_code_user);
         tvSex = findViewById(R.id.tv_Sex);
-        tvBirthday = findViewById(R.id.tv_Date);
         tvEmail = findViewById(R.id.tv_Email);
         tvPhone = findViewById(R.id.tv_Phone);
         tvWordPosition = findViewById(R.id.tv_Position_Work);
         showData();
-
-
         imageButtonBack = findViewById(R.id.imb_Back);
-        imageButtonBack.setOnClickListener(this);
+
     }
 
     private void showData() {
         tvName.setText(userProfile.getDisplayName());
-        tvCode.setText(userProfile.getEmployeeID());
-        tvBirthday.setText(userProfile.getBirthday());
         tvEmail.setText(userProfile.getEmail());
         tvPhone.setText(userProfile.getMobile());
 

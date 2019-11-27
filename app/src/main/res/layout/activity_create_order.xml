@@ -92,7 +92,7 @@
             android:layout_marginEnd="@dimen/margin_6"
             android:background="@drawable/select_white_blue"
             android:gravity="center_vertical"
-            android:hint="Chọn bàn"
+            android:hint="Chạm để chọn bàn"
             android:paddingStart="@dimen/padding_16"
             android:textSize="@dimen/text_18"
             android:textStyle="italic"
