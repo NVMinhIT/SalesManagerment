@@ -121,6 +121,7 @@ public class ListOrderAdapter extends ListAdapter<OrderResponse, OrderResponse> 
                     break;
                 case R.id.lnPreview:
                     //hiển thị phiếu tạm tính
+                    mOrderCallBack.onPreview(mOrderResponse);
                     break;
                 case R.id.lnPay:
                     mOrderCallBack.onRequestPay(mOrderResponse.OrderID);
@@ -140,6 +141,6 @@ public class ListOrderAdapter extends ListAdapter<OrderResponse, OrderResponse> 
 
         void onSendKitchen(String orderID);
 
-        void onPreview(String orderID);
+        void onPreview(OrderResponse orderResponsesss);
     }
 }

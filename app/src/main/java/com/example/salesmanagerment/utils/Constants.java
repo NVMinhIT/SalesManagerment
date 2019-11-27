@@ -1,9 +1,6 @@
 package com.example.salesmanagerment.utils;
 
 public final class Constants {
-    public static final int TYPE_ADD = 1;
-    public static final int TYPE_EDIT = 2;
-
 
     public static final int REQUEST_CODE = 1;
     public static final String TOKEN = "TOKEN";
@@ -73,5 +70,14 @@ public final class Constants {
     public static final int ORDER_DETAIL_CANCEL = 5; //HỦY MÓN
 
 
+
+
     public static final String EXTRAS_TYPE_SCREEN = "EXTRAS_TYPE_SCREEN";
+    public static final String EXTRAS_ORDER_RESPONSE = "EXTRAS_ORDER_RESPONSE";
+    public static final int TYPE_ADD = 1;
+    public static final int TYPE_EDIT = 2;
+
+
+    public static final String EXTRA_ITEM_INVENTORY_ITEM_LIST = "EXTRA_ITEM_INVENTORY_ITEM_LIST" ;
+    public static final String EXTRAS_TABLE_MAPPING = "EXTRAS_TABLE_MAPPING";
 }

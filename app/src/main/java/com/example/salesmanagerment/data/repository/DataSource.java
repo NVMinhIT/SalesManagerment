@@ -1,5 +1,7 @@
 package com.example.salesmanagerment.data.repository;
 
+import android.annotation.SuppressLint;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.salesmanagerment.R;
@@ -9,6 +11,7 @@ import com.example.salesmanagerment.data.api.ServiceGenerator;
 import com.example.salesmanagerment.data.model.entity.Area;
 import com.example.salesmanagerment.data.model.entity.Customer;
 import com.example.salesmanagerment.data.model.entity.InventoryItem;
+import com.example.salesmanagerment.data.model.entity.InventoryItemMapping;
 import com.example.salesmanagerment.data.model.entity.OrderDetail;
 import com.example.salesmanagerment.data.model.entity.OrderEntity;
 import com.example.salesmanagerment.data.model.entity.OrderResponse;
@@ -26,7 +29,9 @@ import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -37,50 +42,13 @@ public class DataSource {
     private static final String TAG = "SalesRepository";
     private static DataSource instance;
     private String token;
-
-    private List<InventoryItem> mInventoryItemList;
-
-    public List<Unit> getUnitList() {
-        return mUnitList;
-    }
-
-    public DataSource setUnitList(List<Unit> unitList) {
-        mUnitList = unitList;
-        return this;
-    }
-
-    private List<Unit> mUnitList;
-    private List<Customer> customerList;
-
-    public List<Customer> getCustomerList() {
-        return customerList;
-    }
-
-    public void setCustomerList(List<Customer> customerList) {
-        this.customerList = customerList;
-    }
+    private HashMap<String, InventoryItemMapping> mItemMappingHashMap;
 
     public List<Area> getAreaList() {
         return mAreaList;
     }
 
-    public DataSource setAreaList(List<Area> areaList) {
-        mAreaList = areaList;
-        return this;
-    }
-
     private List<Area> mAreaList;
-
-    public List<OrderResponse> getOrderResponseList() {
-        return orderResponseList;
-    }
-
-    public void setOrderResponseList(List<OrderResponse> orderResponseList) {
-        this.orderResponseList = orderResponseList;
-    }
-
-    private List<OrderResponse> orderResponseList;
-
 
     public static DataSource getInstance() {
         if (instance == null) {
@@ -91,14 +59,62 @@ public class DataSource {
 
     private ApiService apiService;
 
+    @SuppressLint("StaticFieldLeak")
+    public void MappingInventoryItem(final List<Unit> units, final List<InventoryItem> inventoryItems, final IInitDataCallback callback) {
+        new AsyncTask<Void, Void, Void>() {
+
+            @Override
+            protected Void doInBackground(Void... voids) {
+                InventoryItemMapping inventoryItemMapping;
+                for (InventoryItem inventoryItem : inventoryItems) {
+                    String inventoryItemID = inventoryItem.getInventoryItemID();
+                    String unitName = "";
+                    for (Unit unit : units) {
+                        if (unit.UnitID.equalsIgnoreCase(inventoryItem.getUnitID())) {
+                            unitName = unit.UnitName;
+                            break;
+                        }
+                    }
+                    inventoryItemMapping = new InventoryItemMapping.Builder()
+                            .setInventoryItemID(inventoryItemID)
+                            .setInventoryName(inventoryItem.getInventoryItemName())
+                            .setUnitName(unitName)
+                            .setUnitPrice(inventoryItem.getUnitPrice())
+                            .build();
+                    mItemMappingHashMap.put(inventoryItemID, inventoryItemMapping);
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                callback.success();
+            }
+        }.execute();
+    }
+
+    public String getUnitName(String inventoryItemID) {
+        String unitName = "";
+        InventoryItemMapping item = mItemMappingHashMap.get(inventoryItemID);
+        if (item != null) {
+            unitName = item.UnitName;
+        }
+        return unitName;
+    }
+
+    public InventoryItemMapping getInventoryItemMapping(String inventoryItemID) {
+        InventoryItemMapping item = mItemMappingHashMap.get(inventoryItemID);
+        return item;
+    }
+
     private DataSource() {
         apiService = ServiceGenerator.createService(ApiService.class);
         token = CacheManager.cacheManager.getToken();
-//        getListUnit(null);
-//        getListArea(null);
-        //getListTableByAreaID("6f64544e-61d2-4cb8-aaec-3e0b564f5e51", null);
-//        getListInventoryItem(null);
+        mItemMappingHashMap = new HashMap<>();
+
     }
+
 
     // đăng nhập
     public void login(LoginRequest loginRequest, final IDataCallBack<String, String> callBack) {
@@ -143,7 +159,9 @@ public class DataSource {
             public void onResponse(@NotNull Call<BaseResponse<List<InventoryItem>>> call, @NotNull Response<BaseResponse<List<InventoryItem>>> response) {
                 if (response.isSuccessful()) {
                     List<InventoryItem> data = response.body().getData();
-                    mInventoryItemList = data;
+                    if (data != null) {
+                        CacheManager.cacheManager.cacheInventoryItems(data);
+                    }
                     if (callBack != null) {
                         callBack.onDataSuccess(data);
                     }
@@ -175,7 +193,7 @@ public class DataSource {
             public void onResponse(@NotNull Call<BaseResponse<List<Unit>>> call, @NotNull Response<BaseResponse<List<Unit>>> response) {
                 if (response.isSuccessful()) {
                     List<Unit> data = response.body().getData();
-                    mUnitList = data;
+                    CacheManager.cacheManager.cacheUnits(data);
                     if (callBack != null) {
                         callBack.onDataSuccess(data);
                     }
@@ -256,26 +274,23 @@ public class DataSource {
         });
     }
 
-    public List<InventoryItem> getInventoryItemList() {
-        return mInventoryItemList;
-    }
-
-    public DataSource setInventoryItemList(List<InventoryItem> inventoryItemList) {
-        mInventoryItemList = inventoryItemList;
-        return this;
-    }
-
     public void init(final IInitDataCallback callback) {
+        final List<Unit> units = new ArrayList<>();
+        final List<InventoryItem> inventoryItems = new ArrayList<>();
         getListArea(new IDataCallBack<List<Area>, String>() {
             @Override
             public void onDataSuccess(List<Area> data) {
                 getListUnit(new IDataCallBack<List<Unit>, String>() {
                     @Override
                     public void onDataSuccess(List<Unit> data) {
+                        units.addAll(data);
+                        CacheManager.cacheManager.cacheUnits(data);
                         getListInventoryItem(new IDataCallBack<List<InventoryItem>, String>() {
                             @Override
                             public void onDataSuccess(List<InventoryItem> data) {
-                                callback.success();
+                                inventoryItems.addAll(data);
+                                CacheManager.cacheManager.cacheInventoryItems(data);
+                                MappingInventoryItem(units, inventoryItems, callback);
                             }
 
                             @Override
@@ -298,8 +313,6 @@ public class DataSource {
             }
         });
     }
-
-
 
 
     //lưu order
@@ -385,7 +398,6 @@ public class DataSource {
                     if (response.body() != null) {
                         list = response.body().getData();
                     }
-                    orderResponseList = list;
                     if (dataCallBack != null) {
                         dataCallBack.onDataSuccess(list);
                     }
@@ -448,7 +460,6 @@ public class DataSource {
                     if (response.body() != null) {
                         data = response.body().getData();
                     }
-                    customerList = data;
                     if (callBack != null) {
                         callBack.onDataSuccess(data);
                     }
@@ -640,7 +651,7 @@ public class DataSource {
                 if (response.isSuccessful()) {
                     Boolean data = response.body().getSuccess();
                     if (callBack != null) {
-                   //nếu true thì thông báo thành công. đóng màn hình
+                        //nếu true thì thông báo thành công. đóng màn hình
                         //failed thì báo sai mật khẩu cũ
                         callBack.onDataSuccess(data);
                     }
@@ -659,5 +670,9 @@ public class DataSource {
                 CommonFunc.showToastWarning(R.string.somthing_went_wrong);
             }
         });
+    }
+
+    public HashMap<String, InventoryItemMapping> getItemMappingHashMap() {
+        return mItemMappingHashMap;
     }
 }

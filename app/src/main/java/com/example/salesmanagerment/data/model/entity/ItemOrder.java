@@ -17,6 +17,12 @@ public class ItemOrder implements Parcelable {
     public Double CookingQuantity;
     public int OrderDetailStatus;
     public String CancelEmployeeID;
+    public String OrderID;
+    public String Description;
+    public int SortOrder;
+
+    public ItemOrder() {
+    }
 
     public ItemOrder(Builder builder) {
         this.ID = builder.ID;
@@ -32,6 +38,119 @@ public class ItemOrder implements Parcelable {
         this.CookingQuantity = builder.CookingQuantity;
         this.OrderDetailStatus = builder.OrderDetailStatus;
         this.CancelEmployeeID = builder.CancelEmployeeID;
+        this.OrderID = builder.OrderID;
+        this.Description = builder.Description;
+        this.SortOrder = builder.SortOrder;
+    }
+
+    protected ItemOrder(Parcel in) {
+        ID = in.readString();
+        if (in.readByte() == 0) {
+            Quantity = null;
+        } else {
+            Quantity = in.readDouble();
+        }
+        Name = in.readString();
+        Image = in.readString();
+        if (in.readByte() == 0) {
+            Price = null;
+        } else {
+            Price = in.readDouble();
+        }
+        UnitName = in.readString();
+        if (in.readByte() == 0) {
+            TotalMoney = null;
+        } else {
+            TotalMoney = in.readDouble();
+        }
+        OrderDetailID = in.readString();
+        if (in.readByte() == 0) {
+            CookedQuantity = null;
+        } else {
+            CookedQuantity = in.readDouble();
+        }
+        if (in.readByte() == 0) {
+            ServedQuantity = null;
+        } else {
+            ServedQuantity = in.readDouble();
+        }
+        if (in.readByte() == 0) {
+            CookingQuantity = null;
+        } else {
+            CookingQuantity = in.readDouble();
+        }
+        OrderDetailStatus = in.readInt();
+        CancelEmployeeID = in.readString();
+        OrderID = in.readString();
+        Description = in.readString();
+        SortOrder = in.readInt();
+    }
+
+    public static final Creator<ItemOrder> CREATOR = new Creator<ItemOrder>() {
+        @Override
+        public ItemOrder createFromParcel(Parcel in) {
+            return new ItemOrder(in);
+        }
+
+        @Override
+        public ItemOrder[] newArray(int size) {
+            return new ItemOrder[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(ID);
+        if (Quantity == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(Quantity);
+        }
+        dest.writeString(Name);
+        dest.writeString(Image);
+        if (Price == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(Price);
+        }
+        dest.writeString(UnitName);
+        if (TotalMoney == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(TotalMoney);
+        }
+        dest.writeString(OrderDetailID);
+        if (CookedQuantity == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(CookedQuantity);
+        }
+        if (ServedQuantity == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(ServedQuantity);
+        }
+        if (CookingQuantity == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(CookingQuantity);
+        }
+        dest.writeInt(OrderDetailStatus);
+        dest.writeString(CancelEmployeeID);
+        dest.writeString(OrderID);
+        dest.writeString(Description);
+        dest.writeInt(SortOrder);
     }
 
 
@@ -119,100 +238,24 @@ public class ItemOrder implements Parcelable {
         public Double CookingQuantity;
         public int OrderDetailStatus;
         public String CancelEmployeeID;
+        public String OrderID;
+        public String Description;
+
+        public Builder setOrderID(String orderID) {
+            OrderID = orderID;
+            return this;
+        }
+
+        public Builder setDescription(String description) {
+            Description = description;
+            return this;
+        }
+
+        public Builder setSortOrder(int sortOrder) {
+            SortOrder = sortOrder;
+            return this;
+        }
+
+        public int SortOrder;
     }
-
-    protected ItemOrder(Parcel in) {
-        ID = in.readString();
-        Quantity = in.readDouble();
-        Name = in.readString();
-        Image = in.readString();
-        if (in.readByte() == 0) {
-            Price = null;
-        } else {
-            Price = in.readDouble();
-        }
-        UnitName = in.readString();
-        if (in.readByte() == 0) {
-            TotalMoney = null;
-        } else {
-            TotalMoney = in.readDouble();
-        }
-        OrderDetailID = in.readString();
-        if (in.readByte() == 0) {
-            CookedQuantity = null;
-        } else {
-            CookedQuantity = in.readDouble();
-        }
-        if (in.readByte() == 0) {
-            ServedQuantity = null;
-        } else {
-            ServedQuantity = in.readDouble();
-        }
-        if (in.readByte() == 0) {
-            CookingQuantity = null;
-        } else {
-            CookingQuantity = in.readDouble();
-        }
-        OrderDetailStatus = in.readInt();
-        CancelEmployeeID = in.readString();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(ID);
-        dest.writeDouble(Quantity);
-        dest.writeString(Name);
-        dest.writeString(Image);
-        if (Price == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeDouble(Price);
-        }
-        dest.writeString(UnitName);
-        if (TotalMoney == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeDouble(TotalMoney);
-        }
-        dest.writeString(OrderDetailID);
-        if (CookedQuantity == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeDouble(CookedQuantity);
-        }
-        if (ServedQuantity == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeDouble(ServedQuantity);
-        }
-        if (CookingQuantity == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeDouble(CookingQuantity);
-        }
-        dest.writeInt(OrderDetailStatus);
-        dest.writeString(CancelEmployeeID);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<ItemOrder> CREATOR = new Creator<ItemOrder>() {
-        @Override
-        public ItemOrder createFromParcel(Parcel in) {
-            return new ItemOrder(in);
-        }
-
-        @Override
-        public ItemOrder[] newArray(int size) {
-            return new ItemOrder[size];
-        }
-    };
 }

@@ -8,6 +8,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -22,12 +23,19 @@ import android.widget.Toast;
 import androidx.core.content.ContextCompat;
 
 import com.example.salesmanagerment.R;
+import com.example.salesmanagerment.base.listeners.IDataCallBack;
+import com.example.salesmanagerment.data.model.entity.ItemOrder;
+import com.example.salesmanagerment.data.model.entity.Order;
+import com.example.salesmanagerment.data.model.entity.OrderDetail;
 
 import java.io.ByteArrayOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 public class CommonFunc {
     private static final String TAG = "CommonFunc";
@@ -194,5 +202,82 @@ public class CommonFunc {
             return true;
         }
         return TextUtils.isEmpty(s);
+    }
+
+    public static List<OrderDetail> newItemOrderToOrderDetails(List<ItemOrder> listItemOrder, Order order) {
+        List<OrderDetail> list = new ArrayList<>();
+        int sortOrder = 0;
+
+        for (ItemOrder item : listItemOrder) {
+            list.add(new OrderDetail.Builder()
+                    .setOrderDetailID(UUID.randomUUID().toString())
+                    .setOrderID(order.OrderID)
+                    .setInventoryItemID(item.ID)
+                    .setOrderDetailStatus(Constants.ORDER_DETAIL_NOTHING)
+                    .setQuantity(item.Quantity)
+                    .setSortOrder(sortOrder)
+                    .setCookedQuantity(0.0)
+                    .setCookingQuantity(0.0)
+                    .setServedQuantity(0.0)
+                    .build());
+            sortOrder++;
+        }
+        return list;
+    }
+
+    public static void oldItemOrderToOrderDetails(final List<ItemOrder> listItemOrder, final Order order, final IDataCallBack<List<OrderDetail>, Void> callBack) {
+        new AsyncTask<Void, Void, List<OrderDetail>>() {
+            @Override
+            protected List<OrderDetail> doInBackground(Void... voids) {
+                List<OrderDetail> list = new ArrayList<>();
+                String OrderDetailID;
+                Double CookedQuantity;
+                Double ServedQuantity;
+                Double CookingQuantity;
+                int OrderDetailStatus;
+                int SortOrder = 0;
+                String desc = "";
+
+                for (ItemOrder item : listItemOrder) {
+                    if (!CommonFunc.isNullOrEmpty(item.OrderDetailID)) {
+                        OrderDetailID = item.OrderDetailID;
+                        CookedQuantity = item.CookedQuantity;
+                        ServedQuantity = item.ServedQuantity;
+                        CookingQuantity = item.CookingQuantity;
+                        OrderDetailStatus = item.OrderDetailStatus;
+                        SortOrder = item.SortOrder;
+                        if(!CommonFunc.isNullOrEmpty(item.Description)){
+                            desc = item.Description;
+                        }
+                    } else {
+                        OrderDetailID = UUID.randomUUID().toString();
+                        CookedQuantity = 0.0;
+                        ServedQuantity = 0.0;
+                        CookingQuantity = 0.0;
+                        OrderDetailStatus = Constants.ORDER_DETAIL_NOTHING;
+                        SortOrder = SortOrder + 1;
+                    }
+                    list.add(new OrderDetail.Builder()
+                            .setOrderDetailID(OrderDetailID)
+                            .setOrderID(order.OrderID)
+                            .setInventoryItemID(item.ID)
+                            .setOrderDetailStatus(OrderDetailStatus)
+                            .setQuantity(item.Quantity)
+                            .setSortOrder(SortOrder)
+                            .setCookedQuantity(CookedQuantity)
+                            .setCookingQuantity(CookingQuantity)
+                            .setServedQuantity(ServedQuantity)
+                            .setDescription(desc)
+                            .build());
+                }
+                return list;
+            }
+
+            @Override
+            protected void onPostExecute(List<OrderDetail> orderDetails) {
+                super.onPostExecute(orderDetails);
+                callBack.onDataSuccess(orderDetails);
+            }
+        }.execute();
     }
 }

@@ -1,17 +1,19 @@
 package com.example.salesmanagerment.screen.sales.listorder;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,16 +27,21 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.BaseFragment;
 import com.example.salesmanagerment.base.listeners.IOnItemClickListener;
+import com.example.salesmanagerment.data.model.entity.ItemOrder;
 import com.example.salesmanagerment.data.model.entity.OrderResponse;
+import com.example.salesmanagerment.data.model.entity.TableMappingCustom;
 import com.example.salesmanagerment.data.model.request.CancelOrderRequest;
+import com.example.salesmanagerment.screen.Invoice.InvoiceActivity;
 import com.example.salesmanagerment.screen.main.MainActivity;
-import com.example.salesmanagerment.screen.sales.chooseinventoryitem.ChooseInventoryItemActivity;
+import com.example.salesmanagerment.screen.sales.createorder.CreateOrderActivity;
 import com.example.salesmanagerment.screen.sales.listorder.dialog.ConfirmCancelOrderDialog;
 import com.example.salesmanagerment.utils.CommonFunc;
 import com.example.salesmanagerment.utils.Constants;
 import com.example.salesmanagerment.utils.Navigator;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListOrderFragment extends BaseFragment implements View.OnClickListener, IListOrderContact.IView, IOnItemClickListener<OrderResponse>, ListOrderAdapter.IOrderRequest {
@@ -144,7 +151,9 @@ public class ListOrderFragment extends BaseFragment implements View.OnClickListe
         switch (v.getId()) {
             case R.id.tvAddOrder:
             case R.id.btnAddOrder:
-                mNavigator.startActivity(ChooseInventoryItemActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt(Constants.EXTRAS_TYPE_SCREEN, Constants.TYPE_ADD);
+                mNavigator.startActivity(CreateOrderActivity.class, bundle);
                 break;
             case R.id.tv_OptionSearch:
                 showOptionSearch();
@@ -228,16 +237,41 @@ public class ListOrderFragment extends BaseFragment implements View.OnClickListe
     }
 
     @Override
+    public void getItemOrdersSuccess(List<ItemOrder> itemOrders, OrderResponse orderResponse) {
+        Bundle bundle1 = new Bundle();
+        bundle1.putParcelableArrayList(Constants.EXTRAS_INVOICE_ENTITY_lIST, (ArrayList<? extends Parcelable>) itemOrders);
+        bundle1.putString(Constants.EXTRAS_INVOICE_ENTITY, orderResponse.OrderNo);
+        bundle1.putDouble(Constants.SUM_MONEY, orderResponse.TotalAmount);
+        TableMappingCustom tableMappingCustom = new TableMappingCustom();
+        tableMappingCustom.TableName = orderResponse.TableName;
+        tableMappingCustom.AreaName = orderResponse.AreaName;
+        bundle1.putParcelable(Constants.TABLE_MAPPING, tableMappingCustom);
+        mNavigator.startActivity(InvoiceActivity.class, bundle1);
+    }
+
+    @Override
     public void showLoading(boolean isShowLoading) {
         showDialog(isShowLoading);
     }
 
+    @SuppressLint("StaticFieldLeak")
     @Override
-    public void onItemClick(OrderResponse data) {
-        Intent intent = new Intent();
-        intent.setClass(mActivity, ChooseInventoryItemActivity.class);
-        intent.putExtra(ChooseInventoryItemActivity.EXTRA_ORDER_RESPONSE, data);
-        mNavigator.startActivity(intent);
+    public void onItemClick(final OrderResponse data) {
+        new AsyncTask<Void, Void, Bundle>() {
+            @Override
+            protected Bundle doInBackground(Void... voids) {
+                Bundle bundle = new Bundle();
+                bundle.putInt(Constants.EXTRAS_TYPE_SCREEN, Constants.TYPE_EDIT);
+                bundle.putString(Constants.EXTRAS_ORDER_RESPONSE, new Gson().toJson(data));
+                return bundle;
+            }
+
+            @Override
+            protected void onPostExecute(Bundle bundle) {
+                super.onPostExecute(bundle);
+                mNavigator.startActivity(CreateOrderActivity.class, bundle);
+            }
+        }.execute();
     }
 
     @Override
@@ -257,7 +291,7 @@ public class ListOrderFragment extends BaseFragment implements View.OnClickListe
     }
 
     @Override
-    public void onPreview(String orderID) {
-
+    public void onPreview(OrderResponse orderResponse) {
+        listOrderPresenter.getItemOrderByOderID(orderResponse.OrderID, orderResponse);
     }
 }

@@ -21,6 +21,7 @@ import com.example.salesmanagerment.data.model.entity.TableMappingCustom;
 import com.example.salesmanagerment.screen.sales.fragmentarea.PaperAdapterArea;
 import com.example.salesmanagerment.screen.sales.fragmentarea.TableFragment;
 import com.example.salesmanagerment.utils.CommonFunc;
+import com.example.salesmanagerment.utils.Constants;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.List;
@@ -127,7 +128,7 @@ public class OptionTableActivity extends BaseActivity implements IOptionTableCon
             case R.id.btn_Yes_Table:
                 if (mTableMappingCustom != null) {
                     Intent intent = new Intent();
-                    intent.putExtra(TableFragment.EXTRA_NAME_TABLE, mTableMappingCustom);
+                    intent.putExtra(Constants.EXTRAS_TABLE_MAPPING, mTableMappingCustom);
                     setResult(Activity.RESULT_OK, intent);
                     finish();
                 }else {

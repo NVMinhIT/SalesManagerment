@@ -101,12 +101,12 @@ public class ChooseInventoryItemAdapter extends ListAdapter<ItemOrder, IOnItemCl
         List<ItemOrder> itemOrders = new ArrayList<>();
         for (ItemOrder item : rootList) {
             if (item.Quantity > 0) {
+                item.Image = "";
                 itemOrders.add(item);
             }
         }
         return itemOrders;
     }
-
 
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ImageView ivICon, ivDefault;

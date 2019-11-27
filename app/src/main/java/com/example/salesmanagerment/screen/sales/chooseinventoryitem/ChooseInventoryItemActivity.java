@@ -1,11 +1,8 @@
 package com.example.salesmanagerment.screen.sales.chooseinventoryitem;
 
 import android.annotation.SuppressLint;
-import android.content.BroadcastReceiver;
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,89 +12,26 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.BaseActivity;
 import com.example.salesmanagerment.data.model.entity.ItemOrder;
-import com.example.salesmanagerment.data.model.entity.OrderDetail;
-import com.example.salesmanagerment.data.model.entity.OrderEntity;
-import com.example.salesmanagerment.data.model.entity.OrderResponse;
-import com.example.salesmanagerment.data.model.entity.TableMapping;
-import com.example.salesmanagerment.data.model.entity.TableMappingCustom;
-import com.example.salesmanagerment.screen.sales.createorder.CreateOrderActivity;
-import com.example.salesmanagerment.screen.sales.customer.choosecustomer.ListCustomerActivity;
-import com.example.salesmanagerment.screen.sales.customer.choosecustomer.ListCustomerFragment;
-import com.example.salesmanagerment.utils.CacheManager;
 import com.example.salesmanagerment.utils.CommonFunc;
 import com.example.salesmanagerment.utils.Constants;
-import com.example.salesmanagerment.utils.Navigator;
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ChooseInventoryItemActivity extends BaseActivity implements View.OnClickListener, IInventoryItemContact.IView {
 
     private ImageButton btnBack;
     private Button buttonAccept;
-    private Navigator navigator;
-    private ImageButton imageButtonAddInformation;
-
     private ChooseInventoryItemPresenter mPresenter;
-    //private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView mRecyclerView;
     private ChooseInventoryItemAdapter mAdapter;
     private EditText edtSearch;
-    public static String EXTRA_ORDER_RESPONSE = "EXTRA_ORDER_RESPONSE";
-    private String idCustomer;
-    private String tableName;
-    private String numOfPeople;
-    private TableMappingCustom mTableMappingCustom;
-    private int type = Constants.TYPE_ADD;
-    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction() != null) {
-                if (intent.getAction().equals(ListCustomerFragment.ACTION_CUSTOMER_SELECTED)) {
-                    try {
-                        idCustomer = intent.getStringExtra(ListCustomerFragment.EXTRA_CUSTOMER_SELECTED);
-                        if (idCustomer != null) {
-                            mOrderEntiy.order.CustomerID = idCustomer;
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
-    };
-
-    private BroadcastReceiver mReceiver2 = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction() != null) {
-                if (intent.getAction().equals(ListCustomerFragment.ACTION_ADD_CUSTOMER)) {
-                    try {
-                        idCustomer = intent.getStringExtra(ListCustomerFragment.ARG_CUSTOMER_ID);
-                        if (!CommonFunc.isNullOrEmpty(idCustomer)) {
-                            mOrderEntiy.order.CustomerID = idCustomer;
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
-    };
-
-    public OrderEntity getOrderEntity() {
-        return mOrderEntiy;
-    }
-
-    private OrderEntity mOrderEntiy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,41 +41,15 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
         initEvents();
         mPresenter = new ChooseInventoryItemPresenter();
         mPresenter.setView(this);
-        Intent intent = getIntent();
-        OrderResponse orderResponse = intent.getParcelableExtra(EXTRA_ORDER_RESPONSE);
-        if (orderResponse == null) {
-            type = Constants.TYPE_ADD;
-            mPresenter.getOrderNo();
-        } else {
-            type = Constants.TYPE_EDIT;
-            mOrderEntiy = new OrderEntity();
-            mOrderEntiy.order = orderResponse.getOrder();
-            mTableMappingCustom = new TableMappingCustom();
-            mTableMappingCustom.TableName = orderResponse.TableName;
-            mTableMappingCustom.AreaName = orderResponse.AreaName;
-            numOfPeople = String.valueOf(orderResponse.NumberOfPeople);
-            mPresenter.getOrderDetailsByOrderID(mOrderEntiy.order.OrderID);
-        }
-
-        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver, new IntentFilter(ListCustomerFragment.ACTION_CUSTOMER_SELECTED));
-        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver2, new IntentFilter(ListCustomerFragment.ACTION_ADD_CUSTOMER));
+        mPresenter.onStart();
     }
 
     private void initEvents() {
         btnBack.setOnClickListener(this);
         buttonAccept.setOnClickListener(this);
-        imageButtonAddInformation.setOnClickListener(this);
-//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                mPresenter.getInventoryItem(true, false);
-//            }
-//        });
-
         edtSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
@@ -157,10 +65,7 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
     }
 
     private void initViews() {
-        imageButtonAddInformation = findViewById(R.id.imb_AddInformation);
-        // swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         edtSearch = findViewById(R.id.edtSearch);
-        navigator = new Navigator(this);
         buttonAccept = findViewById(R.id.btnAccept);
         btnBack = findViewById(R.id.btnBack);
         mRecyclerView = findViewById(R.id.rvInventoryItem);
@@ -176,28 +81,39 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
                 super.onBackPressed();
                 break;
             case R.id.btnAccept:
-//                List<ItemOrder> itemOrders = mAdapter.getTotalItemSelected();
-//                 if (itemOrders.size() > 0) {
-                // mPresenter.setOrderDetails(itemOrders);
-                if (CommonFunc.isNullOrEmpty(mOrderEntiy.order.CustomerID)) {
-                    CommonFunc.showToastWarning("Vui lòng chọn khách hàng");
-                    return;
-                }
-                new MyAsyn().execute();
-//                    // bundle.putString(Constants.EXTRAS_INVENTORY_ITEM_LIST, new Gson().toJson(itemOrders,));
-//
-//                } else {
-//                    CommonFunc.showToastWarning(R.string.not_inventory_item_selected);
-//                }
-                break;
-            case R.id.imb_AddInformation:
-                Intent intent = new Intent();
-                intent.setClass(this, ListCustomerActivity.class);
-                intent.putExtra(ListCustomerFragment.ARG_CUSTOMER_ID, mOrderEntiy.order.CustomerID);
-                navigator.startActivity(intent);
+                showLoading(true);
+                new GetItemOrder().execute();
                 break;
             default:
                 break;
+        }
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    public class GetItemOrder extends AsyncTask<Void, Void, String> {
+
+        @Override
+        protected String doInBackground(Void... strings) {
+            List<ItemOrder> itemOrders = mAdapter.getTotalItemSelected();
+            if (itemOrders.size() == 0) {
+                CommonFunc.showToastInfo("Bạn chưa chọn món ăn nào");
+                return null;
+            } else
+                return new Gson().toJson(itemOrders);
+        }
+
+        @Override
+        protected void onPostExecute(String itemOrders) {
+            super.onPostExecute(itemOrders);
+            showLoading(false);
+            if (itemOrders != null) {
+                Intent intent = new Intent();
+                intent.putExtra(Constants.EXTRA_ITEM_INVENTORY_ITEM_LIST, itemOrders);
+                setResult(Activity.RESULT_OK, intent);
+                finish();
+            } else {
+                CommonFunc.showToastError("Bạn chưa chọn món ăn nào");
+            }
         }
     }
 
@@ -213,61 +129,6 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
             mAdapter.setListData(items);
         }
         // swipeRefreshLayout.setRefreshing(false);
-    }
-
-    @Override
-    public void getOrderNoSuccess(String orderNo) {
-        mOrderEntiy = new OrderEntity().initOrderEntity(orderNo);
-        mPresenter.setOrderEntity(mOrderEntiy);
-        mPresenter.onStart();
-    }
-
-    @Override
-    public void getListOrderDetailSuccess(List<OrderDetail> orderDetails) {
-        mOrderEntiy.orderDetails = orderDetails;
-        CacheManager.cacheManager.cacheOldOrderDetail(orderDetails);
-
-        mPresenter.setOrderEntity(mOrderEntiy);
-        mPresenter.onStart();
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    public class MyAsyn extends AsyncTask<Void, Void, Bundle> {
-
-        @Override
-        protected Bundle doInBackground(Void... voids) {
-            List<ItemOrder> itemOrders = mAdapter.getTotalItemSelected();
-            if (itemOrders.size() > 0) {
-                mPresenter.setOrderDetails(itemOrders);
-                Bundle bundle = new Bundle();
-                bundle.putString(Constants.EXTRAS_INVENTORY_ITEM_LIST, new Gson().toJson(itemOrders));
-                bundle.putInt(Constants.EXTRAS_TYPE_SCREEN, type);
-                bundle.putParcelable(Constants.TABLE_MAPPING, mTableMappingCustom);
-                bundle.putString(Constants.EXTRAS_NUM_OF_PEOPLE, numOfPeople);
-                bundle.putString(Constants.EXTRAS_ORDER_ENTITY, new Gson().toJson(mPresenter.getOrderEntity()));
-                return bundle;
-            } else {
-                return null;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(Bundle bundle) {
-            super.onPostExecute(bundle);
-            if (bundle == null) {
-                CommonFunc.showToastWarning(R.string.not_inventory_item_selected);
-                return;
-            }
-            navigator.startActivity(CreateOrderActivity.class, bundle);
-
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(mReceiver);
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(mReceiver2);
-        super.onDestroy();
     }
 }
 

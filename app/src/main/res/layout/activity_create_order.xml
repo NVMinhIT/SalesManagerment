@@ -73,7 +73,7 @@
         tools:ignore="UseCompoundDrawables">
 
         <ImageView
-            android:id="@+id/image_table"
+            android:id="@+id/imgCustomer"
             android:layout_width="@dimen/size_32"
             android:layout_height="@dimen/size_32"
             android:layout_gravity="center_vertical"

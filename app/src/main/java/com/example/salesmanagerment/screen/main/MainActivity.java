@@ -131,12 +131,14 @@ public class MainActivity extends BaseActivity implements IInitDataCallback, OnC
                         Intent intent = new Intent(ACTION_SELECT_ORDER_RESERVING);
                         intent.putExtra(ACTION_SELECT_ORDER_RESERVING, Constants.ORDER_SERVING);
                         LocalBroadcastManager.getInstance(MainActivity.this).sendBroadcast(intent);
+                        mNavigator.hideKeyboard();
                         break;
                     case R.id.two:
                         tvTitle.setText(R.string.require_pay);
                         Intent intent2 = new Intent(ACTION_SELECT_ORDER_RESERVING);
                         intent2.putExtra(ACTION_SELECT_ORDER_RESERVING, Constants.ORDER_WAIT_FOR_PAY);
                         LocalBroadcastManager.getInstance(MainActivity.this).sendBroadcast(intent2);
+                        mNavigator.hideKeyboard();
                         break;
                     default:
                         break;
