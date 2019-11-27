@@ -42,7 +42,6 @@ public class ListOrderFragment extends BaseFragment implements View.OnClickListe
     private FloatingActionButton btnAddOrder;
     private RecyclerView rvOrder;
     private ListOrderAdapter listOrderAdapter;
-    private Spinner spinner;
     private TextView textViewOptionSearch, tvAddOrder;
     private ListOrderPresenter listOrderPresenter;
     private ConstraintLayout clWaterMark;

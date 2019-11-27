@@ -61,6 +61,7 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderCon
     private List<ItemOrder> itemOrderList;
     private String tableName;
     private String numOfPeople;
+    private int type = Constants.TYPE_ADD;
 
 
     @Override
@@ -79,6 +80,7 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderCon
             mPresenter.mOrderEntity = getOrder(bundle.getString(Constants.EXTRAS_ORDER_ENTITY));
             mTableMappingCustom = bundle.getParcelable(Constants.TABLE_MAPPING);
             numOfPeople = bundle.getString(Constants.EXTRAS_NUM_OF_PEOPLE);
+            type = bundle.getInt(Constants.EXTRAS_TYPE_SCREEN);
             calculateMoney();
         }
         initView();
@@ -197,7 +199,7 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderCon
                     CommonFunc.showToastWarning(R.string.please_enter);
                     return;
                 }
-                mPresenter.saveOrder();
+                mPresenter.saveOrder(type);
                 break;
             case R.id.btnAddMore:
             case R.id.btnClose:

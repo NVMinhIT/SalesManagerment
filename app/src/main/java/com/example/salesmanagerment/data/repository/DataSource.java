@@ -300,7 +300,9 @@ public class DataSource {
     }
 
 
-    //lấy danh sách bàn theo khu vực
+
+
+    //lưu order
     public void createOrder(OrderEntity orderEntity, final IDataCallBack<Boolean, String> callBack) {
         Log.d(TAG, "createOrder: \n" + new Gson().toJson(orderEntity));
         apiService.createOrder(token, orderEntity).enqueue(new Callback<BaseResponse<Boolean>>() {

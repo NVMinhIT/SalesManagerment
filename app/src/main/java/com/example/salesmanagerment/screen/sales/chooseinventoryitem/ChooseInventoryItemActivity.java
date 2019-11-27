@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
@@ -29,11 +30,13 @@ import com.example.salesmanagerment.data.model.entity.TableMappingCustom;
 import com.example.salesmanagerment.screen.sales.createorder.CreateOrderActivity;
 import com.example.salesmanagerment.screen.sales.customer.choosecustomer.ListCustomerActivity;
 import com.example.salesmanagerment.screen.sales.customer.choosecustomer.ListCustomerFragment;
+import com.example.salesmanagerment.utils.CacheManager;
 import com.example.salesmanagerment.utils.CommonFunc;
 import com.example.salesmanagerment.utils.Constants;
 import com.example.salesmanagerment.utils.Navigator;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChooseInventoryItemActivity extends BaseActivity implements View.OnClickListener, IInventoryItemContact.IView {
@@ -53,7 +56,7 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
     private String tableName;
     private String numOfPeople;
     private TableMappingCustom mTableMappingCustom;
-
+    private int type = Constants.TYPE_ADD;
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -107,8 +110,10 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
         Intent intent = getIntent();
         OrderResponse orderResponse = intent.getParcelableExtra(EXTRA_ORDER_RESPONSE);
         if (orderResponse == null) {
+            type = Constants.TYPE_ADD;
             mPresenter.getOrderNo();
         } else {
+            type = Constants.TYPE_EDIT;
             mOrderEntiy = new OrderEntity();
             mOrderEntiy.order = orderResponse.getOrder();
             mTableMappingCustom = new TableMappingCustom();
@@ -220,36 +225,39 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
     @Override
     public void getListOrderDetailSuccess(List<OrderDetail> orderDetails) {
         mOrderEntiy.orderDetails = orderDetails;
+        CacheManager.cacheManager.cacheOldOrderDetail(orderDetails);
+
         mPresenter.setOrderEntity(mOrderEntiy);
         mPresenter.onStart();
     }
 
     @SuppressLint("StaticFieldLeak")
-    public class MyAsyn extends AsyncTask<Void, Void, List<ItemOrder>> {
+    public class MyAsyn extends AsyncTask<Void, Void, Bundle> {
 
         @Override
-        protected List<ItemOrder> doInBackground(Void... voids) {
+        protected Bundle doInBackground(Void... voids) {
             List<ItemOrder> itemOrders = mAdapter.getTotalItemSelected();
             if (itemOrders.size() > 0) {
                 mPresenter.setOrderDetails(itemOrders);
-                return itemOrders;
+                Bundle bundle = new Bundle();
+                bundle.putString(Constants.EXTRAS_INVENTORY_ITEM_LIST, new Gson().toJson(itemOrders));
+                bundle.putInt(Constants.EXTRAS_TYPE_SCREEN, type);
+                bundle.putParcelable(Constants.TABLE_MAPPING, mTableMappingCustom);
+                bundle.putString(Constants.EXTRAS_NUM_OF_PEOPLE, numOfPeople);
+                bundle.putString(Constants.EXTRAS_ORDER_ENTITY, new Gson().toJson(mPresenter.getOrderEntity()));
+                return bundle;
             } else {
                 return null;
             }
         }
 
         @Override
-        protected void onPostExecute(List<ItemOrder> orderDetails) {
-            super.onPostExecute(orderDetails);
-            if (orderDetails == null) {
+        protected void onPostExecute(Bundle bundle) {
+            super.onPostExecute(bundle);
+            if (bundle == null) {
                 CommonFunc.showToastWarning(R.string.not_inventory_item_selected);
                 return;
             }
-            Bundle bundle = new Bundle();
-            bundle.putString(Constants.EXTRAS_INVENTORY_ITEM_LIST, new Gson().toJson(orderDetails));
-            bundle.putParcelable(Constants.TABLE_MAPPING, mTableMappingCustom);
-            bundle.putString(Constants.EXTRAS_NUM_OF_PEOPLE, numOfPeople);
-            bundle.putString(Constants.EXTRAS_ORDER_ENTITY, new Gson().toJson(mPresenter.getOrderEntity()));
             navigator.startActivity(CreateOrderActivity.class, bundle);
 
         }
