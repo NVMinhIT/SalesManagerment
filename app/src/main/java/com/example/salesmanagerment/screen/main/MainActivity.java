@@ -19,6 +19,7 @@ import com.example.salesmanagerment.data.repository.DataSource;
 import com.example.salesmanagerment.screen.more.MoreFragment;
 import com.example.salesmanagerment.screen.paydish.PayDishFragment;
 import com.example.salesmanagerment.screen.sales.listorder.ListOrderFragment;
+import com.example.salesmanagerment.utils.CacheManager;
 import com.example.salesmanagerment.utils.CommonFunc;
 import com.example.salesmanagerment.utils.Constants;
 import com.example.salesmanagerment.utils.Navigator;
@@ -62,6 +63,11 @@ public class MainActivity extends BaseActivity implements IInitDataCallback, OnC
             mToolbar = findViewById(R.id.toolbar);
             setSupportActionBar(mToolbar);
             bottomNavigationView = findViewById(R.id.bottom_nav);
+            if(CacheManager.cacheManager.getUser().getUserName().equalsIgnoreCase("minh")){
+                bottomNavigationView.getMenu().removeItem(R.id.action_pay_dish);
+            } else {
+                bottomNavigationView.getMenu().removeItem(R.id.action_order);
+            }
             bottomNavigationView.setSelectedItemId(R.id.action_order);
             setupBottomNav(bottomNavigationView.getSelectedItemId());
             bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

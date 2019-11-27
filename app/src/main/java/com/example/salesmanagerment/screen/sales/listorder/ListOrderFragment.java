@@ -8,10 +8,13 @@ import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -58,6 +61,7 @@ public class ListOrderFragment extends BaseFragment implements View.OnClickListe
     private ImageButton imvCancelOrder;
     private String cancelOrderID;
     public static final String CANCEL_ORDER = "CANCEL_ORDER";
+    private EditText edt_search_oder;
 
     public static ListOrderFragment newInstance() {
         return new ListOrderFragment();
@@ -114,11 +118,29 @@ public class ListOrderFragment extends BaseFragment implements View.OnClickListe
         btnAddOrder.setOnClickListener(this);
         textViewOptionSearch.setOnClickListener(this);
         tvAddOrder.setOnClickListener(this);
+        edt_search_oder.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                listOrderAdapter.filter(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
     }
 
     private void initView(View view) {
         clWaterMark = view.findViewById(R.id.clWaterMark);
         textViewOptionSearch = view.findViewById(R.id.tv_OptionSearch);
+        edt_search_oder = view.findViewById(R.id.edt_search_oder);
         tvAddOrder = view.findViewById(R.id.tvAddOrder);
         btnAddOrder = view.findViewById(R.id.btnAddOrder);
         swipeRefresh = view.findViewById(R.id.swipeRefresh);
@@ -193,6 +215,7 @@ public class ListOrderFragment extends BaseFragment implements View.OnClickListe
         try {
             if (orderResponse != null && orderResponse.size() > 0) {
                 clWaterMark.setVisibility(View.GONE);
+                listOrderAdapter.setRootList(orderResponse);
                 listOrderAdapter.setListData(orderResponse);
                 swipeRefresh.setRefreshing(false);
             } else {

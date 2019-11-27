@@ -13,15 +13,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.adapters.ListAdapter;
+import com.example.salesmanagerment.data.model.entity.ItemOrder;
 import com.example.salesmanagerment.data.model.entity.OrderResponse;
+import com.example.salesmanagerment.utils.CommonFunc;
 import com.example.salesmanagerment.utils.Constants;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class ListOrderAdapter extends ListAdapter<OrderResponse, OrderResponse> {
 
     private IOrderRequest mOrderCallBack;
+
+    public void setRootList(List<OrderResponse> rootList) {
+        this.rootList = rootList;
+        size = rootList.size();
+    }
+
+    private List<OrderResponse> rootList;
+    private int size;
 
     public ListOrderAdapter setOrderCallBack(IOrderRequest orderCallBack) {
         mOrderCallBack = orderCallBack;
@@ -48,6 +60,21 @@ public class ListOrderAdapter extends ListAdapter<OrderResponse, OrderResponse> 
                 mOnClickListener.onItemClick(orderResponse);
             }
         });
+    }
+
+
+    public void filter(String s) {
+        if (CommonFunc.isNullOrEmpty(s)) {
+            setListData(rootList);
+        } else {
+            List<OrderResponse> orderResponses = new ArrayList<>();
+            for (OrderResponse item : rootList) {
+                if (item.TableName.contains(s)) {
+                    orderResponses.add(item);
+                }
+            }
+            setListData(orderResponses);
+        }
     }
 
     @NonNull
