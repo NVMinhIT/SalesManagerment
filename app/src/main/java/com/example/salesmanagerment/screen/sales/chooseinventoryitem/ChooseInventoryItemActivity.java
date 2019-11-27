@@ -27,7 +27,7 @@ import java.util.List;
 public class ChooseInventoryItemActivity extends BaseActivity implements View.OnClickListener, IInventoryItemContact.IView {
 
     private ImageButton btnBack;
-    private Button buttonAccept;
+    private Button buttonAccept, btnCancel;
     private ChooseInventoryItemPresenter mPresenter;
     private RecyclerView mRecyclerView;
     private ChooseInventoryItemAdapter mAdapter;
@@ -47,6 +47,7 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
     private void initEvents() {
         btnBack.setOnClickListener(this);
         buttonAccept.setOnClickListener(this);
+        btnCancel.setOnClickListener(this);
         edtSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -67,6 +68,7 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
     private void initViews() {
         edtSearch = findViewById(R.id.edtSearch);
         buttonAccept = findViewById(R.id.btnAccept);
+        btnCancel = findViewById(R.id.btnCancel);
         btnBack = findViewById(R.id.btnBack);
         mRecyclerView = findViewById(R.id.rvInventoryItem);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -78,7 +80,8 @@ public class ChooseInventoryItemActivity extends BaseActivity implements View.On
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnBack:
-                super.onBackPressed();
+            case R.id.btnCancel:
+                finish();
                 break;
             case R.id.btnAccept:
                 showLoading(true);

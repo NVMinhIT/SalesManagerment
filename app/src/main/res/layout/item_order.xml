@@ -39,9 +39,7 @@
             android:text="Tầng 2"
             android:textColor="#FFFFFF"
             android:textSize="@dimen/text_18"
-            android:textStyle="bold"
-
-            />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvPerson"
@@ -50,7 +48,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerInParent="true"
             android:layout_marginEnd="@dimen/margin_16"
-            android:drawableStart="@drawable/ic_customer"
+            android:drawableStart="@drawable/ic_num_of_people"
             android:drawablePadding="@dimen/padding_6"
             android:text="3"
             android:textColor="#FFFFFF"
@@ -135,8 +133,8 @@
                     android:id="@+id/tvTotalAmount"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="3,200,000"
                     android:gravity="center"
+                    android:text="3,200,000"
                     android:textColor="@color/text"
                     android:textSize="@dimen/text_24"
                     app:layout_constraintBottom_toBottomOf="parent"

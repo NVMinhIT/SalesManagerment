@@ -207,13 +207,20 @@ public class CommonFunc {
     public static List<OrderDetail> newItemOrderToOrderDetails(List<ItemOrder> listItemOrder, Order order) {
         List<OrderDetail> list = new ArrayList<>();
         int sortOrder = 0;
+        int status;
+        String desc = "";
 
         for (ItemOrder item : listItemOrder) {
+            if (CommonFunc.isNullOrEmpty(item.Description)) {
+                desc = item.Description;
+            }
+            status = item.OrderDetailStatus;
             list.add(new OrderDetail.Builder()
                     .setOrderDetailID(UUID.randomUUID().toString())
                     .setOrderID(order.OrderID)
                     .setInventoryItemID(item.ID)
-                    .setOrderDetailStatus(Constants.ORDER_DETAIL_NOTHING)
+                    .setOrderDetailStatus(status)
+                    .setDescription(desc)
                     .setQuantity(item.Quantity)
                     .setSortOrder(sortOrder)
                     .setCookedQuantity(0.0)
@@ -231,30 +238,29 @@ public class CommonFunc {
             protected List<OrderDetail> doInBackground(Void... voids) {
                 List<OrderDetail> list = new ArrayList<>();
                 String OrderDetailID;
-                Double CookedQuantity;
-                Double ServedQuantity;
-                Double CookingQuantity;
+                Double CookedQuantity = 0.0;
+                Double ServedQuantity = 0.0;
+                Double CookingQuantity = 0.0;
                 int OrderDetailStatus;
                 int SortOrder = 0;
                 String desc = "";
 
                 for (ItemOrder item : listItemOrder) {
+                    if (!CommonFunc.isNullOrEmpty(item.Description)) {
+                        desc = item.Description;
+                    }
+                    OrderDetailStatus = item.OrderDetailStatus;
                     if (!CommonFunc.isNullOrEmpty(item.OrderDetailID)) {
                         OrderDetailID = item.OrderDetailID;
-                        CookedQuantity = item.CookedQuantity;
-                        ServedQuantity = item.ServedQuantity;
-                        CookingQuantity = item.CookingQuantity;
-                        OrderDetailStatus = item.OrderDetailStatus;
-                        SortOrder = item.SortOrder;
-                        if(!CommonFunc.isNullOrEmpty(item.Description)){
-                            desc = item.Description;
+                        if (item.ServedQuantity != null && item.CookedQuantity != null && item.CookingQuantity != null) {
+                            CookedQuantity = item.CookedQuantity;
+                            ServedQuantity = item.ServedQuantity;
+                            CookingQuantity = item.CookingQuantity;
                         }
+                        SortOrder = item.SortOrder;
+
                     } else {
                         OrderDetailID = UUID.randomUUID().toString();
-                        CookedQuantity = 0.0;
-                        ServedQuantity = 0.0;
-                        CookingQuantity = 0.0;
-                        OrderDetailStatus = Constants.ORDER_DETAIL_NOTHING;
                         SortOrder = SortOrder + 1;
                     }
                     list.add(new OrderDetail.Builder()

@@ -39,11 +39,11 @@ public class CreateOrderPresenter implements ICreateOrderContact.IPresenter {
     }
 
     @Override
-    public void saveOrder(final int type) {
+    public void saveOrder(final int type, final Boolean isClose) {
         mView.showLoading(true);
         if (type == Constants.TYPE_ADD) {
             mOrderEntity.orderDetails = CommonFunc.newItemOrderToOrderDetails(mItemOrders, mOrderEntity.order);
-            saveOrder();
+            saveOrder(isClose);
         } else {
             //so sánh list ban đầu và list sau khi thay đổi, nếu trong list cũ k có trong list mới thì cập nhật -> hủy
             List<String> deleteList = new ArrayList<>();
@@ -68,7 +68,7 @@ public class CreateOrderPresenter implements ICreateOrderContact.IPresenter {
                     @Override
                     public void onDataSuccess(List<OrderDetail> data) {
                         mOrderEntity.orderDetails = data;
-                        saveOrder();
+                        saveOrder(isClose);
                     }
 
                     @Override
@@ -156,6 +156,7 @@ public class CreateOrderPresenter implements ICreateOrderContact.IPresenter {
                             .setPrice(itemMapping.UnitPrice)
                             .setUnitName(itemMapping.UnitName)
                             .setTotalMoney(itemMapping.UnitPrice * item.Quantity)
+                            .setDescription(item.Description)
                             .build());
                 }
                 TotalMoney = calculateMoney(mItemOrders);
@@ -170,6 +171,20 @@ public class CreateOrderPresenter implements ICreateOrderContact.IPresenter {
         }.execute();
     }
 
+    @Override
+    public void sendKitchen(final int type) {
+        if (mItemOrders.size() == 0) {
+            CommonFunc.showToastInfo("Bạn chưa chọn món ăn nào");
+        } else {
+            for (ItemOrder item : mItemOrders) {
+                if (item.OrderDetailStatus == Constants.ORDER_DETAIL_NOTHING) {
+                    item.OrderDetailStatus = Constants.ORDER_DETAIL_SENT_KITCHEN;
+                }
+            }
+            saveOrder(type, false);
+        }
+    }
+
     private Double calculateMoney(List<ItemOrder> itemOrders) {
         Double sum = 0.0;
         for (ItemOrder item : itemOrders) {
@@ -178,14 +193,20 @@ public class CreateOrderPresenter implements ICreateOrderContact.IPresenter {
         return sum;
     }
 
-    private void saveOrder() {
+    private void saveOrder(final Boolean isClose) {
+
         mDataSource.createOrder(mOrderEntity, new IDataCallBack<Boolean, String>() {
             @Override
             public void onDataSuccess(Boolean data) {
                 mView.showLoading(false);
                 if (data) {
-                    mView.gotoOrdersScreen();
-                    CommonFunc.showToastSuccess("Thành công");
+                    if (isClose) {
+                        mView.gotoOrdersScreen();
+                    } else {
+                        getOrderDetailsByOrderID(mOrderEntity.order.OrderID);
+                        CommonFunc.showToastSuccess("Đã gửi bếp");
+                    }
+
                 } else {
                     CommonFunc.showToastSuccess("Thất bại, vui lòng thử lại!");
                 }
@@ -199,7 +220,7 @@ public class CreateOrderPresenter implements ICreateOrderContact.IPresenter {
                     String[] temp = mOrderEntity.order.OrderNo.split(Pattern.quote("."));
                     int no = Integer.parseInt(temp[1]) + 1;
                     mOrderEntity.order.OrderNo = temp[0] + "." + no;
-                    saveOrder();
+                    saveOrder(true);
                 } else {
                     CommonFunc.showToastError(error);
                 }

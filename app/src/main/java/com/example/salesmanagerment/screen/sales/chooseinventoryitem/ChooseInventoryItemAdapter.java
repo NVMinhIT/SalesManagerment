@@ -171,7 +171,7 @@ public class ChooseInventoryItemAdapter extends ListAdapter<ItemOrder, IOnItemCl
                             // ivICon.setVisibility(View.INVISIBLE);
                         }
                         //tăng số lượng lên 1
-                        tvQuantity.setText(String.valueOf(++quantity));
+                        tvQuantity.setText(String.valueOf(++quantity).replace(".0",""));
                     } catch (Resources.NotFoundException e) {
                         e.printStackTrace();
                     }
@@ -222,7 +222,7 @@ public class ChooseInventoryItemAdapter extends ListAdapter<ItemOrder, IOnItemCl
                 case R.id.btnPlus:
                     try {
                         //tăng số lượng lên 1
-                        tvQuantity.setText(String.valueOf(++quantity));
+                        tvQuantity.setText(String.valueOf(++quantity).replace(".0",""));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -238,7 +238,7 @@ public class ChooseInventoryItemAdapter extends ListAdapter<ItemOrder, IOnItemCl
                         } else if (quantity < 0) {
                             quantity = 0.0;
                         }
-                        tvQuantity.setText(String.valueOf(quantity));
+                        tvQuantity.setText(String.valueOf(quantity).replace(".0",""));
                     } catch (Resources.NotFoundException e) {
                         e.printStackTrace();
                     }
@@ -261,7 +261,7 @@ public class ChooseInventoryItemAdapter extends ListAdapter<ItemOrder, IOnItemCl
             tvDishName.setText(itemOrder.Name);
             ivICon.setImageBitmap(CommonFunc.StringToBitMap(itemOrder.Image));
             if (quantity > 0) {
-                tvQuantity.setText(String.valueOf(itemOrder.Quantity));
+                tvQuantity.setText(String.valueOf(itemOrder.Quantity).replace(".0",""));
                 ivDefault.setVisibility(View.VISIBLE);
                 clDishOrder.setBackground(mContext.getResources().getDrawable(R.drawable.selector_button_gray));
                 lnQuantity.setVisibility(View.VISIBLE);

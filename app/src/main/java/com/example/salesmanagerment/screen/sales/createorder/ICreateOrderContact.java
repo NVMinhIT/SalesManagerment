@@ -19,7 +19,7 @@ public interface ICreateOrderContact {
     }
 
     interface IPresenter extends IBasePresenter<ICreateOrderContact.IView> {
-        void saveOrder(int type);
+        void saveOrder(int type, Boolean isClose);
 
         void getOrderNo();
 
@@ -28,6 +28,8 @@ public interface ICreateOrderContact {
         void getOrderDetailsByOrderID(String orderID);
 
         void setItemOrders(List<OrderDetail> orderDetails);
+
+        void sendKitchen(int type);
     }
 }
 

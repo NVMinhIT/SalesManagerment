@@ -63,11 +63,11 @@ public class MainActivity extends BaseActivity implements IInitDataCallback, OnC
             mToolbar = findViewById(R.id.toolbar);
             setSupportActionBar(mToolbar);
             bottomNavigationView = findViewById(R.id.bottom_nav);
-            if(CacheManager.cacheManager.getUser().getUserName().equalsIgnoreCase("minh")){
-                bottomNavigationView.getMenu().removeItem(R.id.action_pay_dish);
-            } else {
-                bottomNavigationView.getMenu().removeItem(R.id.action_order);
-            }
+//            if(CacheManager.cacheManager.getUser().getUserName().equalsIgnoreCase("minh")){
+//                bottomNavigationView.getMenu().removeItem(R.id.action_pay_dish);
+//            } else {
+//                bottomNavigationView.getMenu().removeItem(R.id.action_order);
+//            }
             bottomNavigationView.setSelectedItemId(R.id.action_order);
             setupBottomNav(bottomNavigationView.getSelectedItemId());
             bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

@@ -7,6 +7,7 @@ import com.example.salesmanagerment.data.model.entity.ItemOrder;
 import com.example.salesmanagerment.data.repository.DataSource;
 import com.example.salesmanagerment.utils.CacheManager;
 import com.example.salesmanagerment.utils.CommonFunc;
+import com.example.salesmanagerment.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,7 @@ public class ChooseInventoryItemPresenter implements IInventoryItemContact.IPres
                     .setPrice(item.getUnitPrice())
                     .setUnitName(mDataSource.getUnitName(item.getInventoryItemID()))
                     .setQuantity(0.0)
+                    .setOrderDetailStatus(Constants.ORDER_DETAIL_NOTHING)
                     .build());
         }
         return list;

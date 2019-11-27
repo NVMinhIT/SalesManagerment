@@ -64,7 +64,7 @@ public class InvoiceAdapter extends ListAdapter<ItemOrder, IOnItemClickListener<
         public void bind(ItemOrder itemOrder) {
             tvInventoryItemName.setText(itemOrder.Name);
             Double quality = itemOrder.Quantity;
-            tvQuantity.setText(String.valueOf(quality));
+            tvQuantity.setText(String.valueOf(quality).replace(".0",""));
             tvPrice.setText(NumberFormat.getNumberInstance(Locale.US).format(itemOrder.Price));
             tvTotalMoney.setText(NumberFormat.getNumberInstance(Locale.US).format((itemOrder.TotalMoney)));
 

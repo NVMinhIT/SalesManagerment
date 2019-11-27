@@ -44,7 +44,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class CreateOrderActivity extends BaseActivity implements ICreateOrderContact.IView, View.OnClickListener, AddPersonDialogFragment.SetPerson {
+public class CreateOrderActivity extends BaseActivity implements ICreateOrderContact.IView, View.OnClickListener, AddPersonDialogFragment.SetPerson, CreateOrderAdapter.ItemInventoryCallBack {
 
     private ImageButton imageButtonSale;
     private Navigator navigator;
@@ -158,13 +158,16 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderCon
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new CreateOrderAdapter(this);
         mAdapter.setListData(mPresenter.mItemOrders);
+        mAdapter.setItemInventoryCallBack(this);
         recyclerView.setAdapter(mAdapter);
         tvSumMoney.setText(NumberFormat.getNumberInstance(Locale.US).format((mPresenter.TotalMoney)));
     }
 
     private void initData() {
-        tvAddPerson.setText(String.valueOf(mOrderResponse.NumberOfPeople));
-        tvOptionTable.setText(mOrderResponse.TableName);
+        if (mOrderResponse != null) {
+            tvAddPerson.setText(String.valueOf(mOrderResponse.NumberOfPeople));
+            tvOptionTable.setText(mOrderResponse.TableName);
+        }
     }
 
     private void initEvent() {
@@ -216,8 +219,9 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderCon
                         true, Navigator.NavigateAnim.BOTTOM_UP, SalesInventoryItem.class.getSimpleName());
                 break;
             case R.id.imb_send_chef:
-
-                CommonFunc.showToastSuccess(R.string.send_chef);
+                if (validateData()) {
+                    mPresenter.sendKitchen(type);
+                }
                 break;
             case R.id.imb_pay:
                 if (validateData()) {
@@ -231,7 +235,7 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderCon
                 break;
             case R.id.imb_save_order:
                 if (validateData()) {
-                    mPresenter.saveOrder(type);
+                    mPresenter.saveOrder(type, true);
                 }
                 break;
             case R.id.btnAddMore:
@@ -317,12 +321,14 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderCon
     @Override
     public void getListOrderDetailSuccess(List<OrderDetail> orderDetails) {
         //có ds cũ  -> hiển thị -> dưới dạng ItemOrder
+        showDialog(true);
         mPresenter.setOrderEntity(mOrderEntity);
         mPresenter.setItemOrders(orderDetails);
     }
 
     @Override
     public void setItemOderByOrderDetailSuccess() {
+        showDialog(false);
         initView();
         initEvent();
         initData();
@@ -333,5 +339,17 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderCon
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mReceiverAddCustomer);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mReceiverSelectedCustomer);
         super.onDestroy();
+    }
+
+    @Override
+    public void onClickDesc(final int position) {
+        DescDialogFragment dialogFragment = DescDialogFragment.getInstance(mPresenter.mItemOrders.get(position).Description);
+        dialogFragment.setCallback(new DescDialogFragment.SetDesc() {
+            @Override
+            public void setDescription(String description) {
+                mPresenter.mItemOrders.get(position).Description = description;
+            }
+        });
+        getSupportFragmentManager().beginTransaction().add(dialogFragment, EXTRA).commit();
     }
 }
