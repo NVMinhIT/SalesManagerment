@@ -31,6 +31,7 @@
             android:layout_marginStart="@dimen/margin_12"
             android:layout_marginTop="@dimen/margin_12"
             android:text="Shushi cá hồi"
+            android:id="@+id/tvNameInventoryItem"
             android:textColor="@color/text"
             android:textSize="@dimen/text_18"
             android:textStyle="bold"
@@ -38,7 +39,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_dish_pay"
+            android:id="@+id/tvAccountUnit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_48"

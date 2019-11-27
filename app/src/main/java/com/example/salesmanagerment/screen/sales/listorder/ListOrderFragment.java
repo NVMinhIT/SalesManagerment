@@ -25,11 +25,14 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.BaseFragment;
 import com.example.salesmanagerment.base.listeners.IOnItemClickListener;
+import com.example.salesmanagerment.data.model.entity.ItemOrder;
+import com.example.salesmanagerment.data.model.entity.OrderEntity;
 import com.example.salesmanagerment.data.model.entity.OrderResponse;
 import com.example.salesmanagerment.data.model.request.CancelOrderRequest;
 import com.example.salesmanagerment.screen.main.MainActivity;
 import com.example.salesmanagerment.screen.sales.chooseinventoryitem.ChooseInventoryItemActivity;
 import com.example.salesmanagerment.screen.sales.listorder.dialog.ConfirmCancelOrderDialog;
+import com.example.salesmanagerment.screen.sales.payinventoryitem.payorder.PayOrderInventoryItemActivity;
 import com.example.salesmanagerment.utils.CommonFunc;
 import com.example.salesmanagerment.utils.Constants;
 import com.example.salesmanagerment.utils.Navigator;
@@ -253,12 +256,18 @@ public class ListOrderFragment extends BaseFragment implements View.OnClickListe
     }
 
     @Override
-    public void onSendKitchen(String orderID) {
-
+    public void onReceiveKitchen(OrderResponse orderResponse) {
+        Bundle bundle = new Bundle();
+        Intent intent = new Intent(getActivity(), PayOrderInventoryItemActivity.class);
+        bundle.putParcelable("ORDER", orderResponse);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
+
 
     @Override
-    public void onPreview(String orderID) {
+    public void onPreview(String orderID, OrderEntity orderEntity, List<ItemOrder> itemOrder) {
 
     }
+
 }

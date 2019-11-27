@@ -19,6 +19,7 @@ public class Order implements Parcelable {
     public String BranchID;
     public String CustomerID;
     public int NumberOfPeople;
+
     public String BookingID;
     public String EmployeeID;
     public String CancelEmployeeID;

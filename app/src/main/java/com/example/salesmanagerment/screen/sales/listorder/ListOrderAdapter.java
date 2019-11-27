@@ -13,15 +13,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.adapters.ListAdapter;
+import com.example.salesmanagerment.data.model.entity.ItemOrder;
+import com.example.salesmanagerment.data.model.entity.OrderDetail;
+import com.example.salesmanagerment.data.model.entity.OrderEntity;
 import com.example.salesmanagerment.data.model.entity.OrderResponse;
 import com.example.salesmanagerment.utils.Constants;
 
 import java.text.NumberFormat;
+import java.util.List;
 import java.util.Locale;
 
 public class ListOrderAdapter extends ListAdapter<OrderResponse, OrderResponse> {
 
     private IOrderRequest mOrderCallBack;
+    private List<OrderDetail> rootList;
+
+
+    private int size;
 
     public ListOrderAdapter setOrderCallBack(IOrderRequest orderCallBack) {
         mOrderCallBack = orderCallBack;
@@ -49,6 +57,7 @@ public class ListOrderAdapter extends ListAdapter<OrderResponse, OrderResponse> 
             }
         });
     }
+
 
     @NonNull
     @Override
@@ -114,6 +123,7 @@ public class ListOrderAdapter extends ListAdapter<OrderResponse, OrderResponse> 
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.lnPayDish:
+                    mOrderCallBack.onReceiveKitchen(mOrderResponse);
                     break;
                 case R.id.lnCancel:
                     //show dialog confirm
@@ -138,8 +148,8 @@ public class ListOrderAdapter extends ListAdapter<OrderResponse, OrderResponse> 
 
         void onCancelOrder(String orderID);
 
-        void onSendKitchen(String orderID);
+        void onReceiveKitchen(OrderResponse orderResponse);
 
-        void onPreview(String orderID);
+        void onPreview(String orderID, OrderEntity orderEntity, List<ItemOrder> itemOrder);
     }
 }

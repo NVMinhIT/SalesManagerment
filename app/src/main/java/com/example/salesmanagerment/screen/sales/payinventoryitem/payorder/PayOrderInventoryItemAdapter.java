@@ -1,9 +1,11 @@
 package com.example.salesmanagerment.screen.sales.payinventoryitem.payorder;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,15 +38,27 @@ public class PayOrderInventoryItemAdapter extends ListAdapter<ItemOrder, ItemOrd
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
+        private TextView tvNameInventoryItem, tvAccountUnit;
 
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
+            initView(itemView);
         }
 
+        private void initView(View itemView) {
+            tvNameInventoryItem = itemView.findViewById(R.id.tvNameInventoryItem);
+            tvAccountUnit = itemView.findViewById(R.id.tvAccountUnit);
+        }
+
+        @SuppressLint("SetTextI18n")
         public void bind(ItemOrder itemOrder) {
+            Double quantity = itemOrder.Quantity;
+            tvNameInventoryItem.setText(itemOrder.Name);
+            tvAccountUnit.setText(quantity + " " + itemOrder.UnitName + " x ");
 
         }
     }
+
 
 }
 

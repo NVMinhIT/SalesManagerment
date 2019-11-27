@@ -80,7 +80,8 @@
     <string name="cost">Giá bán:</string>
     <string name="decrease">Giảm</string>
     <string name="increase">Tăng</string>
-    <string name="table">Bàn :</string>
+    <string name="table">Bàn</string>
+    <string name="tang">Tầng 1</string>
     <string name="_7">7</string>
     <string name="_8">8</string>
     <string name="_9">9</string>
@@ -199,7 +200,7 @@
     <string name="username_empty">Vui lòng nhập tên tài khoản</string>
     <string name="pw_empty">Vui lòng nhập mật khẩu</string>
     <string name="login_ing">Đang đăng nhập…</string>
-<!--   change pass-->
+    <!--   change pass-->
 
     <string name="old_empty">Vui lòng nhập mật khẩu trước đó</string>
     <string name="new_pass">Vui lòng nhập mật khẩu mới</string>
