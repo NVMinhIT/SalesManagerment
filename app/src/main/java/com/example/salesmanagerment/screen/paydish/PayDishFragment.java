@@ -1,5 +1,6 @@
 package com.example.salesmanagerment.screen.paydish;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,16 +12,21 @@ import androidx.annotation.Nullable;
 
 import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.BaseFragment;
+import com.example.salesmanagerment.data.model.entity.ItemOrder;
+import com.example.salesmanagerment.data.model.entity.OrderDetail;
+import com.example.salesmanagerment.data.model.entity.OrderResponse;
+import com.example.salesmanagerment.utils.CommonFunc;
+import com.example.salesmanagerment.utils.Constants;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-public class PayDishFragment extends BaseFragment {
+public class PayDishFragment extends BaseFragment implements PayDishContact.IView, ExpandListAdapter.kitchenCallBack {
     private ExpandListAdapter expandListAdapter;
     private ExpandableListView expandableListView;
-    private List<String> itemOrderList;
-    private HashMap<String, List<String>> listHashMap;
+    private PayDishPresenter mPresenter;
+    int delete = 0;
+    int accept = 1;
 
     public static PayDishFragment newInstance() {
         return new PayDishFragment();
@@ -31,7 +37,6 @@ public class PayDishFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_paydish, container, false);
         initViews(view);
-
         initEvents();
         return view;
     }
@@ -40,49 +45,87 @@ public class PayDishFragment extends BaseFragment {
 
     }
 
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        mPresenter = new PayDishPresenter();
+        mPresenter.setView(this);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mPresenter.onStart();
+    }
+
     private void initViews(View view) {
         expandableListView = view.findViewById(R.id.ExpandListView);
-        initData();
-        expandListAdapter = new ExpandListAdapter(mActivity, itemOrderList, listHashMap);
+        expandListAdapter = new ExpandListAdapter(mActivity, new ArrayList<OrderResponse>(), new ArrayList<List<ItemOrder>>());
+        expandListAdapter.setKitchenCallBack(this);
         expandableListView.setAdapter(expandListAdapter);
+        expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                if (expandableListView.isGroupExpanded(groupPosition)) {
+                    expandableListView.collapseGroup(groupPosition);
+                } else {
+                    mPresenter.getOrderDetailsByOrderID(((OrderResponse) expandListAdapter.getGroup(groupPosition)).OrderID, groupPosition);
+                }
+                return true;
+            }
+        });
 
 
     }
 
-    private void initData() {
-        itemOrderList = new ArrayList<>();
-        listHashMap = new HashMap<>();
-        itemOrderList.add("2.3");
-        itemOrderList.add("2.4");
-        itemOrderList.add("2.5");
-        itemOrderList.add("2.6");
-
-
-        List<String> list1 = new ArrayList<>();
-        list1.add("Ba Ba rang muối");
-        list1.add("Ba Ba rang muối");
-        list1.add("Ba Ba rang muối");
-        list1.add("Ba Ba rang muối");
-        List<String> list2 = new ArrayList<>();
-        list2.add("Ba Ba rang muối");
-        list2.add("Ba Ba rang muối");
-        list2.add("Ba Ba rang muối");
-        list2.add("Ba Ba rang muối");
-        List<String> list3 = new ArrayList<>();
-        list3.add("Ba Ba rang muối");
-        list3.add("Ba Ba rang muối");
-        list3.add("Ba Ba rang muối");
-        list3.add("Ba Ba rang muối");
-        List<String> list4 = new ArrayList<>();
-        list4.add("Ba Ba rang muối");
-        list4.add("Ba Ba rang muối");
-        list4.add("Ba Ba rang muối");
-        list4.add("Ba Ba rang muối");
-
-        listHashMap.put(itemOrderList.get(0),list1);
-        listHashMap.put(itemOrderList.get(1),list2);
-        listHashMap.put(itemOrderList.get(2),list3);
-        listHashMap.put(itemOrderList.get(3),list4);
-
+    @Override
+    public void getOrderResponseSuccess(List<OrderResponse> items) {
+        expandListAdapter.setLsOrderOverView(items);
     }
+
+    @Override
+    public void getListOrderDetailSuccess(List<OrderDetail> orderDetails, int groupPos) {
+        showDialog(true);
+        mPresenter.setItemOrders(orderDetails, groupPos);
+    }
+
+    @Override
+    public void setItemOderByOrderDetailSuccess(List<ItemOrder> itemOrders, int groupPos) {
+        showDialog(false);
+        expandListAdapter.setItemsChild(itemOrders, groupPos);
+        expandableListView.expandGroup(groupPos);
+    }
+
+    @Override
+    public void updateStatusSuccess(int groupPosition, int itemPos, int type) {
+        if (type == delete) {
+            expandListAdapter.getLsItemOrderDetails().get(groupPosition).remove(itemPos);
+            expandListAdapter.notifyDataSetChanged();
+        } else {
+
+        }
+        expandListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showLoading(boolean isShowLoading) {
+        showDialog(isShowLoading);
+    }
+
+    @Override
+    public void acceptCooking(ItemOrder itemOrder, int pos, int itemPos) {
+        itemOrder.OrderDetailStatus = Constants.ORDER_DETAIL_PROCESSING;
+        itemOrder.CookingQuantity = itemOrder.Quantity;
+        mPresenter.updateStatusOrderDetail(CommonFunc.ItemOrderToOrderDetail(itemOrder), pos, itemPos, accept);
+    }
+
+
+    @Override
+    public void declineCooking(ItemOrder itemOrder, int pos, int itemPos) {
+        itemOrder.OrderDetailStatus = Constants.ORDER_DETAIL_CANCEL;
+        mPresenter.updateStatusOrderDetail(CommonFunc.ItemOrderToOrderDetail(itemOrder), pos, itemPos, delete);
+    }
+
+
 }

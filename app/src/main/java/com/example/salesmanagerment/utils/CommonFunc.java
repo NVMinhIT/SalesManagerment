@@ -228,6 +228,7 @@ public class CommonFunc {
                     .setServedQuantity(0.0)
                     .build());
             sortOrder++;
+            desc = "";
         }
         return list;
     }
@@ -275,6 +276,7 @@ public class CommonFunc {
                             .setServedQuantity(ServedQuantity)
                             .setDescription(desc)
                             .build());
+                    desc = "";
                 }
                 return list;
             }
@@ -285,5 +287,22 @@ public class CommonFunc {
                 callBack.onDataSuccess(orderDetails);
             }
         }.execute();
+    }
+
+
+    public static OrderDetail ItemOrderToOrderDetail(final ItemOrder itemOrder) {
+
+        return new OrderDetail.Builder()
+                .setOrderDetailID(itemOrder.OrderDetailID)
+                .setOrderID(itemOrder.OrderID)
+                .setInventoryItemID(itemOrder.ID)
+                .setOrderDetailStatus(itemOrder.OrderDetailStatus)
+                .setQuantity(itemOrder.Quantity)
+                .setSortOrder(itemOrder.SortOrder)
+                .setCookedQuantity(itemOrder.CookedQuantity)
+                .setCookingQuantity(itemOrder.CookingQuantity)
+                .setServedQuantity(itemOrder.ServedQuantity)
+                .setDescription(itemOrder.Description)
+                .build();
     }
 }

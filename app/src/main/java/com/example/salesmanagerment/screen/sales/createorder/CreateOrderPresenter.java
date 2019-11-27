@@ -1,7 +1,11 @@
 package com.example.salesmanagerment.screen.sales.createorder;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
+
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.listeners.IDataCallBack;
@@ -11,6 +15,7 @@ import com.example.salesmanagerment.data.model.entity.ItemOrder;
 import com.example.salesmanagerment.data.model.entity.OrderDetail;
 import com.example.salesmanagerment.data.model.entity.OrderEntity;
 import com.example.salesmanagerment.data.repository.DataSource;
+import com.example.salesmanagerment.screen.sales.listorder.ListOrderFragment;
 import com.example.salesmanagerment.utils.CommonFunc;
 import com.example.salesmanagerment.utils.Constants;
 
@@ -142,10 +147,15 @@ public class CreateOrderPresenter implements ICreateOrderContact.IPresenter {
             protected Void doInBackground(Void... voids) {
                 mItemOrders.clear();
                 for (OrderDetail item : orderDetails) {
+                    String desc = "";
+                    if (CommonFunc.isNullOrEmpty(item.Description)) {
+                        desc = item.Description;
+                    }
                     InventoryItemMapping itemMapping = mDataSource.getInventoryItemMapping(item.InventoryItemID);
                     mItemOrders.add(new ItemOrder.Builder()
                             .setID(item.InventoryItemID)
                             .setQuantity(item.Quantity)
+                            .setOrderID(item.OrderID)
                             .setOrderDetailID(item.OrderDetailID)
                             .setCookedQuantity(item.CookedQuantity)
                             .setServedQuantity(item.ServedQuantity)
@@ -156,7 +166,7 @@ public class CreateOrderPresenter implements ICreateOrderContact.IPresenter {
                             .setPrice(itemMapping.UnitPrice)
                             .setUnitName(itemMapping.UnitName)
                             .setTotalMoney(itemMapping.UnitPrice * item.Quantity)
-                            .setDescription(item.Description)
+                            .setDescription(desc)
                             .build());
                 }
                 TotalMoney = calculateMoney(mItemOrders);
@@ -179,6 +189,9 @@ public class CreateOrderPresenter implements ICreateOrderContact.IPresenter {
             for (ItemOrder item : mItemOrders) {
                 if (item.OrderDetailStatus == Constants.ORDER_DETAIL_NOTHING) {
                     item.OrderDetailStatus = Constants.ORDER_DETAIL_SENT_KITCHEN;
+                    if (CommonFunc.isNullOrEmpty(item.Description)) {
+                        item.Description = " ";
+                    }
                 }
             }
             saveOrder(type, false);
@@ -203,6 +216,8 @@ public class CreateOrderPresenter implements ICreateOrderContact.IPresenter {
                     if (isClose) {
                         mView.gotoOrdersScreen();
                     } else {
+                        Intent intent = new Intent(ListOrderFragment.ACTION_ADD_LIST_ORDER);
+                        LocalBroadcastManager.getInstance((Context) mView).sendBroadcast(intent);
                         getOrderDetailsByOrderID(mOrderEntity.order.OrderID);
                         CommonFunc.showToastSuccess("Đã gửi bếp");
                     }

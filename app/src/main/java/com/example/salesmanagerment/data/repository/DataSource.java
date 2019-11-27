@@ -672,6 +672,36 @@ public class DataSource {
         });
     }
 
+    //thêm khách hàng
+    public void updateOrderDetail(OrderDetail orderDetail, final IDataCallBack<Boolean, String> callBack) {
+        Log.d(TAG, "createOrderDetail: \n" + new Gson().toJson(orderDetail));
+        apiService.updateOrderDetail(token, orderDetail).enqueue(new Callback<BaseResponse<Boolean>>() {
+            @Override
+            public void onResponse(@NotNull Call<BaseResponse<Boolean>> call, @NotNull Response<BaseResponse<Boolean>> response) {
+                if (response.isSuccessful()) {
+                    Log.d(TAG, "onResponse: ");
+                    if (callBack != null) {
+                        if (response.body() != null) {
+                            callBack.onDataSuccess(response.body().getSuccess());
+                        }
+                    }
+                } else {
+                    if (callBack != null) {
+                        callBack.onDataFailed(response.message());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<BaseResponse<Boolean>> call, @NotNull Throwable t) {
+                if (callBack != null) {
+                    callBack.onDataFailed(t.getMessage());
+                }
+                CommonFunc.showToastWarning(R.string.somthing_went_wrong);
+            }
+        });
+    }
+
     public HashMap<String, InventoryItemMapping> getItemMappingHashMap() {
         return mItemMappingHashMap;
     }

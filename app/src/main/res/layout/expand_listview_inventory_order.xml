@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/size_72"
+    android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/margin_6"
     android:layout_marginTop="@dimen/margin_6"
     android:layout_marginEnd="@dimen/margin_6"
@@ -11,7 +11,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/size_72">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/img_pan"
@@ -26,17 +26,18 @@
             tools:ignore="ContentDescription" />
 
         <TextView
+            android:id="@+id/tvNameInventoryItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_12"
             android:layout_marginTop="@dimen/margin_12"
             android:text="Shushi cá hồi"
-            android:id="@+id/tvNameInventoryItem"
             android:textColor="@color/text"
             android:textSize="@dimen/text_18"
             android:textStyle="bold"
-            app:layout_constraintLeft_toRightOf="@+id/img_pan"
+            app:layout_constraintLeft_toRightOf="@id/img_pan"
             app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/tvAccount"
             android:layout_width="wrap_content"
@@ -47,10 +48,11 @@
             android:textColor="@color/colorTextGray"
             android:textSize="@dimen/text_16"
             android:textStyle="italic"
-            app:layout_constraintLeft_toRightOf="@+id/img_pan"
-            app:layout_constraintTop_toBottomOf="@+id/img_pan"
-            app:layout_constraintRight_toLeftOf="@+id/tv_dish_pay"
+            app:layout_constraintLeft_toRightOf="@id/img_pan"
+            app:layout_constraintRight_toLeftOf="@id/tvNameInventoryItem"
+            app:layout_constraintTop_toBottomOf="@id/img_pan"
             tools:ignore="MissingConstraints,UnknownIdInLayout" />
+
         <TextView
             android:id="@+id/tvUnit"
             android:layout_width="wrap_content"
@@ -62,8 +64,8 @@
             android:textColor="@color/colorBlueHighLight"
             android:textSize="@dimen/text_16"
             android:textStyle="italic"
-            app:layout_constraintLeft_toRightOf="@+id/tvAccount"
-            app:layout_constraintTop_toBottomOf="@+id/img_pan"
+            app:layout_constraintLeft_toRightOf="@id/tvAccount"
+            app:layout_constraintTop_toBottomOf="@id/img_pan"
             tools:ignore="MissingConstraints" />
 
         <LinearLayout
@@ -72,8 +74,8 @@
             android:layout_marginEnd="@dimen/margin_6"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:weightSum="1"
             android:padding="@dimen/padding_4"
+            android:weightSum="1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -97,6 +99,26 @@
                 android:background="#F5F5F5"
                 android:src="@drawable/ic_tick_order"
                 tools:ignore="ContentDescription" />
+
+            <ImageButton
+                android:id="@+id/imb_return"
+                android:layout_width="@dimen/size_42"
+                android:layout_height="@dimen/size_42"
+                android:layout_weight="0.5"
+                android:background="#F5F5F5"
+                android:src="@drawable/ic_pay_dish"
+                android:visibility="gone"
+                tools:ignore="ContentDescription" />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="@dimen/padding_6"
+            android:text="Ghi chú:"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvUnit" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

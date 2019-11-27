@@ -121,6 +121,7 @@ public class OptionTableActivity extends BaseActivity implements IOptionTableCon
         switch (view.getId()) {
             case R.id.btn_Cancel_Table:
                 mTableMappingCustom = null;
+                finish();
                 break;
             case R.id.btn_Back_Table:
                 finish();

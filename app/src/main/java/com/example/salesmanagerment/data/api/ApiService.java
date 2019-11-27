@@ -101,4 +101,8 @@ public interface ApiService {
     @POST("OrderDetail/Delete")
     Call<BaseResponse<Boolean>> DeleteList(@Header("authorization") String token, @Body String orderID);
 
+    //
+    @POST("OrderDetail/InsertUpdate")
+    Call<BaseResponse<Boolean>> updateOrderDetail(@Header("authorization") String token, @Body OrderDetail orderDetail);
+
 }

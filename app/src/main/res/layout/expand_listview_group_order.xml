@@ -14,24 +14,11 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_42"
         android:background="@color/colorPrimaryDark"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
-
-        <!--        <TextView-->
-        <!--            android:id="@+id/tvOrderName"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_alignParentStart="true"-->
-        <!--            android:layout_centerVertical="true"-->
-        <!--            android:layout_marginStart="@dimen/margin_32"-->
-        <!--            android:text="2.3"-->
-        <!--            android:textColor="#FFFFFF"-->
-        <!--            android:textSize="@dimen/text_18"-->
-        <!--            android:textStyle="bold"-->
-        <!--            tools:ignore="RelativeOverlap" />-->
 
         <TextView
             android:id="@+id/tvOrderName"
@@ -42,9 +29,7 @@
             android:text="2.4"
             android:textColor="#FFFFFF"
             android:textSize="@dimen/text_18"
-            android:textStyle="bold"
-
-            />
+            android:textStyle="bold" />
 
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
