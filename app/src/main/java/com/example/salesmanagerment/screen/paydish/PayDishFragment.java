@@ -27,6 +27,7 @@ public class PayDishFragment extends BaseFragment implements PayDishContact.IVie
     private PayDishPresenter mPresenter;
     int delete = 0;
     int accept = 1;
+    int returnDish = 2;
 
     public static PayDishFragment newInstance() {
         return new PayDishFragment();
@@ -125,6 +126,15 @@ public class PayDishFragment extends BaseFragment implements PayDishContact.IVie
     public void declineCooking(ItemOrder itemOrder, int pos, int itemPos) {
         itemOrder.OrderDetailStatus = Constants.ORDER_DETAIL_CANCEL;
         mPresenter.updateStatusOrderDetail(CommonFunc.ItemOrderToOrderDetail(itemOrder), pos, itemPos, delete);
+    }
+
+    @Override
+    public void returnCooking(ItemOrder itemOrder, int pos, int itemPos) {
+        itemOrder.OrderDetailStatus = Constants.ORDER_DETAIL_PROCESSED;
+        itemOrder.CookedQuantity = itemOrder.Quantity;
+        itemOrder.CookingQuantity = 0.0;
+        mPresenter.updateStatusOrderDetail(CommonFunc.ItemOrderToOrderDetail(itemOrder), pos, itemPos, delete);
+
     }
 
 

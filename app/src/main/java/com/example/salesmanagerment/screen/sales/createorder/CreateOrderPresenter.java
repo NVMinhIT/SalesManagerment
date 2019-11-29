@@ -46,6 +46,11 @@ public class CreateOrderPresenter implements ICreateOrderContact.IPresenter {
     @Override
     public void saveOrder(final int type, final Boolean isClose) {
         mView.showLoading(true);
+        for (ItemOrder item : mItemOrders) {
+            if (CommonFunc.isNullOrEmpty(item.Description)) {
+                item.Description = " ";
+            }
+        }
         if (type == Constants.TYPE_ADD) {
             mOrderEntity.orderDetails = CommonFunc.newItemOrderToOrderDetails(mItemOrders, mOrderEntity.order);
             saveOrder(isClose);

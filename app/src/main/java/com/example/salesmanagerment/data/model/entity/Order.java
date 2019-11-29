@@ -79,6 +79,10 @@ public class Order implements Parcelable {
         }
     };
 
+    public Order() {
+
+    }
+
     @Override
     public int describeContents() {
         return 0;

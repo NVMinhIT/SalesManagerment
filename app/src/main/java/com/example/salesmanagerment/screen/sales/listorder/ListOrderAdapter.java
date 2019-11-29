@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.adapters.ListAdapter;
-import com.example.salesmanagerment.data.model.entity.ItemOrder;
 import com.example.salesmanagerment.data.model.entity.OrderResponse;
 import com.example.salesmanagerment.utils.CommonFunc;
 import com.example.salesmanagerment.utils.Constants;
@@ -141,6 +140,7 @@ public class ListOrderAdapter extends ListAdapter<OrderResponse, OrderResponse> 
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.lnPayDish:
+                    mOrderCallBack.onSendKitchen(mOrderResponse);
                     break;
                 case R.id.lnCancel:
                     //show dialog confirm
@@ -166,7 +166,7 @@ public class ListOrderAdapter extends ListAdapter<OrderResponse, OrderResponse> 
 
         void onCancelOrder(String orderID);
 
-        void onSendKitchen(String orderID);
+        void onSendKitchen(OrderResponse orderResponse);
 
         void onPreview(OrderResponse orderResponsesss);
     }

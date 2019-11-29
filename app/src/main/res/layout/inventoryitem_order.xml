@@ -65,24 +65,18 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="UselessLeaf">
-
-            <ImageButton
-                android:id="@+id/imb_delete_dish"
-                android:layout_width="@dimen/size_42"
-                android:layout_height="@dimen/size_42"
-                android:layout_marginEnd="@dimen/margin_6"
-                android:layout_weight="0.5"
-                android:background="#F5F5F5"
-                android:src="@drawable/ic_close_red"
-                tools:ignore="ContentDescription" />
-
+            <TextView
+                android:id="@+id/txtProcessing"
+                android:text="Đang chế biến"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
             <ImageButton
                 android:id="@+id/imb_pay_dish"
                 android:layout_width="@dimen/size_42"
                 android:layout_height="@dimen/size_42"
                 android:layout_weight="0.5"
                 android:background="#F5F5F5"
-                android:src="@drawable/ic_tick_order"
+                android:src="@drawable/ic_pay_dish"
                 tools:ignore="ContentDescription" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

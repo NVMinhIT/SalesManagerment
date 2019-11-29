@@ -156,6 +156,13 @@ public class ExpandListAdapter extends BaseExpandableListAdapter {
             }
         });
 
+        imb_return.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mKitchenCallBack.returnCooking(itemOrder, i, i1);
+            }
+        });
+
         imb_pay_dish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -176,5 +183,7 @@ public class ExpandListAdapter extends BaseExpandableListAdapter {
         void acceptCooking(ItemOrder itemOrder, int pos, int itemPos);
 
         void declineCooking(ItemOrder itemOrder, int pos, int itemPos);
+
+        void returnCooking(ItemOrder itemOrder, int pos, int itemPos);
     }
 }

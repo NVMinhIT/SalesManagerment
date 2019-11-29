@@ -38,6 +38,7 @@ import com.example.salesmanagerment.screen.Invoice.InvoiceActivity;
 import com.example.salesmanagerment.screen.main.MainActivity;
 import com.example.salesmanagerment.screen.sales.createorder.CreateOrderActivity;
 import com.example.salesmanagerment.screen.sales.listorder.dialog.ConfirmCancelOrderDialog;
+import com.example.salesmanagerment.screen.sales.payinventoryitem.payorder.PayOrderInventoryItemActivity;
 import com.example.salesmanagerment.utils.CommonFunc;
 import com.example.salesmanagerment.utils.Constants;
 import com.example.salesmanagerment.utils.Navigator;
@@ -309,8 +310,10 @@ public class ListOrderFragment extends BaseFragment implements View.OnClickListe
     }
 
     @Override
-    public void onSendKitchen(String orderID) {
-
+    public void onSendKitchen(OrderResponse orderResponse) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("OrderID", orderResponse);
+        mNavigator.startActivity(PayOrderInventoryItemActivity.class, bundle);
     }
 
     @Override
