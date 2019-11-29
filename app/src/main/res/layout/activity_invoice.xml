@@ -29,7 +29,7 @@
             android:layout_height="@dimen/size_56"
             android:gravity="center"
             android:singleLine="true"
-            android:text="@string/pay"
+            android:text="Phiếu tạm tính"
             android:textColor="#FFFFFF"
             android:textSize="@dimen/text_20"
             android:textStyle="bold"
@@ -219,7 +219,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_InventoryItem"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="-1dp"
                     android:background="@drawable/background_bill_title_column" />
 

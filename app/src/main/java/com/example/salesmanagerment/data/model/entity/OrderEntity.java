@@ -62,24 +62,6 @@ public class OrderEntity implements Parcelable {
         return this;
     }
 
-    public OrderEntity setOrderDetails(List<ItemOrder> listItemOrder) {
-        List<OrderDetail> list = new ArrayList<>();
-        int sortOrder = 0;
-        for (ItemOrder item : listItemOrder) {
-            list.add(new OrderDetail.Builder()
-                    .setOrderDetailID(UUID.randomUUID().toString())
-                    .setOrderID(this.order.OrderID)
-                    .setInventoryItemID(item.ID)
-                    .setOrderDetailStatus(Constants.ORDER_DETAIL_NOTHING)
-                    .setQuantity((double) item.Quantity).
-                            setSortOrder(sortOrder).
-                            build());
-            sortOrder++;
-        }
-        this.orderDetails = list;
-        return this;
-    }
-
     public OrderEntity setListItemOrders(List<OrderDetail> orderDetails) {
         return this;
     }

@@ -16,6 +16,10 @@ public class TableMappingCustom implements Parcelable {
     public int TableStatus;
     public Boolean isSelected = false;
 
+    public TableMappingCustom(){
+
+    }
+
     protected TableMappingCustom(Parcel in) {
         AreaID = in.readString();
         AreaName = in.readString();

@@ -21,12 +21,16 @@ public class ChangePassPresenter implements IChangePassContact.IPresenter {
             return;
         }
         iView.showLoading(true);
-        dataSource.changePassWord(changePassRequest, new IDataCallBack<Boolean, String>() {
+        dataSource.ChangePassword(changePassRequest, new IDataCallBack<Boolean, String>() {
             @Override
             public void onDataSuccess(Boolean data) {
                 iView.showLoading(false);
-                CommonFunc.showToastSuccess(R.string.change_pass_success);
-                iView.changePassSuccess();
+                if(data){
+                    CommonFunc.showToastSuccess(R.string.change_pass_success);
+                    iView.changePassSuccess();
+                } else {
+                    CommonFunc.showToastSuccess("Mật khẩu cũ không chính xác");
+                }
             }
 
             @Override

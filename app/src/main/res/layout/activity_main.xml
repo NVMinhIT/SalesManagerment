@@ -59,7 +59,7 @@
         android:layout_height="@dimen/size_56"
         android:fitsSystemWindows="true"
         android:visibility="visible"
-        app:itemBackground="@color/colorBackgroundNavigation"
+        android:background="@color/colorBackgroundNavigation"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

@@ -17,15 +17,30 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tvName"
-            android:text="@string/app_name"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_16"
-            android:layout_marginTop="@dimen/margin_16"
-            android:textSize="@dimen/text_18"
-            android:textStyle="bold" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_weight="1"
+                android:text="@string/app_name"
+                android:textSize="@dimen/text_18"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/btnDesc"
+                android:layout_width="@dimen/size_48"
+                android:layout_height="@dimen/size_48"
+                android:padding="@dimen/_8sdp"
+                android:src="@drawable/ic_edit" />
+        </LinearLayout>
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -33,7 +48,9 @@
             android:layout_marginStart="@dimen/margin_16"
             android:layout_marginTop="@dimen/margin_6"
             android:layout_marginBottom="@dimen/margin_6"
-            android:padding="@dimen/padding_6">
+            android:paddingTop="@dimen/padding_6"
+            android:paddingRight="@dimen/padding_6"
+            android:paddingBottom="@dimen/padding_6">
 
             <TextView
                 android:id="@+id/tvUnitQuantity"
@@ -53,10 +70,10 @@
                 android:layout_marginStart="@dimen/margin_8"
                 android:background="#EEEEEE"
                 android:text="45454545"
-                app:layout_constraintBaseline_toBaselineOf="@id/tvUnitQuantity"
                 android:textColor="@color/colorBlueHighLight"
                 android:textSize="@dimen/text_14"
                 android:textStyle="italic"
+                app:layout_constraintBaseline_toBaselineOf="@id/tvUnitQuantity"
                 app:layout_constraintLeft_toRightOf="@id/tvUnitQuantity"
                 tools:ignore="MissingConstraints" />
 
@@ -64,14 +81,88 @@
                 android:id="@+id/tvAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBaseline_toBaselineOf="@id/tvUnitQuantity"
                 android:text="@string/app_name"
                 android:textColor="@color/color_orange"
                 android:textSize="@dimen/text_14"
-                app:layout_constraintRight_toRightOf="parent"/>
+                app:layout_constraintBaseline_toBaselineOf="@id/tvUnitQuantity"
+                app:layout_constraintRight_toRightOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/padding_6">
+
+            <TextView
+                android:id="@+id/txtSendKitchen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Đã gửi bếp"
+                android:textColor="@color/color_green"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_10"
+                android:text="Đang CB:"
+                app:layout_constraintBaseline_toBaselineOf="@id/txtSendKitchen"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/txtCookingQuantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_10"
+                android:text="0"
+                android:textColor="@color/color_orange"
+                app:layout_constraintBaseline_toBaselineOf="@id/txtSendKitchen"
+                app:layout_constraintStart_toEndOf="@id/txt1" />
+
+            <TextView
+                android:id="@+id/txt2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_24sdp"
+                android:text="Đã CB:"
+                app:layout_constraintBaseline_toBaselineOf="@id/txtSendKitchen"
+                app:layout_constraintStart_toEndOf="@id/txtCookingQuantity" />
+
+            <TextView
+                android:id="@+id/txtCookedQuantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_10"
+                android:text="0"
+                android:textColor="@color/color_green"
+                app:layout_constraintBaseline_toBaselineOf="@id/txtSendKitchen"
+                app:layout_constraintStart_toEndOf="@id/txt2" />
+
+            <TextView
+                android:id="@+id/txt3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_24sdp"
+                android:text="Đã PV:"
+                app:layout_constraintBaseline_toBaselineOf="@id/txtSendKitchen"
+                app:layout_constraintStart_toEndOf="@id/txtCookedQuantity" />
+
+            <TextView
+                android:id="@+id/txtServedQuantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_10"
+                android:text="0"
+                android:textColor="@color/color_red"
+                app:layout_constraintBaseline_toBaselineOf="@id/txtSendKitchen"
+                app:layout_constraintStart_toEndOf="@id/txt3" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

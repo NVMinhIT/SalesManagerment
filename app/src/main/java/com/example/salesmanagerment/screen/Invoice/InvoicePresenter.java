@@ -17,14 +17,10 @@ public class InvoicePresenter implements IInvoiceContact.IPresenter {
         mDataSource = DataSource.getInstance();
     }
 
-    @Override
-    public void pay(Invoice invoice) {
-
-    }
 
     @Override
     public void setView(IInvoiceContact.IView view) {
-        iView = view;
+
     }
 
     @Override

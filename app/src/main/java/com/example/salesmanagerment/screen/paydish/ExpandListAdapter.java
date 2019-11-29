@@ -1,49 +1,86 @@
 package com.example.salesmanagerment.screen.paydish;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.salesmanagerment.R;
+import com.example.salesmanagerment.data.model.entity.ItemOrder;
+import com.example.salesmanagerment.data.model.entity.OrderResponse;
+import com.example.salesmanagerment.utils.CommonFunc;
+import com.example.salesmanagerment.utils.Constants;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 
 public class ExpandListAdapter extends BaseExpandableListAdapter {
     private Context mContext;
-    private List<String> itemOrderList;
-    private HashMap<String, List<String>> listHashMap;
+    public List<OrderResponse> lsOrderOverView;
 
-    public ExpandListAdapter(Context mContext, List<String> itemOrderList, HashMap<String, List<String>> listHashMap) {
+    public void setKitchenCallBack(kitchenCallBack kitchenCallBack) {
+        mKitchenCallBack = kitchenCallBack;
+    }
+
+    private kitchenCallBack mKitchenCallBack;
+
+    public List<List<ItemOrder>> getLsItemOrderDetails() {
+        return lsItemOrderDetails;
+    }
+
+    public void setLsOrderOverView(List<OrderResponse> lsOrderOverView) {
+        this.lsOrderOverView = lsOrderOverView;
+        if (lsOrderOverView != null) {
+            lsItemOrderDetails.clear();
+            for (OrderResponse orderResponse : lsOrderOverView) {
+                lsItemOrderDetails.add(null);
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+
+    public void setItemsChild(List<ItemOrder> itemOrders, int groupPosition) {
+        if (lsItemOrderDetails != null) {
+            lsItemOrderDetails.set(groupPosition, itemOrders);
+        }
+        notifyDataSetChanged();
+    }
+
+    public void setLsItemOrderDetails(List<List<ItemOrder>> lsItemOrderDetails) {
+        this.lsItemOrderDetails = lsItemOrderDetails;
+        notifyDataSetChanged();
+    }
+
+    private List<List<ItemOrder>> lsItemOrderDetails;
+
+    public ExpandListAdapter(Context mContext, List<OrderResponse> lsOrderOverView, List<List<ItemOrder>> lsItemOrderDetails) {
         this.mContext = mContext;
-        this.itemOrderList = itemOrderList;
-        this.listHashMap = listHashMap;
+        this.lsOrderOverView = lsOrderOverView;
+        this.lsItemOrderDetails = lsItemOrderDetails;
     }
 
 
     @Override
     public int getGroupCount() {
-        return itemOrderList.size();
+        return lsOrderOverView != null ? lsOrderOverView.size() : 0;
     }
 
     @Override
     public int getChildrenCount(int i) {
-        return this.listHashMap.get(this.itemOrderList.get(i)).size();
+        return (this.lsItemOrderDetails != null && lsItemOrderDetails.get(i) != null) ? lsItemOrderDetails.get(i).size() : 0;
     }
 
     @Override
     public Object getGroup(int i) {
-        return listHashMap.get(i);
+        return lsOrderOverView.get(i);
     }
 
     @Override
     public Object getChild(int i, int i1) {
-        return listHashMap.get(itemOrderList.get(i)).get(i1);
+        return lsItemOrderDetails.get(i).get(i1);
     }
 
     @Override
@@ -64,39 +101,74 @@ public class ExpandListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int i, boolean b, View view, ViewGroup viewGroup) {
 
-        //OrderResponse orderResponse = (OrderResponse) getGroup(i);
-        String orderName = (String) getGroup(i);
+        OrderResponse orderResponse = (OrderResponse) getGroup(i);
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) this.mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.expand_listview_group_order, null);
         }
         TextView tvOrderName = view.findViewById(R.id.tvOrderName);
-//        TextView tvAreaName = view.findViewById(R.id.tvAreaName);
-        tvOrderName.setTypeface(null, Typeface.BOLD);
-        tvOrderName.setText(orderName);
-        // tvOrderName.setText(orderResponse.OrderNo);
-//        tvAreaName.setTypeface(null, Typeface.BOLD);
-//        tvAreaName.setText(orderResponse.AreaName);
+        if (orderResponse != null) {
+            tvOrderName.setText(orderResponse.OrderNo + ": " + orderResponse.AreaName + ", " + orderResponse.TableName);
+        }
+
 
         return view;
     }
 
     @Override
-    public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
-        //ItemOrder itemOrder = (ItemOrder) getChild(i, i1);
-        String nameInventoryItem = (String) getChild(i, i1);
+    public View getChildView(final int i, final int i1, boolean b, View view, ViewGroup viewGroup) {
+        final ItemOrder itemOrder = (ItemOrder) getChild(i, i1);
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) this.mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.expand_listview_inventory_order, null);
         }
-        TextView tvNameInventoryItem = view.findViewById(R.id.tvNameInventoryItem);
-        tvNameInventoryItem.setTypeface(null, Typeface.BOLD);
-        tvNameInventoryItem.setText(nameInventoryItem);
-//        TextView tvAccount = view.findViewById(R.id.tvAccount);
-//        TextView tvUnit = view.findViewById(R.id.tvUnit);
-        //tvNameInventoryItem.setText(itemOrder.Name);
-//        tvAccount.setText(String.valueOf(itemOrder.Quantity));
-//        tvUnit.setText(itemOrder.UnitName);
+        TextView tvNameInventoryItem, tvAccount, tvUnit, txtDesc;
+        ImageButton imb_delete_dish, imb_pay_dish, imb_return;
+        tvAccount = view.findViewById(R.id.tvAccount);
+        tvNameInventoryItem = view.findViewById(R.id.tvNameInventoryItem);
+        imb_return = view.findViewById(R.id.imb_return);
+        tvUnit = view.findViewById(R.id.tvUnit);
+        txtDesc = view.findViewById(R.id.txtDesc);
+        imb_delete_dish = view.findViewById(R.id.imb_delete_dish);
+        imb_pay_dish = view.findViewById(R.id.imb_pay_dish);
+        if (itemOrder.OrderDetailStatus == Constants.ORDER_DETAIL_SENT_KITCHEN) {
+            imb_delete_dish.setVisibility(View.VISIBLE);
+            imb_return.setVisibility(View.GONE);
+            imb_pay_dish.setVisibility(View.VISIBLE);
+        } else if (itemOrder.OrderDetailStatus == Constants.ORDER_DETAIL_PROCESSING) {
+            imb_delete_dish.setVisibility(View.GONE);
+            imb_return.setVisibility(View.VISIBLE);
+            imb_pay_dish.setVisibility(View.GONE);
+        }
+        if (itemOrder != null) {
+            tvNameInventoryItem.setText(itemOrder.Name);
+            if (CommonFunc.isNullOrEmpty(itemOrder.Description)) {
+                txtDesc.setText("Ghi chú: " + itemOrder.Description);
+            }
+            tvAccount.setText(itemOrder.Quantity.toString().replace(".0", ""));
+            tvUnit.setText(itemOrder.UnitName);
+
+        }
+        imb_delete_dish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mKitchenCallBack.declineCooking(itemOrder, i, i1);
+            }
+        });
+
+        imb_return.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mKitchenCallBack.returnCooking(itemOrder, i, i1);
+            }
+        });
+
+        imb_pay_dish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mKitchenCallBack.acceptCooking(itemOrder, i, i1);
+            }
+        });
 
         return view;
     }
@@ -104,5 +176,14 @@ public class ExpandListAdapter extends BaseExpandableListAdapter {
     @Override
     public boolean isChildSelectable(int i, int i1) {
         return true;
+    }
+
+    public interface kitchenCallBack {
+
+        void acceptCooking(ItemOrder itemOrder, int pos, int itemPos);
+
+        void declineCooking(ItemOrder itemOrder, int pos, int itemPos);
+
+        void returnCooking(ItemOrder itemOrder, int pos, int itemPos);
     }
 }

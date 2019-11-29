@@ -100,7 +100,7 @@
     <string name="comma">,</string>
     <string name="equal_done">Xong</string>
     <string name="unit_name_is_used">Tên đơn vị đã được sử dụng, bạn không thể xóa</string>
-    <string name="dish">+ Thêm món khác</string>
+    <string name="dish">+ Thêm món </string>
     <string name="sum">Tổng tiền: </string>
     <string name="not">Trống</string>
     <string name="isnot">Đang phục vụ</string>

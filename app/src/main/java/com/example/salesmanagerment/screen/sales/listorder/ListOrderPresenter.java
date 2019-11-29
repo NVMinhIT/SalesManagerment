@@ -1,7 +1,13 @@
 package com.example.salesmanagerment.screen.sales.listorder;
 
+import android.annotation.SuppressLint;
+import android.os.AsyncTask;
+
 import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.listeners.IDataCallBack;
+import com.example.salesmanagerment.data.model.entity.InventoryItemMapping;
+import com.example.salesmanagerment.data.model.entity.ItemOrder;
+import com.example.salesmanagerment.data.model.entity.OrderDetail;
 import com.example.salesmanagerment.data.model.entity.OrderResponse;
 import com.example.salesmanagerment.data.model.request.CancelOrderRequest;
 import com.example.salesmanagerment.data.repository.DataSource;
@@ -101,7 +107,7 @@ public class ListOrderPresenter implements IListOrderContact.IPresenter {
             @Override
             public void onDataSuccess(Boolean data) {
                 iView.showLoading(false);
-                if( data) {
+                if (data) {
                     CommonFunc.showToastSuccess("Hủy order thành công");
                     iView.cancelOrderSuccess();
                 } else {
@@ -116,4 +122,52 @@ public class ListOrderPresenter implements IListOrderContact.IPresenter {
             }
         });
     }
+
+    @Override
+    public void getItemOrderByOderID(String orderID, final OrderResponse orderResponse) {
+        iView.showLoading(true);
+        mDataSource.GetOrderDetailsByOrderID(orderID, new IDataCallBack<List<OrderDetail>, String>() {
+            @Override
+            public void onDataSuccess(List<OrderDetail> data) {
+                setItemOrders(data, orderResponse);
+            }
+
+            @Override
+            public void onDataFailed(String error) {
+                CommonFunc.showToastError(R.string.somthing_went_wrong);
+            }
+        });
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    public void setItemOrders(final List<OrderDetail> orderDetails, final OrderResponse orderResponse) {
+        new AsyncTask<Void, Void, List<ItemOrder>>() {
+
+            @Override
+            protected List<ItemOrder> doInBackground(Void... voids) {
+                List<ItemOrder> itemOrders = new ArrayList<>();
+                for (OrderDetail item : orderDetails) {
+                    InventoryItemMapping itemMapping = mDataSource.getInventoryItemMapping(item.InventoryItemID);
+                    itemOrders.add(new ItemOrder.Builder()
+                            .setID(item.InventoryItemID)
+                            .setQuantity(item.Quantity)
+                            .setOrderDetailID(item.OrderDetailID)
+                            .setName(itemMapping.InventoryName)
+                            .setPrice(itemMapping.UnitPrice)
+                            .setUnitName(itemMapping.UnitName)
+                            .setTotalMoney(itemMapping.UnitPrice * item.Quantity)
+                            .build());
+                }
+                return itemOrders;
+            }
+
+            @Override
+            protected void onPostExecute(List<ItemOrder> itemOrders) {
+                super.onPostExecute(itemOrders);
+                iView.showLoading(false);
+                iView.getItemOrdersSuccess(itemOrders, orderResponse);
+            }
+        }.execute();
+    }
+
 }

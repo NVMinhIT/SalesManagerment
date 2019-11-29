@@ -21,28 +21,20 @@ public class ListCustomerPresenter implements IListCustomerContact.IPresenter {
 
     @Override
     public void getListCustomer() {
-       iView.showLoading(true);
-//        customerList = dataSource.getCustomerList();
-//        if (customerList != null) {
-//            iView.setListSuccess(customerList);
-//
-//        } else {
-            dataSource.getListCustomer(new IDataCallBack<List<Customer>, String>() {
-                @Override
-                public void onDataSuccess(List<Customer> data) {
-                    iView.showLoading(false);
-                   // customerList = data;
-                    iView.setListSuccess(data);
-                }
+        iView.showLoading(true);
+        dataSource.getListCustomer(new IDataCallBack<List<Customer>, String>() {
+            @Override
+            public void onDataSuccess(List<Customer> data) {
+                iView.showLoading(false);
+                iView.setListSuccess(data);
+            }
 
-                @Override
-                public void onDataFailed(String error) {
-                    iView.showLoading(false);
-                    CommonFunc.showToastError(R.string.somthing_went_wrong);
-                }
-            });
-      //  }
-
+            @Override
+            public void onDataFailed(String error) {
+                iView.showLoading(false);
+                CommonFunc.showToastError(R.string.somthing_went_wrong);
+            }
+        });
     }
 
     @Override

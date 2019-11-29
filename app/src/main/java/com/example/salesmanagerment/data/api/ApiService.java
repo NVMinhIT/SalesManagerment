@@ -96,4 +96,13 @@ public interface ApiService {
     // đổi mật khẩu
     @POST("User/ChangePassword")
     Call<BaseResponse<Boolean>> changePassWord(@Header("authorization") String token, @Body ChangePassRequest changePassRequest);
+
+    // thêm order
+    @POST("OrderDetail/Delete")
+    Call<BaseResponse<Boolean>> DeleteList(@Header("authorization") String token, @Body String orderID);
+
+    //
+    @POST("OrderDetail/InsertUpdate")
+    Call<BaseResponse<Boolean>> updateOrderDetail(@Header("authorization") String token, @Body OrderDetail orderDetail);
+
 }

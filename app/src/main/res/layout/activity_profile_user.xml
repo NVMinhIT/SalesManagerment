@@ -8,15 +8,15 @@
     tools:context=".screen.infoapp.profile_user.ProfileUserActivity">
 
     <ImageButton
+        android:id="@+id/imb_Back"
         android:layout_width="@dimen/size_48"
         android:layout_height="@dimen/size_48"
         android:layout_marginStart="@dimen/margin_18"
+        android:layout_marginTop="@dimen/margin_18"
+        android:background="@null"
+        android:src="@drawable/ic_back"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="@dimen/margin_18"
-        android:src="@drawable/ic_back"
-        android:background="@null"
-        android:id="@+id/imb_Back"
         tools:ignore="ContentDescription" />
 
     <View
@@ -54,29 +54,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imgUser" />
 
-    <TextView
-        android:id="@+id/tv_code_user"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/size_48"
-        android:layout_marginTop="@dimen/margin_8"
-        android:drawableStart="@drawable/ic_code_user"
-        android:drawablePadding="@dimen/padding_8"
-        android:gravity="center_vertical"
-        android:paddingStart="@dimen/padding_12"
-        android:text="NVM"
-        android:textColor="@color/text"
-        android:textSize="@dimen/text_16"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvNameUser"
-        tools:ignore="RtlSymmetry" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginStart="@dimen/margin_18"
-        android:layout_marginEnd="@dimen/margin_18"
-        android:background="@color/colorGray"
-        app:layout_constraintTop_toBottomOf="@+id/tv_code_user" />
 
     <TextView
         android:id="@+id/tv_Sex"
@@ -89,10 +66,11 @@
         android:paddingStart="@dimen/padding_12"
         android:text="Nam"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_code_user"
+        app:layout_constraintTop_toBottomOf="@id/tvNameUser"
         tools:ignore="RtlSymmetry" />
 
     <View
+        android:id="@+id/view1"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_marginStart="@dimen/margin_18"
@@ -100,37 +78,6 @@
         android:background="@color/colorGray"
         app:layout_constraintTop_toBottomOf="@+id/tv_Sex" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginStart="@dimen/margin_18"
-        android:layout_marginEnd="@dimen/margin_18"
-        android:background="@color/colorGray"
-        app:layout_constraintTop_toBottomOf="@+id/tv_Sex" />
-
-    <TextView
-        android:id="@+id/tv_Date"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/size_48"
-        android:layout_marginTop="@dimen/margin_8"
-        android:drawableStart="@drawable/ic_birthday"
-        android:drawablePadding="@dimen/padding_8"
-        android:gravity="center_vertical"
-        android:paddingStart="@dimen/padding_12"
-        android:text="07/06/1997"
-        android:textColor="@color/text"
-        android:textSize="@dimen/text_16"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_Sex"
-        tools:ignore="RtlSymmetry" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginStart="@dimen/margin_18"
-        android:layout_marginEnd="@dimen/margin_18"
-        android:background="@color/colorGray"
-        app:layout_constraintTop_toBottomOf="@+id/tv_Date" />
 
     <TextView
         android:id="@+id/tv_Email"
@@ -145,7 +92,7 @@
         android:textColor="@color/text"
         android:textSize="@dimen/text_16"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_Date"
+        app:layout_constraintTop_toBottomOf="@id/view1"
         tools:ignore="RtlSymmetry" />
 
     <View

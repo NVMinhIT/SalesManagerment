@@ -6,25 +6,23 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.salesmanagerment.R;
-import com.example.salesmanagerment.data.model.entity.Invoice;
-import com.example.salesmanagerment.data.model.entity.InvoiceDetail;
+import com.example.salesmanagerment.base.BaseActivity;
 import com.example.salesmanagerment.data.model.entity.ItemOrder;
-import com.example.salesmanagerment.data.model.entity.OrderEntity;
 import com.example.salesmanagerment.data.model.entity.TableMappingCustom;
 import com.example.salesmanagerment.utils.CommonFunc;
 import com.example.salesmanagerment.utils.Constants;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class InvoiceActivity extends AppCompatActivity implements IInvoiceContact.IView, View.OnClickListener {
+public class InvoiceActivity extends BaseActivity implements IInvoiceContact.IView, View.OnClickListener {
     private InvoiceAdapter invoiceAdapter;
     private RecyclerView recyclerView;
     private TextView textViewMoney;
@@ -34,7 +32,7 @@ public class InvoiceActivity extends AppCompatActivity implements IInvoiceContac
     private ImageButton imageButtonBack;
     String DateCreateInventoryItem;
     private List<ItemOrder> orderList;
-    private OrderEntity orderEntity;
+    private String OrderNo;
     Double aDouble;
     TextView dataCreateInvoice;
     private TableMappingCustom tableMappingCustom;
@@ -54,14 +52,11 @@ public class InvoiceActivity extends AppCompatActivity implements IInvoiceContac
         if (bundle != null) {
             tableMappingCustom = bundle.getParcelable(Constants.TABLE_MAPPING);
             orderList = bundle.getParcelableArrayList(Constants.EXTRAS_INVOICE_ENTITY_lIST);
-            orderEntity = bundle.getParcelable(Constants.EXTRAS_INVOICE_ENTITY);
+            OrderNo = bundle.getString(Constants.EXTRAS_INVOICE_ENTITY);
             aDouble = bundle.getDouble(Constants.SUM_MONEY);
 
         }
         initView();
-        tvAreaName.setText(tableMappingCustom.AreaName);
-        tvTableName.setText(tableMappingCustom.TableName);
-        tvBillNumber.setText(orderEntity.order.OrderNo);
     }
 
     private void initView() {
@@ -79,7 +74,18 @@ public class InvoiceActivity extends AppCompatActivity implements IInvoiceContac
         textViewMoney = findViewById(R.id.tvMoneyHaveToPay);
         recyclerView = findViewById(R.id.rv_InventoryItem);
         invoiceAdapter = new InvoiceAdapter(this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        tvAreaName.setText(tableMappingCustom.AreaName);
+        tvTableName.setText(tableMappingCustom.TableName);
+        tvBillNumber.setText(OrderNo);
+        orderList = groupData(orderList);
         invoiceAdapter.setListData(orderList);
         recyclerView.setAdapter(invoiceAdapter);
         textViewMoney.setText(NumberFormat.getNumberInstance(Locale.US).format((aDouble)));
@@ -92,20 +98,27 @@ public class InvoiceActivity extends AppCompatActivity implements IInvoiceContac
 
     }
 
-
-    @Override
-    public void paySuccess() {
-
-    }
-
-    @Override
-    public void setBill(Invoice invoice, List<InvoiceDetail> invoiceList, int NumberInvoice) {
-
+    private List<ItemOrder> groupData(List<ItemOrder> orderList) {
+        List<ItemOrder> itemOrderGroup = new ArrayList<>();
+        for (ItemOrder itemOrder : orderList) {
+            boolean isExist = false;
+            for (ItemOrder itemOrder1 : itemOrderGroup) {
+                if (itemOrder1.ID.equalsIgnoreCase(itemOrder.ID)) {
+                    isExist = true;
+                    itemOrder1.Quantity = itemOrder1.Quantity + itemOrder.Quantity;
+                    itemOrder1.TotalMoney = itemOrder1.TotalMoney + itemOrder.TotalMoney;
+                }
+            }
+            if (!isExist) {
+                itemOrderGroup.add(itemOrder);
+            }
+        }
+        return itemOrderGroup;
     }
 
     @Override
     public void showLoading(boolean isShowLoading) {
-
+        showDialog(isShowLoading);
     }
 
     @Override

@@ -21,6 +21,7 @@ import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.BaseFragment;
 import com.example.salesmanagerment.base.listeners.IOnItemClickListener;
 import com.example.salesmanagerment.data.model.entity.Customer;
+import com.example.salesmanagerment.data.model.entity.ItemOrder;
 import com.example.salesmanagerment.screen.sales.customer.addcustomer.AddCustomerFragment;
 import com.example.salesmanagerment.utils.CommonFunc;
 import com.example.salesmanagerment.utils.Navigator;
@@ -107,6 +108,7 @@ public class ListCustomerFragment extends BaseFragment implements IListCustomerC
     public void setListSuccess(List<Customer> customerList) {
         listCustomerAdapter.setListData(customerList);
     }
+
 
     @Override
     public void showLoading(boolean isShowLoading) {

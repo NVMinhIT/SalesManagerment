@@ -2,6 +2,7 @@ package com.example.salesmanagerment.screen.sales.listorder;
 
 import com.example.salesmanagerment.base.IBasePresenter;
 import com.example.salesmanagerment.base.IBaseView;
+import com.example.salesmanagerment.data.model.entity.ItemOrder;
 import com.example.salesmanagerment.data.model.entity.OrderResponse;
 import com.example.salesmanagerment.data.model.request.CancelOrderRequest;
 
@@ -16,6 +17,8 @@ public interface IListOrderContact {
         void checkCancelOrderDone(Boolean isCancelable);
 
         void cancelOrderSuccess();
+
+        void getItemOrdersSuccess(List<ItemOrder> itemOrders, OrderResponse orderResponse);
     }
 
     interface IPresenter extends IBasePresenter<IListOrderContact.IView> {
@@ -27,6 +30,8 @@ public interface IListOrderContact {
         void checkCancelOrder(String orderID);
 
         void cancelOrder(CancelOrderRequest cancelOrderRequest);
+
+        void getItemOrderByOderID(String orderID, OrderResponse orderResponse);
 
     }
 }

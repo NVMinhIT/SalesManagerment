@@ -34,7 +34,7 @@ public class TablePresenter implements ITableContract.IPresenter {
             @Override
             public void onDataFailed(String error) {
                 mView.showLoading(false);
-                CommonFunc.showToastError(R.string.somthing_went_wrong);
+               // CommonFunc.showToastError(R.string.somthing_went_wrong);
             }
         });
     }

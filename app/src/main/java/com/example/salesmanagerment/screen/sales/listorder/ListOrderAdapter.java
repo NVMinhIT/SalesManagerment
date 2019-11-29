@@ -14,14 +14,25 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.salesmanagerment.R;
 import com.example.salesmanagerment.base.adapters.ListAdapter;
 import com.example.salesmanagerment.data.model.entity.OrderResponse;
+import com.example.salesmanagerment.utils.CommonFunc;
 import com.example.salesmanagerment.utils.Constants;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class ListOrderAdapter extends ListAdapter<OrderResponse, OrderResponse> {
 
     private IOrderRequest mOrderCallBack;
+
+    public void setRootList(List<OrderResponse> rootList) {
+        this.rootList = rootList;
+        size = rootList.size();
+    }
+
+    private List<OrderResponse> rootList;
+    private int size;
 
     public ListOrderAdapter setOrderCallBack(IOrderRequest orderCallBack) {
         mOrderCallBack = orderCallBack;
@@ -48,6 +59,21 @@ public class ListOrderAdapter extends ListAdapter<OrderResponse, OrderResponse> 
                 mOnClickListener.onItemClick(orderResponse);
             }
         });
+    }
+
+
+    public void filter(String s) {
+        if (CommonFunc.isNullOrEmpty(s)) {
+            setListData(rootList);
+        } else {
+            List<OrderResponse> orderResponses = new ArrayList<>();
+            for (OrderResponse item : rootList) {
+                if (item.TableName.contains(s)) {
+                    orderResponses.add(item);
+                }
+            }
+            setListData(orderResponses);
+        }
     }
 
     @NonNull
@@ -114,6 +140,7 @@ public class ListOrderAdapter extends ListAdapter<OrderResponse, OrderResponse> 
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.lnPayDish:
+                    mOrderCallBack.onSendKitchen(mOrderResponse);
                     break;
                 case R.id.lnCancel:
                     //show dialog confirm
@@ -121,6 +148,7 @@ public class ListOrderAdapter extends ListAdapter<OrderResponse, OrderResponse> 
                     break;
                 case R.id.lnPreview:
                     //hiển thị phiếu tạm tính
+                    mOrderCallBack.onPreview(mOrderResponse);
                     break;
                 case R.id.lnPay:
                     mOrderCallBack.onRequestPay(mOrderResponse.OrderID);
@@ -138,8 +166,8 @@ public class ListOrderAdapter extends ListAdapter<OrderResponse, OrderResponse> 
 
         void onCancelOrder(String orderID);
 
-        void onSendKitchen(String orderID);
+        void onSendKitchen(OrderResponse orderResponse);
 
-        void onPreview(String orderID);
+        void onPreview(OrderResponse orderResponsesss);
     }
 }

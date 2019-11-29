@@ -2,15 +2,28 @@ package com.example.salesmanagerment.utils;
 
 
 import com.example.salesmanagerment.data.Sharedprf.SharedPrefsImpl;
+import com.example.salesmanagerment.data.model.entity.InventoryItem;
+import com.example.salesmanagerment.data.model.entity.OrderDetail;
+import com.example.salesmanagerment.data.model.entity.Unit;
 import com.example.salesmanagerment.data.model.entity.UserProfile;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CacheManager {
+
+    public static final String K_UNITS = "K_UNITS";
+    public static final String K_INVENTORY_ITEM = "K_INVENTORY_ITEM";
+
 
     public static final String K_TOKEN = "K_TOKEN";
     public static final int ACCOUNT_DISH = 123;
     public static final double ACCOUNT = 123f;
     public static final String USER_INFO = "USER_INFO";
+    public static final String K_LIST_OLD_ORDER_DETAILS_ID = "K_LIST_OLD_ORDER_DETAILS_ID";
 
 
     private SharedPrefsImpl sharedPrefs;
@@ -58,4 +71,38 @@ public class CacheManager {
     }
 
 
+    public void cacheUnits(List<Unit> items) {
+        sharedPrefs.put(K_UNITS, new Gson().toJson(items));
+    }
+
+    public List<Unit> getUnits() {
+        String listID = sharedPrefs.get(K_UNITS, String.class);
+        Type listType = new TypeToken<ArrayList<Unit>>() {
+        }.getType();
+        return new Gson().fromJson(listID, listType);
+    }
+
+    public void cacheInventoryItems(List<InventoryItem> items) {
+        sharedPrefs.put(K_INVENTORY_ITEM, new Gson().toJson(items));
+    }
+
+    public List<InventoryItem> getInventoryItems() {
+        String listID = sharedPrefs.get(K_INVENTORY_ITEM, String.class);
+        Type listType = new TypeToken<ArrayList<InventoryItem>>() {
+        }.getType();
+        return new Gson().fromJson(listID, listType);
+    }
+
+
+    
+    public void cacheOldOrderDetail(List<OrderDetail> orderDetails) {
+        sharedPrefs.put(K_LIST_OLD_ORDER_DETAILS_ID, new Gson().toJson(orderDetails));
+    }
+
+    public List<OrderDetail> getOldOrderDetail() {
+        String listID = sharedPrefs.get(K_LIST_OLD_ORDER_DETAILS_ID, String.class);
+        Type listType = new TypeToken<ArrayList<OrderDetail>>() {
+        }.getType();
+        return new Gson().fromJson(listID, listType);
+    }
 }
